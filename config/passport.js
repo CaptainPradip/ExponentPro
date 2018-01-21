@@ -38,7 +38,7 @@ module.exports=function (app,passport) {
 passport.use(new FacebookStrategy({
     clientID: config.facebookId,//FACEBOOK_APP_ID,
     clientSecret: config.facebookAPIKey,//FACEBOOK_APP_SECRET,
-    callbackURL: "http://localhost:8080/auth/facebook/callback",
+    callbackURL: "https://young-basin-92217.herokuapp.com/auth/facebook/callback",
     profileFields:['id', 'displayName', 'link','photos', 'email']
   },
   function(accessToken, refreshToken, profile, done) {
