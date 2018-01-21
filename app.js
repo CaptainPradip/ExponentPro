@@ -10,7 +10,7 @@ var loginPassport=require('./config/passport')(app,passport);
 
 //import all Schema
 
-var port=process.env.port||8080;
+var port=process.env.port;
 app.use(express.static(__dirname +'/public'));
 // use middleware 
 app.use(bodyParser.urlencoded({extended: false}));
