@@ -1,0 +1,58 @@
+ 
+<!-- End Page Loading -->
+
+
+
+<div id="login-page" class="row center-align">
+
+  <form class="login-form" name="loginForm">
+  <div class="col s12 z-depth-4 card-panel">
+    <div class="row">
+      <div class="input-field col s12 center">
+        <img src="../../assets/images//isome-ios-7-app-icon-template-1024x1024-screen-shot-3.png" alt="" class="circle responsive-img valign profile-image-login">
+        <h5 class="center">ProjectQuora</h5>
+      </div>
+    </div>
+    <div class="row margin">
+      <div class="input-field col s12">
+        <i class="mdi-social-person-outline prefix"></i>
+        <input id="username" type="text" ng-model="user.email" ng-required="true">
+        <label for="username" class="center-align">Email</label>
+      </div>
+    </div>
+    <div class="row margin">
+      <div class="input-field col s12">
+        <i class="mdi-action-lock-outline prefix"></i>
+        <input id="password" type="password" ng-model="user.password" ng-required="true">
+        <label for="password">Password</label>
+      </div>
+    </div>
+    <div class="row " >          
+      <div class="input-field col s12 m12 l12  login-text">
+          <input type="checkbox" id="remember-me" />
+          <label for="remember-me">Remember me</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+          <button type ="submit" ng-click="loginUser()" class="btn waves-effect waves-light col s12" ng-disabled="loginForm.$invalid">Login</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s6 m6 l6">
+        <p class="margin medium-small"><a href="/signUp">Register Now!</a></p>
+      </div>
+      <div class="input-field col s6 m6 l6">
+          <p class="margin right-align medium-small"><a href="page-forgot-password.html">Forgot password ?</a></p>
+      </div>          
+    </div>
+
+  </form>
+  <button class="loginBtn loginBtn--facebook" ng-click="loginWithFacebook()">
+  Login with Facebook
+</button>
+
+<button class="loginBtn loginBtn--google">
+  Login with Google
+</button>
+</div>

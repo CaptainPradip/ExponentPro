@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="msapplication-tap-highlight" content="no">
+  <base href="/">
+  <meta name="description" content="Materialize is a Material Design Admin Template,It's modern, responsive and based on Material Design by Google. ">
+  <meta name="keywords" content="materialize, admin template, dashboard template, flat admin template, responsive admin template,">
+  <title>ProjectQuora</title>
+
+  <!-- Favicons-->
+  <link rel="icon" href="../assets/images/isome-ios-7-app-icon-template-1024x1024-screen-shot-3.png" sizes="32x32">
+  <!-- Favicons-->
+  <link rel="apple-touch-icon-precomposed" href="../assets/images/favicon/apple-touch-icon-152x152.png">
+  <!-- For iPhone -->
+  <meta name="msapplication-TileColor" content="#00bcd4">
+  <meta name="msapplication-TileImage" content="../assets/images/favicon/mstile-144x144.png">
+  <!-- For Windows Phone -->
+
+
+  <!-- CORE CSS-->
+  <script src="../assets/js/jquery-3.2.1.min.js"></script>
+  
+    
+  <link href="../assets/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection">
+  <link href="../assets/css/style.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <!-- Custome CSS-->    
+    <link href="../assets/css/custom/custom.css" type="text/css" rel="stylesheet" media="screen,projection">
+  <link href="../assets/css/layouts/style-horizontal.css" type="text/css" rel="stylesheet" media="screen,projection">
+  <link href="../assets/js/plugins/sweetalert/sweetalert.css" type="text/css" rel="stylesheet" media="screen,projection">
+  <script src="../assets/js/plugins/sweetalert/sweetalert.min.js"></script>
+  <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
+  <script src="../assets/js/materialize.min.js"></script>
+  
+    <script src="../assets/js/angular.min.js"></script>
+    <script src="../assets/js/angular-route.min.js"></script>
+    <script src="../assets/js/angular-animate.min.js"></script>
+    <!--Let browser know website is optimized for mobile-->
+   
+  
+</head>
+
+  
+
+<body ng-app="Main" ng-controller="mainController" class="cyan">
+  
+
+<div ng-view></div>
+<div ng-show="shownav">
+
+  <div class="slider">
+    <ul class="slides">
+      <li>
+        <img ng-src="../assets/images/Freelancer-Fair-couple-1024x480.jpg" class="responsive-img" alt="img-1">
+        <!-- random image 
+       <!-- <div class="caption left-align">
+          <h3>Left Aligned Caption</h3>
+          <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+        </div>
+        <div class="caption right-align">
+          <h3>Right Aligned Caption</h3>
+          <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+        </div>
+        -->
+      </li>
+      <li>
+        <img ng-src="../assets/images/download.jpg" alt="" class="responsive-img"alt="img-2">
+       
+      </li>
+      <li>
+        <img ng-src="../assets/images/man.jpg" alt="" class="responsive-img" alt="img-3">
+        <!-- random image -->
+        
+      </li>
+      <li>
+        <img ng-src="../assets/images/manwithcom.jpg" alt="" class="responsive-img" alt="img-4">
+        <!-- random image -->
+        
+      </li>
+    </ul>
+    <div class="buttons-wrapper">
+        <div class="col s6 center">
+          <a class="waves-effect waves-light btn-large hoverable mg-rg">I Want to Buy Project </a>
+        </div>
+        <div class="col s6 center">
+            <a class="waves-effect waves-light btn-large hoverable mg-rg">I want to Sell Project</a>
+          </div>
+    </div>
+  </div>
+  
+    <div class="container">
+        <div class="section">
+            <div class="caption center-align">
+            
+                <h3 class="light white-text text-lighten-3">Here are some of our most popular projects </h3>
+              </div>
+
+        </div>
+        <div class="section">
+          <!-- start blog list -->
+    <div id="blog-posts" class="row">
+    <div class="blog col s12 m4 l3">
+        <div class="card">
+            <div class="card-image waves-effect waves-block waves-light">
+                <a href="#"><img src="../assets/images/img4.jpg" alt="blog-img">
+                </a>
+            </div>
+            <ul class="card-action-buttons">
+                <li><a class="btn-floating waves-effect waves-light green accent-4"><i class="mdi-social-share"></i></a>
+                </li>                            
+                <li><a class="btn-floating waves-effect waves-light light-blue"><i class="mdi-action-info activator"></i></a>
+                </li>
+            </ul>
+            <div class="card-content">
+                <p class="row">
+                  <span class="left"><a href="">Web Design</a></span>
+                  <span class="right">18th June, 2015</span>
+                </p>
+                <h4 class="card-title grey-text text-darken-4"><a href="#" class="grey-text text-darken-4">Material Design Card - For Blog Post Article</a>
+                </h4>
+                <p class="blog-post-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                <div class="row">
+                  <div class="col s2">
+                    <img src="../assets/images/avatar.jpg" alt="" class="circle responsive-img valign profile-image">
+                  </div>
+                  <div class="col s9"> By <a href="#">John Doe</a></div>
+                </div>
+            </div>
+            <div class="card-reveal">
+                <span class="card-title grey-text text-darken-4"><i class="mdi-navigation-close right"></i> Apple MacBook Pro A1278 13"</span>
+                <p>Here is some more information about this blog that is only revealed once clicked on.</p>
+            </div>
+        </div>
+    </div>
+   
+    <div class="blog col s12 m4 l3">
+        <div class="card">
+            <div class="card-image waves-effect waves-block waves-light">
+                <a href="#"><img src="../assets/images/img4.jpg" alt="blog-img">
+                </a>
+            </div>
+            <ul class="card-action-buttons">
+                <li><a class="btn-floating waves-effect waves-light green accent-4"><i class="mdi-social-share"></i></a>
+                </li>                            
+                <li><a class="btn-floating waves-effect waves-light light-blue"><i class="mdi-action-info activator"></i></a>
+                </li>
+            </ul>
+            <div class="card-content">
+                <p class="row">
+                  <span class="left"><a href="">Web Design</a></span>
+                  <span class="right">18th June, 2015</span>
+                </p>
+                <h4 class="card-title grey-text text-darken-4"><a href="#" class="grey-text text-darken-4">Material Design Card - For Blog Post Article</a>
+                </h4>
+                <p class="blog-post-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                <div class="row">
+                  <div class="col s2">
+                    <img src="../assets/images/avatar.jpg" alt="" class="circle responsive-img valign profile-image">
+                  </div>
+                  <div class="col s9"> By <a href="#">John Doe</a></div>
+                </div>
+            </div>
+            <div class="card-reveal">
+                <span class="card-title grey-text text-darken-4"><i class="mdi-navigation-close right"></i> Apple MacBook Pro A1278 13"</span>
+                <p>Here is some more information about this blog that is only revealed once clicked on.</p>
+            </div>
+        </div>
+    </div>
+    <div class="blog col s12 m4 l3">
+        <div class="card">
+            <div class="card-image waves-effect waves-block waves-light">
+                <a href="#"><img src="../assets/images/img4.jpg" alt="blog-img">
+                </a>
+            </div>
+            <ul class="card-action-buttons">
+                <li><a class="btn-floating waves-effect waves-light green accent-4"><i class="mdi-social-share"></i></a>
+                </li>                            
+                <li><a class="btn-floating waves-effect waves-light light-blue"><i class="mdi-action-info activator"></i></a>
+                </li>
+            </ul>
+            <div class="card-content">
+                <p class="row">
+                  <span class="left"><a href="">Web Design</a></span>
+                  <span class="right">18th June, 2015</span>
+                </p>
+                <h4 class="card-title grey-text text-darken-4"><a href="#" class="grey-text text-darken-4">Material Design Card - For Blog Post Article</a>
+                </h4>
+                <p class="blog-post-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                <div class="row">
+                  <div class="col s2">
+                    <img src="../assets/images/avatar.jpg" alt="" class="circle responsive-img valign profile-image">
+                  </div>
+                  <div class="col s9"> By <a href="#">John Doe</a></div>
+                </div>
+            </div>
+            <div class="card-reveal">
+                <span class="card-title grey-text text-darken-4"><i class="mdi-navigation-close right"></i> Apple MacBook Pro A1278 13"</span>
+                <p>Here is some more information about this blog that is only revealed once clicked on.</p>
+            </div>
+        </div>
+    </div>
+    <div class="blog col s12 m4 l3">
+        <div class="card">
+            <div class="card-image waves-effect waves-block waves-light">
+                <a href="#"><img src="../assets/images/img4.jpg" alt="blog-img">
+                </a>
+            </div>
+            <ul class="card-action-buttons">
+                <li><a class="btn-floating waves-effect waves-light green accent-4"><i class="mdi-social-share"></i></a>
+                </li>                            
+                <li><a class="btn-floating waves-effect waves-light light-blue"><i class="mdi-action-info activator"></i></a>
+                </li>
+            </ul>
+            <div class="card-content">
+                <p class="row">
+                  <span class="left"><a href="">Web Design</a></span>
+                  <span class="right">18th June, 2015</span>
+                </p>
+                <h4 class="card-title grey-text text-darken-4"><a href="#" class="grey-text text-darken-4">Material Design Card - For Blog Post Article</a>
+                </h4>
+                <p class="blog-post-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                <div class="row">
+                  <div class="col s2">
+                    <img src="../assets/images/avatar.jpg" alt="" class="circle responsive-img valign profile-image">
+                  </div>
+                  <div class="col s9"> By <a href="#">John Doe</a></div>
+                </div>
+            </div>
+            <div class="card-reveal">
+                <span class="card-title grey-text text-darken-4"><i class="mdi-navigation-close right"></i> Apple MacBook Pro A1278 13"</span>
+                <p>Here is some more information about this blog that is only revealed once clicked on.</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+</div>
+</div>
+
+   
+    <!-- START FOOTER -->
+  <footer class="page-footer">
+    <div class="footer-copyright">
+      <div class="container">
+        <span>Copyright © 2015 <a class="grey-text text-lighten-4" href="http://themeforest.net/user/geekslabs/portfolio?ref=geekslabs" target="_blank">GeeksLabs</a> All rights reserved.</span>
+        <span class="right"> Design and Developed by <a class="grey-text text-lighten-4" href="http://geekslabs.com/">GeeksLabs</a></span>
+        </div>
+    </div>
+  </footer>
+    <!--Controller-->
+    <script src="../controllers/mainController.js"></script>
+    <script src="../controllers/signUpController.js"></script>
+    <script src="../controllers/loginController.js"></script>
+    <script src="../controllers/homeController.js"></script>
+    <script src="../controllers/managementController.js"></script>
+    <!--Services-->
+
+    <script src="../services/userService.js"></script>
+    <script src="../services/authService.js"></script>
+
+    <script src="../routes/MainRoutes.js"></script>
+    <script src="../assets/js/User.js"></script>
+    
+<!--prism-->
+<!--scrollbar-->
+
+    <!--plugins.js - Some Specific JS codes for Plugin Settings-->
+  
+  <!--custom-script.js - Add your own theme custom JS-->
+  <script type="text/javascript" src="../assets/js/custom-script.js"></script>
+
+
+       <!--plugins.js - Some Specific JS codes for Plugin Settings-->
+    
+
+</body>
+</html>

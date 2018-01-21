@@ -1,0 +1,77 @@
+
+  <!-- Page Content goes here -->
+
+  <div id="login-page" class="row center-align">
+
+      <form class="login-form" name ="registerUser"ng-submit="signUpUser();">
+      <div class="col s12 z-depth-4 card-panel">
+        <div class="row">
+          <div class="input-field col s12 center">
+            <img src="../../assets/images//isome-ios-7-app-icon-template-1024x1024-screen-shot-3.png" alt="" class="circle responsive-img valign profile-image-login">
+            <h5 class="center">ProjectQuora</h5>
+          <p class="center">Join to our community now !</p>
+            
+          </div>
+          <div class="row margin">
+            <div class="input-field col s12">
+              <i class="mdi-social-person-outline prefix"></i>
+              <input id="username" type="text" class="validate" ng-model="username" ng-required="true">
+              <label for="username" data-error="User Name Should not be Empty" data-success="right">User Name</label>
+              </div>
+          </div>
+          <div class="row margin">
+            <div class="input-field col s12">
+              <i class="mdi-communication-email prefix"></i>
+              <input id="email" type="email" class="validate" ng-model="email" ng-required="true">
+              <label for="email" data-error="Email Should not be Empty or Valid Password !!" data-success="right">Email</label>
+              </div>
+          </div>
+          <div class="row margin">
+            <div class="input-field col s12">
+              <i class="mdi-action-lock-outline prefix"></i>
+              <input id="password" type="password" class="validate" ng-model="password" ng-required="true" >
+              <label for="password" data-error="Password Should not be Empty" data-success="right">Password</label>
+         </div>
+          </div>
+          <div class="row margin">
+            <div class="input-field col s12">
+              <i class="mdi-action-lock-outline prefix"></i>
+              <input id="" type="password" ng-model="confirmPassword" matchpassword={{[password]}} ng-required="true" >
+              <label for="password-again" data-error="Password Should not be Empty" data-success="right">Password again</label>
+            </div>
+          </div>
+          <div class="row " ng-show='!passwordMatch'>
+              <div class="input-field col s12">
+                <span for="password" data-error="Password Should not be Empty" data-success="right">Password not Match</span>
+              </div>
+            </div>
+          <div class="row">
+            <div class="input-field col s12">
+                <button type ="submit" class="btn waves-effect waves-light col s12" ng-disabled="registerUser.$invalid || !passwordMatch">Register Now</button>
+              </div>
+            <div class="input-field col s12">
+              <p class="margin center medium-small sign-up">Already have an account? <a href="page-login.html">Login</a></p>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,75 @@
+
+
+ <!-- START HEADER -->
+    <header id="header" class="page-topbar">
+        <!-- start header nav-->
+        <div class="navbar-fixed">
+            <nav class="navbar-color">
+                <div class="nav-wrapper">
+                    <ul class="left">                      
+                      <li><h1 class="logo-wrapper"><a href="index.html" class="brand-logo darken-1"><img src="images/materialize-logo.png" alt="ProjectQuora"></a> <span class="logo-text">ProjectQuora</span></h1></li>
+                    </ul>
+                    <div class="header-search-wrapper hide-on-med-and-down col s12 m6 l6">
+                        <i class="mdi-action-search"></i>
+                        <input type="text" name="Search" class="header-search-input z-depth-2" placeholder="Explore Projects"/>
+                    </div>
+                    
+                    <ul class="right hide-on-med-and-down">
+                        <!-- <li><a href="javascript:void(0);" class="waves-effect waves-block waves-light translation-button"  data-activates="translation-dropdown"><i class="mdi-action-shopping-basket"></i></a>
+                        </li>-->
+                        <li><a href="javascript:void(0);" class="waves-effect waves-block waves-light toggle-fullscreen"><i class="mdi-action-add-shopping-cart"></i></a>
+                        </li>
+                        <li><a href="#" data-activates="chat-out" class="waves-effect waves-block waves-light chat-collapse"><i class="mdi-communication-chat"></i></a>
+                        </li>
+                        <li ng-show="!isUserLogin"><a href="javascript:void(0);" class="waves-effect waves-block waves-light notification-button" data-activates="notifications-dropdown"><i class="mdi-action-account-circle"></i>
+                        
+                        </a>
+                        </li>
+                        
+                   
+                        <li ng-show="isUserLogin">
+                          <a href="javascript:void(0);"class="waves-effect waves-block waves-light notification-button" data-activates="profile-dropdown"> <img ng-src="{{user.picture}}" alt="" class="circle responsive-img valign profile-image" >{{user.userName}}</a>
+                            </li>                        
+                         </ul>
+                    <!-- translation-button 
+                    <ul id="translation-dropdown" class="dropdown-content">
+                       
+                      <li>
+                        <a href="#!" class="cyan-text">Post a Project</a>
+                      </li>
+                      <li>
+                        <a href="#!" class="cyan-text">Post a Contest</a>
+                      </li>
+                     
+                    </ul>
+                    -->
+                    <!-- notifications-dropdown -->
+                    <ul id="notifications-dropdown" class="dropdown-content">
+                        <li><a href="/login"  class="cyan-text">Login</a></li>
+                        <li><a href="/signUp" class="cyan-text">Register</a></li>
+                    </ul>
+                    <ul id="profile-dropdown" class="dropdown-content">
+                        <li><a href="#"  class="cyan-text"><i class="mdi-action-face-unlock"></i> Profile</a>
+                        </li>
+                        <li><a href="#" class="cyan-text" ><i class="mdi-action-settings"></i> Settings</a>
+                        </li>
+                        <li><a href="#"  class="cyan-text"><i class="mdi-communication-live-help"></i> Help</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="#"  class="cyan-text"><i class="mdi-action-lock-outline"></i> Lock</a>
+                        </li>
+                        <li><a href="#"  class="cyan-text"><i class="mdi-hardware-keyboard-tab"></i> Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+           
+            
+
+        </div>
+        <!-- end header nav-->
+    </header>
+    <!-- END HEADER -->
+
+
