@@ -52,9 +52,11 @@
     
     
     
-    function  signUpController ($scope,$http,$location,$timeout,registerUserService){
+    function  signUpController ($scope,$rootScope,$http,$location,$timeout,registerUserService){
+
       $rootScope.shownav=false;
       $scope.successMessage=true;
+      
       var response=this;
       console.log('signUpController'+$scope.username);
 

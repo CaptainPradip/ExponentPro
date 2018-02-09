@@ -1,75 +1,459 @@
 
 
- <!-- START HEADER -->
-    <header id="header" class="page-topbar">
-        <!-- start header nav-->
-        <div class="navbar-fixed">
-            <nav class="navbar-color">
-                <div class="nav-wrapper">
-                    <ul class="left">                      
-                      <li><h1 class="logo-wrapper"><a href="index.html" class="brand-logo darken-1"><img src="images/materialize-logo.png" alt="ProjectQuora"></a> <span class="logo-text">ProjectQuora</span></h1></li>
-                    </ul>
-                    <div class="header-search-wrapper hide-on-med-and-down col s12 m6 l6">
-                        <i class="mdi-action-search"></i>
-                        <input type="text" name="Search" class="header-search-input z-depth-2" placeholder="Explore Projects"/>
-                    </div>
-                    
-                    <ul class="right hide-on-med-and-down">
-                        <!-- <li><a href="javascript:void(0);" class="waves-effect waves-block waves-light translation-button"  data-activates="translation-dropdown"><i class="mdi-action-shopping-basket"></i></a>
-                        </li>-->
-                        <li><a href="javascript:void(0);" class="waves-effect waves-block waves-light toggle-fullscreen"><i class="mdi-action-add-shopping-cart"></i></a>
-                        </li>
-                        <li><a href="#" data-activates="chat-out" class="waves-effect waves-block waves-light chat-collapse"><i class="mdi-communication-chat"></i></a>
-                        </li>
-                        <li ng-show="!isUserLogin"><a href="javascript:void(0);" class="waves-effect waves-block waves-light notification-button" data-activates="notifications-dropdown"><i class="mdi-action-account-circle"></i>
-                        
-                        </a>
-                        </li>
-                        
-                   
-                        <li ng-show="isUserLogin">
-                          <a href="javascript:void(0);"class="waves-effect waves-block waves-light notification-button" data-activates="profile-dropdown"> <img ng-src="{{user.picture}}" alt="" class="circle responsive-img valign profile-image" >{{user.userName}}</a>
-                            </li>                        
-                         </ul>
-                    <!-- translation-button 
-                    <ul id="translation-dropdown" class="dropdown-content">
-                       
-                      <li>
-                        <a href="#!" class="cyan-text">Post a Project</a>
-                      </li>
-                      <li>
-                        <a href="#!" class="cyan-text">Post a Contest</a>
-                      </li>
-                     
-                    </ul>
-                    -->
-                    <!-- notifications-dropdown -->
-                    <ul id="notifications-dropdown" class="dropdown-content">
-                        <li><a href="/login"  class="cyan-text">Login</a></li>
-                        <li><a href="/signUp" class="cyan-text">Register</a></li>
-                    </ul>
-                    <ul id="profile-dropdown" class="dropdown-content">
-                        <li><a href="#"  class="cyan-text"><i class="mdi-action-face-unlock"></i> Profile</a>
-                        </li>
-                        <li><a href="#" class="cyan-text" ><i class="mdi-action-settings"></i> Settings</a>
-                        </li>
-                        <li><a href="#"  class="cyan-text"><i class="mdi-communication-live-help"></i> Help</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li><a href="#"  class="cyan-text"><i class="mdi-action-lock-outline"></i> Lock</a>
-                        </li>
-                        <li><a href="#"  class="cyan-text"><i class="mdi-hardware-keyboard-tab"></i> Logout</a>
-                        </li>
-                    </ul>
+ <div ng-show="shownav">
+
+    <div class="slider">
+      <ul class="slides">
+        <li>
+          <img ng-src="../assets/images/Freelancer-Fair-couple-1024x480.jpg" class="responsive-img" alt="img-1">
+          <!-- random image 
+         <!-- <div class="caption left-align">
+            <h3>Left Aligned Caption</h3>
+            <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+          </div>
+          <div class="caption right-align">
+            <h3>Right Aligned Caption</h3>
+            <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+          </div>
+          -->
+        </li>
+        <li>
+          <img ng-src="../assets/images/download.jpg" alt="" class="responsive-img"alt="img-2">
+         
+        </li>
+        <li>
+          <img ng-src="../assets/images/man.jpg" alt="" class="responsive-img" alt="img-3">
+          <!-- random image -->
+          
+        </li>
+        <li>
+          <img ng-src="../assets/images/manwithcom.jpg" alt="" class="responsive-img" alt="img-4">
+          <!-- random image -->
+          
+        </li>
+      </ul>
+      <div class="buttons-wrapper">
+          <div class="col s6 center">
+            <a class="waves-effect waves-light btn-large hoverable mg-rg">I Want to Buy Project </a>
+          </div>
+          <div class="col s6 center">
+              <a class="waves-effect waves-light btn-large hoverable mg-rg">I want to Sell Project</a>
+            </div>
+      </div>
+    </div>
+    
+      <div class="container">
+         
+          <div class="container" id="work">
+              <div class="section">
+                <div class="row">
+                  <div class="col s12 center">
+                          <h3 class="light cyan-text text-lighten-3">Here are some of our most popular projects </h3>
+              
+                    <span class="work light cyan-text text-lighten-3">WORK</span>
+                  </div>
                 </div>
-            </nav>
-
-           
+                <div class="row">
+                  <div class="col s12 m4">
+                    <div class="card medium">
+                      <div class="card-image">
+                        <img src="../assets/images/php.png">
+                      </div>
+                      <div class="card-content">
+                      <span class="card-title cyan-text text-lighten-3">Web Application </span>
+                    
+                        <p>I am a project card. Check back soon to see my work.</p>
+                      </div>
+                      <div class="card-action">
+                        <a href="/projectlist">View Projects</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col s12 m4">
+                    <div class="card medium">
+                      <div class="card-image">
+                        <img src="../assets/images/apps.png">
+                            </div>
+                      <div class="card-content">
+                      <span class="card-title cyan-text text-lighten-3"> Mobile Application </span>
+                  
+                        <p>I am a project card. Check back soon to see my work.</p>
+                      </div>
+                      <div class="card-action">
+                        <a href="/projectlist">View Projects</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col s12 m4">
+                    <div class="card medium">
+                      <div class="card-image">
+                        <img src="../assets/images/Desktop-Application-Development-Company-Kolkata.png">
+                          </div>
+                      <div class="card-content">
+                      <span class="card-title cyan-text text-lighten-3">Desktop Application </span>
+                   
+                        <p>I am a project card. Check back soon to see my work.</p>
+                      </div>
+                      <div class="card-action">
+                        <a href="/projectlist">View Projects</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             
-
+            <div class="parallax-container valign-wrapper">
+                  <div class="section no-pad-bot">
+                    <div class="container">
+                      <div class="row center">
+                        <h5 class="header col s12 light white-text text-lighten-3">“If you can't fly then run, if you can't run then walk, if you can't walk then crawl, but whatever you do you have to keep moving forward.”</h5>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="parallax"><img src="../assets/images/code.jpeg" alt="Yo!" width="85%"></div>
+                </div>
+            
+            
+            <div class="container">
+              <div class="section bio">
+            
+                <!--   Icon Section   -->
+                <div class="row">
+                  <div class="col s12 m4">
+                    <div class="icon-block">
+                      <h2 class="center pink-text text-accent-2"><i class="ion-ios-heart"></i></h2>
+                      <h5 class="center light cyan-text text-lighten-3">Passion</h5>
+                      <div class="divider light-green accent-2"></div>
+                      <p class="light black-text text-lighten-3">“Close some doors today. Not because of pride, incapacity or arrogance, but simply because they no longer lead somewhere”. I'm a Navy veteran, former Arabic linguist, and have just opened a new door in my life. Following my passion for innovation and entrepreneurship.</p>
+                    </div>
+                  </div>
+            
+                  <div class="col s12 m4">
+                    <div class="icon-block">
+                      <h2 class="center black-text text-accent-2"><i class="ion-ios-glasses-outline"></i></h2>
+                      <h5 class="center light cyan-text text-lighten-3">FOCUS</h5>
+                      <div class="divider light-green accent-2"></div>
+                      <p class="light black-text text-lighten-3">Javascript along with NodeJs offer a unique opportunity to narrow your focus and remove clutter during web-development. This opporunity facilitates learning and is why I've chosen to focus on Javascript, NodeJS, and it's various frameworks (expressJS, AngularJS, etc.)</p>
+                    </div>
+                  </div>
+            
+                  <div class="col s12 m4">
+                    <div class="icon-block">
+                      <h2 class="center orange-text text-accent-2"><i class="ion-ios-time-outline"></i></h2>
+                      <h5 class="center  light cyan-text text-lighten-3">DISCIPLINE</h5>
+                      <div class="divider light-green accent-2"></div>
+            
+                      <p class="light black-text text-lighten-3">“There are two types of pain you will go through in life, the pain of discipline and the pain of regret. Discipline weighs ounces while regret weighs tonnes.” During my studies and military service I have learned the importance of discipline. It is the inextricable element of good work and success in life.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            
+            
+            
+            <div id="index-banner" class="parallax-container">
+              <div class="section no-pad-bot">
+                <div class="container">
+                  <br>
+                  <br>
+                  <h1 class="header center"><i class="large material-icons ion-social-html5-outline deep-orange-text"></i>&nbsp;<i class="large material-icons ion-social-css3  cyan-text text-lighten-3"></i>&nbsp;<i class="large material-icons ion-social-javascript  yellow-text text-darken-1"></i>&nbsp;<i class="large material-icons ion-social-angularred-text"></i>&nbsp;<i class="large material-icons ion-social-nodejs light-green-text text-accent-2"></i></h1>
+                  <div class="row center">
+                    <h4 class="header col s12 light cyan-text text-lighten-3">WEB DEVELOPER <i class="ion-plus-round"></i> entrepreneur</h4>
+                  </div>
+                  <div class="row center">
+                    <br>
+                    <br>
+                    <a href="#work"  class="waves-effect waves-light btn-large hoverable mg-rg">Check out my work</a>
+                  </div>
+                  <br>
+                  <br>
+            
+                </div>
+              </div>
+              <div class="parallax"><img src="../assets/images/looking.jpeg" width="85%" alt="Sean Blattenberger"></div>
+            </div>
+          <div class="container">
+       
+            <div id="team" class="text-center section">
+            
+                <h2 class="header center col s12 light cyan-text text-lighten-3"><span class="highlight_secondary">Our</span> Team</h2>
+            
+                <h5 class="header center col s12 light cyan-text text-lighten-3">
+                  Our people are our greatest asset and biggest differentiator.<br>They also believe in having a lot of fun along the way.
+                </h5>
+            
+                <div class="hr big_size_hr invisible_hr">
+                    <i class="fa fa-"></i>
+                </div>
+            
+                <div class="row">
+                  <div class="col m4 s12 center">
+                    <div class="team">
+                      <div class="team-image">
+                        <a href="#">
+                          <img src="../assets/images/avatar.jpg" class="team-image circle img-responsive">
+                        </a>
+                        <div class="team-links">
+                          <div class="team-links-list">
+                           
+                            <a href="#" target="_blank"><i class="ion-social-facebook small"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                            <a href="#" target="_blank"><i class="ion-social-linkedin small"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                            <a href="#" target="_blank"><i class="ion-social-twitter small"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                          </div><!-- /.team-links-list -->
+                        </div><!-- /.team-links -->
+                      </div><!-- /.team-image -->
+                      <div class="team-content">
+                        <div class="team-name"><a href="#"><h5>Jose Knutson</h5></a></div>
+                        <div class="team-role">Co-founder</div>
+                        <div class="team-description"></div>
+                      </div><!-- /.team-content -->
+                    </div><!-- /.team -->
+                  </div>
+                  <div class="col m4 s12 center">
+                    <div class="team">
+                      <div >
+                        <a href="#" >
+                          <img  src="../assets/images/avatar.jpg" class="team-image circle img-responsive">
+                        </a>
+                        <div class="team-links">
+                          <div class="team-links-list">
+                              <a href="#" target="_blank"><i class="ion-social-facebook small"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                              <a href="#" target="_blank"><i class="ion-social-linkedin small"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                              <a href="#" target="_blank"><i class="ion-social-twitter small"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                          </div><!-- /.team-links-list -->
+                        </div><!-- /.team-links -->
+                      </div><!-- /.team-image -->
+                      <div class="team-content">
+                        <div class="team-name"><a href="#"><h5>Mary Ramos</h5></a></div>
+                        <div class="team-role">Co-founder</div>
+                        <div class="team-description"></div>
+                      </div><!-- /.team-content -->
+                    </div><!-- /.team -->
+                  </div>
+                  <div class="col m4 s12 center">
+                    <div class="team">
+                      <div class="team-image">
+                        <a href="#">
+                          <img  src="../assets/images/avatar.jpg" class="team-image circle img-responsive">
+                        </a>
+                        <div class="team-links">
+                          <div class="team-links-list">
+                              <a href="#" target="_blank"><i class="ion-social-facebook small"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                            <a href="#" target="_blank"><i class="ion-social-linkedin small"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                            <a href="#" target="_blank"><i class="ion-social-twitter small"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                     
+                          </div><!-- /.team-links-list -->
+                        </div><!-- /.team-links -->
+                      </div><!-- /.team-image -->
+                      <div class="team-content">
+                        <div class="team-name"><a href="#"><h5>Michael Alexander</h5></a></div>
+                        <div class="team-role">Co-founder</div>
+                        <div class="team-description"></div>
+                      </div><!-- /.team-content -->
+                    </div><!-- /.team -->
+                  </div>
+                </div>
+            
+                <div class="hr invisible_hr">
+                    <i class="fa fa-"></i>
+                </div>
+            
+                <div class="row">
+                  <div class="col l2 m4 s6 center"><!-- add col-md-offset-1 for 5 members -->
+                    <div class="team">
+                      <div class="team-image">
+                        <a href="#">
+                          <img  src="../assets/images/avatar.jpg" class="team-image circle img-responsive">
+                        </a>
+                        <div class="team-links">
+                          <div class="team-links-list">
+                              <a href="#" target="_blank"><i class="ion-social-facebook small"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                              <a href="#" target="_blank"><i class="ion-social-linkedin small"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                              <a href="#" target="_blank"><i class="ion-social-twitter small"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                       
+                          </div><!-- /.team-links-list -->
+                        </div><!-- /.team-links -->
+                      </div><!-- /.team-image -->
+                      <div class="team-content">
+                        <div class="team-name"><h5>Herman Mach</h5></div>
+                        <div class="team-role">Software Developer</div>
+                        <div class="team-description"></div>
+                      </div><!-- /.team-content -->
+                    </div><!-- /.team -->
+                  </div>
+                  <div class="col l2 m4 s6 center">
+                    <div class="team">
+                      <div class="team-image">
+                        <a href="#">
+                          <img  src="../assets/images/avatar.jpg" class="team-image circle img-responsive">
+                        </a>
+                        <div class="team-links">
+                          <div class="team-links-list">
+                              <a href="#" target="_blank"><i class="ion-social-facebook small"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                            <a href="#" target="_blank"><i class="ion-social-linkedin small"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                            <a href="#" target="_blank"><i class="ion-social-twitter small"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                     
+                          </div><!-- /.team-links-list -->
+                        </div><!-- /.team-links -->
+                      </div><!-- /.team-image -->
+                      <div class="team-content">
+                        <div class="team-name"><h5>Joyce Wagner</h5></div>
+                        <div class="team-role">Designer</div>
+                        <div class="team-description"></div>
+                      </div><!-- /.team-content -->
+                    </div><!-- /.team -->
+                  </div>
+                  <div class="col l2 m4 s6 center">
+                    <div class="team">
+                      <div class="team-image">
+                        <a href="#">
+                          <img  src="../assets/images/avatar.jpg" class="team-image circle img-responsive">
+                        </a>
+                        <div class="team-links">
+                          <div class="team-links-list">
+                              <a href="#" target="_blank"><i class="ion-social-facebook small"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                              <a href="#" target="_blank"><i class="ion-social-linkedin small"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                              <a href="#" target="_blank"><i class="ion-social-twitter small"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                       
+                          </div><!-- /.team-links-list -->
+                        </div><!-- /.team-links -->
+                      </div><!-- /.team-image -->
+                      <div class="team-content">
+                        <div class="team-name"><h5>Donald Speth</h5></div>
+                        <div class="team-role">Account manager</div>
+                        <div class="team-description"></div>
+                      </div><!-- /.team-content -->
+                    </div><!-- /.team -->
+                  </div>
+                  <div class="col l2 m4 s6 center">
+                    <div class="team">
+                      <div class="team-image">
+                        <a href="#">
+                          <img  src="../assets/images/avatar.jpg" class="team-image circle img-responsive">
+                        </a>
+                        <div class="team-links">
+                          <div class="team-links-list">
+                              <a href="#" target="_blank"><i class="ion-social-facebook small"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                            <a href="#" target="_blank"><i class="ion-social-linkedin small"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                            <a href="#" target="_blank"><i class="ion-social-twitter small"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                     
+                          </div><!-- /.team-links-list -->
+                        </div><!-- /.team-links -->
+                      </div><!-- /.team-image -->
+                      <div class="team-content">
+                        <div class="team-name"><h5>Frank McGuire</h5></div>
+                        <div class="team-role">Programmer</div>
+                        <div class="team-description"></div>
+                      </div><!-- /.team-content -->
+                    </div><!-- /.team -->
+                  </div>
+                  <div class="col l2 m4 s6 center">
+                    <div class="team">
+                      <div class="team-image">
+                        <a href="#">
+                          <img  src="../assets/images/avatar.jpg" class="team-image circle img-responsive">
+                        </a>
+                        <div class="team-links">
+                          <div class="team-links-list">
+                              <a href="#" target="_blank"><i class="ion-social-facebook small"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                              <a href="#" target="_blank"><i class="ion-social-linkedin small"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                              <a href="#" target="_blank"><i class="ion-social-twitter small"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                       
+                          </div><!-- /.team-links-list -->
+                        </div><!-- /.team-links -->
+                      </div><!-- /.team-image -->
+                      <div class="team-content">
+                        <div class="team-name"><h5>Natasha Miley</h5></div>
+                        <div class="team-role">Journalist</div>
+                        <div class="team-description"></div>
+                      </div><!-- /.team-content -->
+                    </div><!-- /.team -->
+                  </div>
+                  <div class="col l2 m4 s6 center">
+                    <div class="team">
+                      <div class="team-image">
+                        <a href="#">
+                          <img src="../assets/images/avatar.jpg" class="team-image circle img-responsive">
+                        </a>
+                        <div class="team-links">
+                          <div class="team-links-list">
+                              <a href="#" target="_blank"><i class="ion-social-facebook small"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                              <a href="#" target="_blank"><i class="ion-social-linkedin small"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                              <a href="#" target="_blank"><i class="ion-social-twitter small"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                       
+                          </div><!-- /.team-links-list -->
+                        </div><!-- /.team-links -->
+                      </div><!-- /.team-image -->
+                      <div class="team-content">
+                        <div class="team-name"><h5>Lavona Smith</h5></div>
+                        <div class="team-role">Photographer</div>
+                        <div class="team-description"></div>
+                      </div><!-- /.team-content -->
+                    </div><!-- /.team -->
+                  </div>
+                </div>
+            
+                <div class="hr big_size_hr invisible_hr">
+                    <i class="fa fa-"></i>
+               
+            
+              </div><!-- /.container -->
+            </div>
+  
         </div>
-        <!-- end header nav-->
-    </header>
-    <!-- END HEADER -->
-
+  
+            <div class="parallax-container valign-wrapper">
+              <div class="section no-pad-bot">
+                <div class="container">
+                  <div class="row center">
+                    <h5 class="header col s12 light white-text text-lighten-3">Thanks for stopping by! Head to the bottom if you'd like to link up.</h5>
+                  </div>
+                </div>
+              </div>
+              <div class="parallax"><img src="../assets/images/thanks.jpeg" alt="Thanks for visiting" width="85%"></div>
+            </div>
+            
+            <footer class="page-footer">
+              <div class="container">
+                <div class="row">
+                  <div class="col l6 s12">
+                    <h5 class="cyan-text text-lighten-3">Contact info</h5>
+                    <div class="divider light-green accent-2"></div>
+                    <p class="teal-text text-lighten-5">Sean Blattenberger<br>PGH, PENNA., 15201<br>G-Hangouts: sean.blattenberger<br>Skype: sean.blattenberger</p>
+            
+            
+                  </div>
+            
+                  <div class="col l6 s12">
+                    <h5 class="cyan-text text-lighten-3">Connect</h5>
+                    <div class="divider light-green accent-2"></div>
+                    <br><br><br>
+                    <div class="row">
+                      <div class="col l3">
+                        <a class="blue lighten-2 btn-floating" href="twitter.com"><i class="ion-social-twitter"></i></a>
+                      </div>
+                      <div class="col l3">
+                        <a class="white btn-floating" href="github.com"><i class="ion-social-github black-text"></i></a>
+                      </div>
+                      <div class="col l3">
+                        <a class="blue btn-floating" href="linkedin.com"><i class="ion-social-linkedin"></i></a>
+                      </div>
+                      <div class="col l3">
+                        <a class="grey darken-3 btn-floating" href="codepen.com"><i class="ion-social-codepen-outline"></i></a>
+                      </div>
+            
+                     </div>
+                  </div>
+                </div>
+              </div>
+  
+  
+  </div>
+  </div>
+  </div>
+  </div>
+  
 

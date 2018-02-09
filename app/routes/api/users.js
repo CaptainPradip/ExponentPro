@@ -53,7 +53,7 @@ router.post('/authenticate', (req, res) => {
          res.json({success:false,message:"Email ,Password is not provided !!!"});
      }
      else{
-        User.findOne({email:req.body.email}).select('email userName password').exec(function (error,user) {
+        User.findOne({email:req.body.email}).select('_id email userName password').exec(function (error,user) {
 
             if(error){
                throw error
@@ -76,10 +76,11 @@ router.post('/authenticate', (req, res) => {
                     console.log("Aunthenticate user")
                    const payload=
                    {
+                    _id:user._id,
                     userName:user.userName,
                     email:user.email
                    }
-               var token = jwt.sign(payload,config.secret, { expiresIn: '60s' });
+               var token = jwt.sign(payload,config.secret, { expiresIn: '24h' });
 
                  res.json({
                      success:true,
@@ -178,7 +179,7 @@ router.post('/startNewSession', (req, res) => {
                   email:user.email,
                   picture:user.picture
                  }
-               var token = jwt.sign(payload,config.secret, { expiresIn: '60s' });
+               var token = jwt.sign(payload,config.secret, { expiresIn: '24h' });
 
                  res.json({
                      success:true,
@@ -202,7 +203,7 @@ router.post('/startNewSession', (req, res) => {
     });
 
 
-    
+ //   
 
 
 

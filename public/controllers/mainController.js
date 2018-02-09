@@ -1,7 +1,20 @@
 
     'use strict';
 
-    angular.module('Main',['MainRoutes','ngAnimate','signUp',,'login','home','management'])
+    angular.module('Main',[
+      
+       'MainRoutes',
+       'ngAnimate',
+       'signUp',
+       'login',
+       'home',
+       'management',
+       'projectList',
+       'projectInfo',
+      
+       'profile'
+      
+      ])
     .config(["$locationProvider", function($locationProvider) {
         $locationProvider.html5Mode(true);
       }])
@@ -17,11 +30,25 @@
         $rootScope.isUserLogin=authUserService.isLoggedIn();
         var app=this 
         app.isUserLogin=false
-        $('.slider').slider(
-         
-        );
-        $('.materialboxed').materialbox();
-        $('.slider').height(500)
+
+        $rootScope.$on('$viewContentLoaded', function(event) {
+
+       
+          $('.translation-button, .notification-button, .profile-dropdown').dropdown({
+              inDuration: 300,
+              outDuration: 225,
+              constrainWidth: false, // Does not change width of dropdown to that of the activator
+              hover: true, // Activate on hover
+              gutter: 0, // Spacing from edge
+              belowOrigin: true, // Displays dropdown below the button
+              alignment: 'left', // Displays dropdown with edge aligned to the left of button
+              stopPropagation: true // Stops event propagation
+            }
+          );
+      })
+
+        
+
         $rootScope.showSessionAlart=function () {
              
               

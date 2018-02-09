@@ -86,3 +86,115 @@
   margin-left: 1rem;
   margin-top: 1rem;
 }
+
+
+* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+
+.card {
+  font-weight: 200;
+}
+
+.work {
+  font-size: 35px;
+  font-weight: 400;
+}
+
+
+p {
+  line-height: 2rem;
+}
+
+.button-collapse {
+  color: #26a69a;
+}
+
+.parallax-container {
+  min-height: 380px;
+  line-height: 0;
+  height: auto;
+  color: rgba(255,255,255,.9);
+}
+  .parallax-container .section {
+    width: 100%;
+  }
+
+@media only screen and (max-width : 992px) {
+  .parallax-container .section {
+    position: absolute;
+    top: 40%;
+  }
+  #index-banner .section {
+    top: 10%;
+  }
+}
+
+@media only screen and (max-width : 600px) {
+  #index-banner .section {
+    top: 0;
+  }
+}
+
+.icon-block {
+  padding: 0 15px;
+}
+.icon-block .material-icons {
+  font-size: inherit;
+}
+
+footer.page-footer {
+  margin: 0;
+}
+
+h5 {
+  font-weight: 200;
+}
+
+.hr.invisible_hr {
+  height: 0;
+  padding: 0;
+}
+.hr.big_size_hr {
+  margin: 30px 0;
+}
+.hr {
+  clear: both;
+  display: block;
+  font-size: 0;
+  height: 24px;
+  margin: 20px 0;
+  overflow: hidden;
+  padding: 2px 0;
+  position: relative;
+  text-align: center;
+  width: 100%;
+}
+.highlight_secondary {
+  color: #F24046;
+}
+.team-role {
+  color: #A4A7AA;
+  
+}
+
+.footer {
+
+  text-align: center ;
+  color :white;
+  
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin-bottom: 0px;
+  }
+  .team-image{
+    height: 100%;
+    width: 100%;
+
+  }
+

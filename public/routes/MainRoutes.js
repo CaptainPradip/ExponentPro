@@ -34,12 +34,34 @@
         .when('/profile', {
             templateUrl: '../views/pages/profile.html',
             controller: 'profileController',
-            authenticated:true
+            authenticated:false,
+            permission:['admin','user']
         })
+
+        .when('/projectlist', {
+            templateUrl: '../views/pages/projectList.html',
+            controller: 'projectListController',
+            authenticated:false,
+            permission:['admin','user']
+        })
+        .when('/project', {
+            templateUrl: '../views/pages/projectInfo.html',
+            controller: 'projectInfoController',
+            authenticated:false,
+            permission:['admin','user']
+        })
+        .when('/sellproject', {
+            templateUrl:'../views/pages/profile.html',
+            controller: 'profileController',
+            authenticated:false,
+            permission:['admin','user']
+        })
+
         .when('/admin', {
             templateUrl: '../views/pages/Administrator.html',
             controller: 'managementController',
-            authenticated:true
+            authenticated:true,
+            permission:['admin']
         })
         .otherwise({redirectTo:('/')})
        
@@ -64,13 +86,29 @@
          console.log(authUserService.isLoggedIn())
 
 
-if(!$rootScope.checkSession)
-authUserService.checkSession();
+        if(!$rootScope.checkSession)
+        authUserService.checkSession();
          if (next.$$route.authenticated==true) {
 
             if(!authUserService.isLoggedIn()){
                 event.preventDefault();
                 $location.path('/login')
+            }else if (next.$$route.permission) {
+
+                authUserService.getUser().then(function(data){
+                    $rootScope.isUserLogin=authUserService.isLoggedIn();
+                    $rootScope.user=data.data.user;
+                    console.log(data.data.user.permission)
+                   if (next.$$route.permission[0]==data.data.user.permission) {
+
+                       
+                   }
+
+
+                    })
+                
+            } else {
+                
             }
              
          } else if(next.$$route.authenticated==false) {
@@ -80,7 +118,7 @@ authUserService.checkSession();
                 $rootScope.user=data.data.user;
                 console.log($rootScope.user.picture)
                 })
-                $location.path('/')
+                //$location.path('/')
             }
              
          }

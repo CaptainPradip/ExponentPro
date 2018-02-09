@@ -1,12 +1,24 @@
-var mongoos=require('mongoose')
+var mongoose=require('mongoose')
 var bcrypt =require('bcrypt-nodejs')
-var Schema= mongoos.Schema;
+var Project=require('./project');
+var Schema= mongoose.Schema;
 
 var userSchema =new Schema({
      userName:{type:String ,required:true,unique:true},
+     fullName:{type:String},
+     dateOfBirth:{type:Date},
      password:{type:String,required:true},
      email:{type:String ,required:true,unique:true},
+     alternateEmail:{type:String},
+     mobile:{type:String},
+     alternateMobile:{type:String},
+     WorkExperience:{type:Number ,required:true,default:0},
+     workInCompany:{type:String},
+     softSkills:{type:String},
      picture:{type:String },
+     aboutMe:{type:String },
+     project:[ { type: Schema.Types.ObjectId, ref: 'Project'}],
+
      permission:{type:String,default:'user'}
 
 });
@@ -32,4 +44,4 @@ userSchema.methods.comparePassword = function(password ,validation) {
         validation(null, isMatch);
     });
 }
-module.exports=mongoos.model('User',userSchema);
+module.exports=mongoose.model('User',userSchema);

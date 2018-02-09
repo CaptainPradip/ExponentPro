@@ -16,13 +16,13 @@ module.exports=function (app,passport) {
 
   passport.serializeUser(function(user, done) {
     const payload=
-    {
+    { _id:user._id,
      userName:user.userName,
      email:user.email,
      picture:user.picture
     }
     
-      token = jwt.sign(payload,config.secret, { expiresIn: '60s' });
+      token = jwt.sign(payload,config.secret, { expiresIn: '24h' });
       done(null,user.id);
   });
   
