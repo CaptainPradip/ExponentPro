@@ -10,7 +10,8 @@
             controller: 'homeController',
             authenticated:false
         })
-        .when('/login', {
+    
+      .when('/login', {
             templateUrl: '../views/pages/login.html',
             controller: 'loginController',
             authenticated:false
@@ -68,7 +69,7 @@
 
     });
 
-    Routes.run(['$rootScope','authUserService','$location','$interval','$window',function ($rootScope,authUserService,$location,$interval,$window) {
+    Routes.run(['$rootScope','authUserService','$location','$interval','$window','$route',function ($rootScope,authUserService,$location,$interval,$window,$route) {
        
 
        
@@ -82,13 +83,12 @@
 
     $rootScope.$on('$routeChangeStart',function (event,next,current) {
             
-         console.log(next.$$route.authenticated);
-         console.log(authUserService.isLoggedIn())
-
-
+        
         if(!$rootScope.checkSession)
         authUserService.checkSession();
-         if (next.$$route.authenticated==true) {
+         console.log(next.$$route.authenticated);
+
+         if (next.$$route.authenticated===true) {
 
             if(!authUserService.isLoggedIn()){
                 event.preventDefault();
@@ -116,9 +116,9 @@
                 authUserService.getUser().then(function(data){
                 $rootScope.isUserLogin=authUserService.isLoggedIn();
                 $rootScope.user=data.data.user;
-                console.log($rootScope.user.picture)
+                
                 })
-                //$location.path('/')
+                
             }
              
          }

@@ -85,7 +85,7 @@
                     var timeStamp=Math.floor(Date.now() /1000)
                     var timeCheck= expireTime.exp-timeStamp
         
-                    console.log(timeCheck);
+                  //  console.log(timeCheck);
                     if(timeCheck<=25)
                     {
                         $interval.cancel(interval);

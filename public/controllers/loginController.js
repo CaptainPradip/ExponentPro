@@ -8,13 +8,20 @@
         })
         .controller('loginController', loginController);
 
-    loginController.$inject = ['$scope','$rootScope','$http','$location','$timeout','authUserService','$window','$routeParams'];
-    console.log('loginController');
-
+    loginController.$inject =  ['$scope',
+                                '$rootScope',
+                                '$http',
+                                '$location',
+                                '$timeout',
+                                'authUserService',
+                                '$window',
+                                '$routeParams',
+                                '$route'];
+    
     
 
 
-    function loginController($scope,$rootScope,$http,$location,$timeout,authUserService,$window,$routeParams) {
+    function loginController($scope,$rootScope,$http,$location,$timeout,authUserService,$window,$routeParams,$route) {
 //Veriable Declare 
 
        $rootScope.shownav=false;
@@ -73,12 +80,13 @@
                   $scope.successMessage=false;
                   loginController.successMessage=data.data.message
                   console.log('Response '+data.data.user.userName)
-      
+                  $location.path('/home')
                   $timeout(function () {
-                    $location.path('/')
+                    console.log('ggg')
                     $rootScope.user=data.data.user;
+                    $route.reload();
                     authUserService.checkSession();
-                  },50)
+                  },1000)
 
                   
                 }

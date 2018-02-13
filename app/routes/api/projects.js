@@ -73,7 +73,9 @@ const storage =multer.diskStorage({
  //   dest:'PradipNemane/'
 //})
 
-const uploadFolder= multer({storage:storage});
+const uploadFolder= multer({storage:storage,
+    limits:{fileSize:1024*1024*50}
+});
 
 
 var fileData=[
@@ -96,6 +98,7 @@ router.delete('/programminglanguages/:_id',deleteProgrammingLanguage);
 //Project Category Routes
 router.post('/projectcategorys',addProjectCategory);
 router.get('/projectcategorys',getAllProjectCategorys);
+router.get('/projectsbycategory/:_id',getAllProjectByCategory);
 router.get('/projectcategorys/:_id',getProjectCategory);
 router.put('/projectcategorys/:_id',updateProjectCategory);
 router.delete('/projectcategorys/:_id',deleteProjectCategory);
@@ -144,12 +147,13 @@ function addProject(req, res){
     //var user=new User();
     var project= new Project();
    
-  var complete=req.body.programmingLanguage.length+req.body.frontendTechnology.length;
+  var complete=req.body.programmingLanguage.length + req.body.frontendTechnology.length + 2;
   
     project.projectTitle=req.body.projectTitle;
     project.developer=req.decoded._id
     project.projectCategory=req.body.projectCategory
     project.description=req.body.description
+    
     project.projectReport =req.decoded.userName+"/"+req.body.projectTitle+"/"+req.files['projectReport'][0].originalname;
            
     project.indexPageUrl=req.decoded.userName+"/"+req.body.projectTitle+"/"+req.files['indexPage'][0].originalname;
@@ -170,54 +174,62 @@ function addProject(req, res){
     project.platformType =req.body.platformType;
     project.databaseType =req.body.databaseType;
              //finalPrice:{type:Number},
-    console.log(req.body.programmingLanguage);
+    //console.log(req.body.programmingLanguage);
     for (var index = 0; index < req.body.programmingLanguage.length; index++) {  
 
         ProgrammingLanguage.findById(req.body.programmingLanguage[index],(error,programmingLanguage)=>{
      
                 if(error)
-                {  res.json({success:false,
-                             error:error})
-                    console.log(error)
+                {  res.status(500).json({success:false,
+                    error:"There was a problem finding the programming Language information to the database."})
+           console.log(error)
                 }else{ 
                  //var projectCategoryId=Schema.Types.ObjectId(req.body.programmingLanguage[index]);
-                 project.programmingLanguage.push(programmingLanguage);   
-                 project.save(
-                    (error)=>{
-                    if(error)
-                    {   
-                        console.log(error)
-                    }else{ 
-                        console.log("project saved"+index);
-                        Project.findById(project._id,(error,project)=>{
-                            if(error)
-                            {  res.json({success:false,
-                                         error:error})
-                                console.log(error)
-                            }else{
-                                programmingLanguage.project.push(project);
+                 if (!programmingLanguage)
 
-                                ProgrammingLanguage.findByIdAndUpdate(programmingLanguage._id,programmingLanguage,(error)=>{
-
-                                    if(error){
-                                        res.json({error:error,
-                            
-                                        });
-                                    console.log(error)
-                                    }
-                                    else{
-                                        console.log("programmingLanguage saved !!!!!!!!!!");
-                                        complete--;
-                                        sendResponse(res,complete,project);
-                                    }
-                                })
-                            }
-                        
-                        });
-                        
-                    }
+                 return res.status(404).send("No programming Language found.");
                 
-                });
+                 
+                 project.programmingLanguage.push(programmingLanguage);   
+
+                 complete--;
+                 sendResponse(res,complete,project);
+                //  project.save(
+                //     (error)=>{
+                //     if(error)
+                //     {   
+                //         console.log(error)
+                //     }else{ 
+                //         console.log("project saved"+index);
+                //         Project.findById(project._id,(error,project)=>{
+                //             if(error)
+                //             {  res.json({success:false,
+                //                          error:error})
+                //                 console.log(error)
+                //             }else{
+                //                 programmingLanguage.project.push(project);
+
+                //                 ProgrammingLanguage.findByIdAndUpdate(programmingLanguage._id,programmingLanguage,(error)=>{
+
+                //                     if(error){
+                //                         res.json({error:error,
+                            
+                //                         });
+                //                     console.log(error)
+                //                     }
+                //                     else{
+                //                         console.log("programmingLanguage saved !!!!!!!!!!");
+                //                         complete--;
+                //                         sendResponse(res,complete,project);
+                //                     }
+                //                 })
+                //             }
+                        
+                //         });
+                        
+                //     }
+                
+                // });
                 }});       
    // var programmingLanguage=[];
        
@@ -231,70 +243,144 @@ function addProject(req, res){
         FrontendTechnology.findById(req.body.frontendTechnology[index],(error,frontendTechnology)=>{
      
             if(error)
-            {  res.json({success:false,
-                         error:error})
-                console.log(error)
+            { res.status(500).json({success:false,
+                error:"There was a problem finding the frontend Technology information to the database."})
+               console.log(error)
             }else{ 
-
+                    if (!frontendTechnology)
+                 
+                        return res.status(404).send("No frontend Technology found.");
+                
                     project.frontendTechnology.push(frontendTechnology);   
-                    console.log(frontendTechnology);
-                    project.save(
-                        (error)=>{
-                        if(error){   
-                            res.json({error:error,
+                    
+                    complete--;
+                    sendResponse(res,complete,project);
+                    // project.save(
+                    //     (error)=>{
+                    //     if(error){   
+                    //         res.json({error:error,
                         
-                                    });
-                            console.log(error)
-                        }else{ 
-                                console.log("project saved !!!!!!!!!!"+index)   
+                    //                 });
+                    //         console.log(error)
+                    //     }else{ 
+                    //             console.log("project saved !!!!!!!!!!"+index)   
 
-                                Project.findById(project._id,(error,project)=>{
-                                    if(error)
-                                    {  res.json({success:false,
-                                                 error:error})
-                                        console.log(error)
-                                    }else{
-                                        frontendTechnology.project.push(project);
+                    //             Project.findById(project._id,(error,project)=>{
+                    //                 if(error)
+                    //                 {  res.json({success:false,
+                    //                              error:error})
+                    //                     console.log(error)
+                    //                 }else{
+                    //                     frontendTechnology.project.push(project);
 
-                                        FrontendTechnology.findByIdAndUpdate(frontendTechnology._id,frontendTechnology,(error)=>{
+                    //                     FrontendTechnology.findByIdAndUpdate(frontendTechnology._id,frontendTechnology,(error)=>{
 
-                                            if(error){
-                                                res.json({error:error,
+                    //                         if(error){
+                    //                             res.json({error:error,
                                     
-                                                });
-                                            console.log(error)
-                                            }
-                                            else{
-                                                console.log("frontendTechnology saved !!!!!!!!!!");
-                                                complete--;
-                                                sendResponse(res,complete,project);
-                                            }
-                                        })
-                                    }
+                    //                             });
+                    //                         console.log(error)
+                    //                         }
+                    //                         else{
+                    //                             console.log("frontendTechnology saved !!!!!!!!!!");
+                    //                             complete--;
+                    //                             sendResponse(res,complete,project);
+                    //                         }
+                    //                     })
+                    //                 }
                                 
-                                });
+                    //             });
                                
                                 
-                        }
+                    //     }
+                    // });
+
+
+        }
+    }); 
+    };
+
+
+    //add project into Category 
+    ProjectCategory.findById(req.body.projectCategory,(error,projectCategory)=>{
+       
+            if(error){   
+                res.status(500).json({success:false,
+                    error:"There was a problem finding the project Category information to the database."})
+                   console.log(error)
+            }else{ 
+                //console.log(projectCategory);
+                if (!projectCategory)
+                 return res.status(404).send("No project Category found.");
+                
+                    projectCategory.project.push(project);
+                    ProjectCategory.findByIdAndUpdate(projectCategory._id,projectCategory,(error)=>{
+
+                        if(error){   
+                            res.status(500).json({success:false,
+                                error:"There was a problem updating the project Category information to the database."})
+                               console.log(error)
+                        }else{ 
+                            complete--;
+                            sendResponse(res,complete,project)
+                            }
+                        });
+              }
             });
 
 
-        }}); 
-    };
+    //Add Project Into User
+    User.findById(req.decoded._id,(error,user)=>{
+       
+                if(error){   
+                    res.status(500).json({success:false,
+                        error:"There was a problem finding the user information to the database."})
+                       console.log(error)
+                }else{ 
+                    //console.log(projectCategory);
+                    if (!user)
+                    return res.status(404).send("No user found.");
+                   
+                    user.project.push(project);
+                    User.findByIdAndUpdate(user._id,user,(error)=>{
+    
+                            if(error){   
+                                res.status(500).json({success:false,
+                                    error:"There was a problem updating the user information to the database."})
+                                   console.log(error)
+                            }else{ 
+                                complete--;
+                                sendResponse(res,complete,project)
+                                }
+                            });
+                  }
+                });
 }
 function sendResponse(res,complete,project) {
     
 
-    if(complete==0){
-    res.json({msg:"Hello Add Project!!!",
+    if(complete<=0){
+      
+        project.save(
+            (error)=>{
+            if(error){   
+              
+                res.status(500).json({error:"There was a problem adding the information to the database.",
+            
+                        });
+                console.log(error)
+            }else{ 
 
-                   project:project
+                res.status(200).json({
+                    success:true,
+                    message:"Project is added Succesfully !!",
+                    project:project
                 
         });
-    
-    }
+       }
+    });
 }
-    
+}  
 
 
 
@@ -308,11 +394,11 @@ function getAllProject(req,res) {
     Project.find((error,projects)=>{
      
         if(error)
-        {  res.json({success:false,
-                     error:error})
-            console.log(error)
+        {  res.status(500).json({success:false,
+            error:"There was a problem finding the Projects information to the database."})
+           console.log(error)
         }else{ 
-          res.json({
+          res.status(200).json({
               success:true,
               projects:projects
 
@@ -353,7 +439,7 @@ function getProject(req,res){
 function addProgrammingLanguage(req,res){
 
     if(req.body.name==null ||req.body.name==''){
-      res.json({msg:"Name should not be empty !!"});
+      res.json({message:"Name should not be empty !!"});
     }
 else{
     var programmingLanguage =new ProgrammingLanguage();
@@ -363,8 +449,10 @@ else{
     programmingLanguage.save(
        (error)=>{
          if(error)
-         {  res.json({success:false,
-                      error:error})
+         {  
+           
+            res.status(500).json({success:false,
+                      error:"There was a problem adding the information to the database."})
              console.log(error)
          }else{ 
            res.json({
@@ -417,15 +505,16 @@ else{
 
  function updateProgrammingLanguage(req,res){
     if(req.body.name==null ||req.body.name==''){
-        res.json({msg:"Name should not be empty !!"});
+        res.json({message:"Name should not be empty !!"});
       }
   else{
      
     ProgrammingLanguage.findByIdAndUpdate(req.params._id,{name:req.body.name},(error,programmingLanguage)=>{
      
         if(error)
-        {  res.json({success:false,
-                     error:error})
+        {  res.status(500).json({success:false,
+            error:"There was a problem updating  the information to the database."})
+   
             console.log(error)
         }else{ 
           res.json({
@@ -461,7 +550,7 @@ else{
 function addProjectCategory(req,res){
 
     if(req.body.name==null ||req.body.name==''){
-        res.json({msg:"Name should not be empty !!"});
+        res.json({message:"Name should not be empty !!"});
       }
   else{
     var projectCategory =new ProjectCategory();
@@ -469,9 +558,9 @@ function addProjectCategory(req,res){
     projectCategory.save(
        (error)=>{
          if(error)
-         {  res.json({success:false,
-                      error:error})
-             console.log(error)
+         {  res.status(500).json({success:false,
+            error:"There was a problem adding the information to the database."})
+   console.log(error)
          }else{ 
            res.json({
                success:true,
@@ -520,18 +609,49 @@ function addProjectCategory(req,res){
         }});
    
  }
+ function getAllProjectByCategory(req,res){
+     
+    ProjectCategory.findById(req.params._id)
+    .populate('project')
+    .populate({
+        path: 'project',
+        populate: { path: 'frontendTechnology',
+                    model:'FrontendTechnology' }})
+    .populate({
+        path: 'project',
+        populate: { path: 'programmingLanguage',
+                    model:'ProgrammingLanguage' }})
+    .populate({
+        path: 'project',
+        populate: { path: 'developer',
+                    model:'User' }})
+    .exec((error,projectCategory)=>{
+         
+        if(error)
+        {  res.json({success:false,
+                     error:error})
+            console.log(error)
+        }else{ 
+          res.json({
+              success:true,
+              projectCategory:projectCategory
 
+          })
+                 
+        }});
+   
+ }
  function updateProjectCategory(req,res){
     if(req.body.name==null ||req.body.name==''){
-        res.json({msg:"Name should not be empty !!"});
+        res.json({message:"Name should not be empty !!"});
       }
   else{
      
     ProjectCategory.findByIdAndUpdate(req.params._id,{name:req.body.name},(error,projectCategory)=>{
      
         if(error)
-        {  res.json({success:false,
-                     error:error})
+        {  res.status(500).json({success:false,
+            error:"There was a problem updating the information to the database."})
             console.log(error)
         }else{ 
           res.json({
@@ -566,7 +686,7 @@ function addProjectCategory(req,res){
 //Frontend Technology Functions 
 function addFrontendTechnology(req,res){
     if(req.body.name==null ||req.body.name==''){
-        res.json({msg:"Name should not be empty !!"});
+        res.json({message:"Name should not be empty !!"});
       }
   else{
     var frontendTechnology =new FrontendTechnology();
@@ -574,9 +694,9 @@ function addFrontendTechnology(req,res){
     frontendTechnology.save(
        (error)=>{
          if(error)
-         {  res.json({success:false,
-                      error:error})
-             console.log(error)
+         {  res.status(500).json({success:false,
+            error:"There was a problem adding the information to the database."})
+   console.log(error)
          }else{ 
            res.json({
                success:true,
@@ -629,16 +749,16 @@ function addFrontendTechnology(req,res){
 
  function updateFrontendTechnology(req,res){
     if(req.body.name==null ||req.body.name==''){
-        res.json({msg:"Name should not be empty !!"});
+        res.json({message:"Name should not be empty !!"});
       }
   else{
      
     FrontendTechnology.findByIdAndUpdate(req.params._id,{name:req.body.name},(error,frontendTechnology)=>{
      
         if(error)
-        {  res.json({success:false,
-                     error:error})
-            console.log(error)
+        {  res.status(500).json({success:false,
+            error:"There was a problem updating the information to the database."});
+   console.log(error)
         }else{ 
           res.json({
               success:true,
@@ -674,7 +794,7 @@ function addFrontendTechnology(req,res){
 //Project IDE Technology Functions 
 function addProjectIDE(req,res){
     if(req.body.name==null ||req.body.name==''){
-        res.json({msg:"Name should not be empty !!"});
+        res.json({message:"Name should not be empty !!"});
       }
   else{
     var projectIDE =new ProjectIDE();
@@ -682,9 +802,9 @@ function addProjectIDE(req,res){
     projectIDE.save(
        (error)=>{
          if(error)
-         {  res.json({success:false,
-                      error:error})
-             console.log(error)
+         { res.status(500).json({success:false,
+            error:"There was a problem adding the information to the database."})
+            console.log(error)
          }else{ 
            res.json({
                success:true,
@@ -738,15 +858,15 @@ function addProjectIDE(req,res){
  function updateProjectIDE(req,res){
       
     if(req.body.name==null ||req.body.name==''){
-        res.json({msg:"Name should not be empty !!"});
+        res.json({message:"Name should not be empty !!"});
       }
   else{
     ProjectIDE.findByIdAndUpdate(req.params._id,{name:req.body.name},(error,projectIDE)=>{
      
         if(error)
-        {  res.json({success:false,
-                     error:error})
-            console.log(error)
+        {  res.status(500).json({success:false,
+            error:"There was a problem updating the information to the database."})
+   console.log(error)
         }else{ 
           res.json({
               success:true,
@@ -781,7 +901,7 @@ function addProjectIDE(req,res){
 //Platform Type Functions 
 function addPlatformType(req,res){
     if(req.body.name==null ||req.body.name==''){
-        res.json({msg:"Name should not be empty !!"});
+        res.json({message:"Name should not be empty !!"});
       }
   else{
     var platformType =new PlatformType();
@@ -789,9 +909,9 @@ function addPlatformType(req,res){
     platformType.save(
        (error)=>{
          if(error)
-         {  res.json({success:false,
-                      error:error})
-             console.log(error)
+         {  res.status(500).json({success:false,
+            error:"There was a problem adding the information to the database."})
+            console.log(error)
          }else{ 
            res.json({
                success:true,
@@ -844,15 +964,15 @@ function addPlatformType(req,res){
 
  function updatePlatformType(req,res){
     if(req.body.name==null ||req.body.name==''){
-        res.json({msg:"Name should not be empty !!"});
+        res.json({message:"Name should not be empty !!"});
       }
   else{
      
     PlatformType.findByIdAndUpdate(req.params._id,{name:req.body.name},(error,platformType)=>{
      
         if(error)
-        {  res.json({success:false,
-                     error:error})
+        {  res.status(500).json({success:false,
+            error:"There was a problem updating the information to the database."})
             console.log(error)
         }else{ 
           res.json({
@@ -889,7 +1009,7 @@ function addPlatformType(req,res){
 function addDatabaseType(req,res){
 console.log(req.body.name);
     if(req.body.name==null || req.body.name==''){
-        res.json({msg:"Name should not be empty !!"});
+        res.json({message:"Name should not be empty !!"});
       }
   else{
     var databaseType =new DatabaseType();
@@ -897,9 +1017,9 @@ console.log(req.body.name);
     databaseType.save(
        (error)=>{
          if(error)
-         {  res.json({success:false,
-                      error:error})
-             console.log(error)
+         {  res.status(500).json({success:false,
+            error:"There was a problem adding the information to the database."})
+            console.log(error)
          }else{ 
            res.json({
                success:true,
@@ -953,14 +1073,14 @@ console.log(req.body.name);
  function updateDatabaseType(req,res){
       
     if(req.body.name==null ||req.body.name==''){
-        res.json({msg:"Name should not be empty !!"});
+        res.json({message:"Name should not be empty !!"});
       }
   else{
     DatabaseType.findByIdAndUpdate(req.params._id,{name:req.body.name},(error,databaseType)=>{
      
         if(error)
-        {  res.json({success:false,
-                     error:error})
+        {  res.status(500).json({success:false,
+            error:"There was a problem updating the information to the database."})
             console.log(error)
         }else{ 
           res.json({

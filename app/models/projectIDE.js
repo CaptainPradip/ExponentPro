@@ -7,7 +7,7 @@ var Schema= mongoose.Schema;
 
 var projectIDESchema=new Schema({
     name:{type:String ,required:true,unique:true},
-    project:[ { type: Schema.Types.ObjectId, ref: 'Project'}],
+    //project:[ { type: Schema.Types.ObjectId, ref: 'Project'}],
 });
 
 var ProjectIDE = mongoose.model('ProjectIDE',projectIDESchema);
