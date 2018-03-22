@@ -8,6 +8,7 @@ var bodyParser=require('body-parser');
 var mongodb=require('./config/mongodbconfig')
 var usersRouter =require('./app/routes/api/users')
 var projectsRouter =require('./app/routes/api/projects')
+var managementsRouter =require('./app/routes/api/managements')
 var loginPassport=require('./config/passport')(app,passport);
 
 //import all Schema
@@ -21,8 +22,9 @@ app.use(bodyParser.json());
 mongodb.mongoconnect();
 //app.use(morgan('dev'));
 
-app.use('/api',usersRouter);
+app.use('/api/user',usersRouter);
 app.use('/api/project',projectsRouter);
+app.use('/api/management',managementsRouter);
 
 app.get('*', (req, res) => {
     return res.sendfile('./public/views/index.html');

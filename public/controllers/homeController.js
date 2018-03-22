@@ -2,11 +2,16 @@
     'use strict';
 
     angular
-        .module('home',[])
+        .module('home',['projectService'])
         .controller('homeController', homeController);
         console.log('homeController')
-        homeController.$inject = ['$http','$scope','$timeout','$rootScope'];
-    function homeController($http,$timeout, $scope,$rootScope) {
+        homeController.$inject = ['$http',
+                                  '$scope',
+                                  '$timeout',
+                                  '$rootScope',
+                                  'projectCrudService'
+                                 ];
+    function homeController($http,$timeout, $scope,$rootScope,projectCrudService) {
        
         $('.button-collapse').sideNav();
         $('.parallax').parallax();
@@ -17,13 +22,30 @@
         $('.materialboxed').materialbox();
         $('.slider').height(500)
 
-
+        console.log("Inside HomeCtrl....");
         
         var vm = this;
-        activate();
+        vm.projectcategorys={};
+        vm.projects={};
+
+
+        getcategory();
+        
 
         ////////////////
 
-        function activate() { }
+        function getcategory() {
+            $rootScope.shownav=true;
+
+         projectCrudService.getProjectCategory().then(function(data){
+
+            vm.projectcategorys=data.data.projectCategorys;
+
+            console.log(vm.projectcategorys);
+         });
+
+         }
+
+
     }
 })();

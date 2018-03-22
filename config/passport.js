@@ -4,7 +4,7 @@ var jwt=require('jsonwebtoken');
 var session = require('express-session')
 var User =require('../app/models/user')
 var FacebookStrategy = require('passport-facebook').Strategy;
-
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 module.exports=function (app,passport) {
     
   
@@ -19,7 +19,8 @@ module.exports=function (app,passport) {
     { _id:user._id,
      userName:user.userName,
      email:user.email,
-     picture:user.picture
+     picture:user.picture,
+     permission:user.permission
     }
     
       token = jwt.sign(payload,config.secret, { expiresIn: '24h' });
@@ -58,7 +59,7 @@ passport.use(new FacebookStrategy({
           facebookUser.email=profile._json.email;
           facebookUser.password=profile._json.name;
           facebookUser.picture=profile._json.picture.data.url;
-          facebookUser.save(function(err) {
+          facebookUser.save(function(err){
                         if (err)
                             throw err;
 
@@ -76,6 +77,54 @@ passport.use(new FacebookStrategy({
 ));
 
 
+passport.use(new GoogleStrategy({
+  
+  clientID        : config.googleId,
+  clientSecret    : config.googleAPIKey,
+  callbackURL     : "http://localhost:3000/auth/google/callback",
+
+},function(token, refreshToken, profile, done) {
+
+        // make the code asynchronous
+        // User.findOne won't fire until we have all our data back from Google
+        console.log(profile);
+        console.log(profile.emails[0].value)
+        process.nextTick(function() {
+
+            // try to find the user based on their google id
+            User.findOne({'email':profile.emails[0].value}, function(err, user) {
+                if (err)
+                    return done(err);
+
+                if (user) {
+
+                    // if a user is found, log them in
+                    return done(null, user);
+                } else {
+                    // if the user isnt in our database, create a new user
+                    var GoogleUser = new User();
+                    GoogleUser.userName=profile.displayName;
+                    GoogleUser.email=profile.emails[0].value;
+                    GoogleUser.password=profile.emails[0].value;
+                    GoogleUser.picture=profile._json.image.url;
+                    // set all of the relevant information
+                    // newUser.google.id    = profile.id;
+                    // newUser.google.token = token;
+                    // newUser.google.name  = profile.displayName;
+                    // newUser.google.email = profile.emails[0].value; // pull the first email
+
+                    // save the user
+                    GoogleUser.save(function(err) {
+                        if (err)
+                            throw err;
+                        return done(null, GoogleUser);
+                    });
+                }
+            });
+        });
+
+    }));
+
 // Redirect the user to Facebook for authentication.  When complete,
 // Facebook will redirect the user back to the application at
 //     /auth/facebook/callback
@@ -92,7 +141,15 @@ passport.authenticate('facebook', {failureRedirect: '/login' }),function (req,re
      res.redirect('/login/'+token);
     
 });
- 
+
+app.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
+
+    // the callback after google has authenticated the user
+app.get('/auth/google/callback',
+passport.authenticate('google', {failureRedirect : '/login'}),function (req,res) {
+  res.redirect('/login/'+token);
+
+}); 
 
 return passport;
 }

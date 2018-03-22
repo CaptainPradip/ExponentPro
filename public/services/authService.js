@@ -19,6 +19,7 @@
         var service = {
            loginUser:loginUserHttp,
            getUser:getUserHttp,
+           updateUserProfile:updateUserProfileHttp,
            isLoggedIn:isLoggedInToken,
            facebookuser:setFacebookUserToken,
            SetCurrentUserEmail:SetCurrentUserEmail,
@@ -32,7 +33,7 @@
         ////////////////
         function loginUserHttp(loginUser) { 
            
-            return $http.post('api/authenticate',loginUser).then(function (data) {
+            return $http.post('api/user/authenticate',loginUser).then(function (data) {
                 var status=data.data.success
                 console.log(data.data.token)
                 if(status)
@@ -50,7 +51,7 @@
             var user={email:authTokenService.getUserEmail()}
             if(authTokenService.getToken())
             {
-                return $http.post('api/startNewSession',user).then(function (data) {
+                return $http.post('api/user/startNewSession',user).then(function (data) {
                     console.log(data.data.message)
                     authTokenService.setToken(data.data.token);
                     console.log("New token "+data.data.token+"")
@@ -103,7 +104,7 @@
            
             if(authTokenService.getToken())
             {
-                return $http.post('api/profile').then(function (data) {
+                return $http.get('api/user/profile').then(function (data) {
                     console.log(data.data.message)
                     return data;
                 });
@@ -112,7 +113,26 @@
             }
             
         }
+        function updateUserProfileHttp(user){
+            console.log(user);
 
+            var fd= new FormData();
+
+            for (const key in user) {
+               fd.append(key,user[key]);
+            }
+            var config = { transformRequest: angular.indentity,
+                headers: { 'Content-Type': undefined}
+          };
+           console.log("updateUserProfileHttp");
+            return $http.post('api/user/profile',fd,config).then(function (data) {
+                
+                return data;
+            
+            })
+
+            
+        }
         function isLoggedInToken() {
             if(authTokenService.getToken()){
                 return true;

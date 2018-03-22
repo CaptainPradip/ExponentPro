@@ -12,6 +12,10 @@ var projectSchema =new Schema({
     projectTitle:{type:String ,required:true},
     developer:{ type: Schema.Types.ObjectId, ref: 'User',required: true},
     projectCategory:{ type: Schema.Types.ObjectId, ref: 'ProjectCategory'},
+    noOfDatabaseTables:{type:Number},
+    noOfReportPages:{type:Number},
+    noOfProjectModules:{type:String},
+    moduleNames:{type:String},
     description:{type:String ,required:true},
     projectReport :{type:String},
     indexPageUrl:{type:String},
@@ -27,6 +31,7 @@ var projectSchema =new Schema({
     databaseType :{ type: Schema.Types.ObjectId, ref: 'DatabaseType'},
     noOfDownload:{type:Number ,required:true,default:0},
     noOfView:{type:Number ,required:true,default:0},
+    isVerified:{type:Boolean,required:true,default:false}
 
 });
 

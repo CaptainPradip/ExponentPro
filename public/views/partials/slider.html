@@ -1,0 +1,21 @@
+<div class="slider">
+        <ul class="slides" >
+            <li >
+                <img data-ng-src="../../assets/images/{{images.indexPageUrl}}"> <!-- random image -->
+                <div class="caption center-align">
+                  <h3></h3>
+                  <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+                </div>
+              </li>
+          <li data-ng-repeat="url in images.screenShotUrl">
+            <img data-ng-src="../../assets/images/{{url}}"> <!-- random image -->
+            <div class="caption center-align">
+              <h3></h3>
+              <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+            </div>
+          </li>
+
+
+        </ul>
+</div>
+<h1>{{images}}</h1>

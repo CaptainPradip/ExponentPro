@@ -6,19 +6,22 @@ var Schema= mongoose.Schema;
 var userSchema =new Schema({
      userName:{type:String ,required:true,unique:true},
      fullName:{type:String},
-     dateOfBirth:{type:Date},
+     dateOfBirth:{type:Date,formate:'dd mmmmm yyyy'},
      password:{type:String,required:true},
      email:{type:String ,required:true,unique:true},
      alternateEmail:{type:String},
      mobile:{type:String},
      alternateMobile:{type:String},
-     WorkExperience:{type:Number ,required:true,default:0},
+     workExperience:{type:Number ,required:true,default:0},
      workInCompany:{type:String},
      softSkills:{type:String},
      picture:{type:String },
      aboutMe:{type:String },
      project:[ { type: Schema.Types.ObjectId, ref: 'Project'}],
-
+     isFullProfile:{type:Boolean,required:true,default:false},
+     followers:{type:Number,required:true,default:0},
+     active:{type:Boolean,required:true,default:false},
+     temporaryToken:{type:String},
      permission:{type:String,default:'user'}
 
 });

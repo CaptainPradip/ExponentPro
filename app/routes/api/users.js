@@ -2,9 +2,71 @@
 var User=require('../../models/user')
 const express = require('express');
 var jwt=require('jsonwebtoken');
+var aws = require('aws-sdk');
+var multerS3 = require('multer-s3')
 var config=require('../../../config/config');
 var userService=require('../../service/userService')
+const multer=require('multer');
+const fs =require('fs');
+
+var s3 = new aws.S3({accessKeyId:config.accessKeyId,
+    secretAccessKey:config.secretAccessKey,
+    region:config.region});
+const profileImageUrl="public/assets/images/";
 const router = express.Router();
+
+
+
+// //Multer Middleware s
+// const storage =multer.diskStorage({
+    
+//         destination:function (req,file,cb) {
+           
+//            console.log("profilePicture");
+//             switch (file.fieldname) {
+              
+//                 case "profilePicture":
+//                                         cb(null,createImagePath(req));
+                                        
+//                                         break;
+                
+//                 default:
+//                     break;
+//             }
+    
+           
+//         },
+//         filename:function (req,file,cb) {
+           
+//             cb(null,file.originalname) 
+//         }
+//     })
+
+var upload = multer({
+    storage: multerS3({
+      s3: s3,
+      bucket: 'exponentpro.com',
+      acl: 'public-read',
+      metadata: function (req, file, cb) {
+        cb(null, {fieldName:req.decoded.userName+file.originalname});
+      },
+      key: function (req, file, cb) {
+        cb(null, req.decoded.userName+file.originalname)
+      }
+    })
+  })
+    // const uploadFolder= multer({storage:storage,
+    //     limits:{fileSize:1024*1024*5}
+    // });
+    
+    
+    var fileData=[
+    
+        {name:'profilePicture',maxCount: 1},
+       
+    ]
+
+
 
 router.post('/signUp', (req, res) => {
     console.log(req.body.userName)
@@ -53,7 +115,7 @@ router.post('/authenticate', (req, res) => {
          res.json({success:false,message:"Email ,Password is not provided !!!"});
      }
      else{
-        User.findOne({email:req.body.email}).select('_id email userName password').exec(function (error,user) {
+        User.findOne({email:req.body.email}).select('_id email userName password permission').exec(function (error,user) {
 
             if(error){
                throw error
@@ -73,12 +135,14 @@ router.post('/authenticate', (req, res) => {
                     throw error;
                 }
                 if(isMatch){
-                    console.log("Aunthenticate user")
+                    console.log("Aunthenticate user"+user.permission)
+                    console.log(user);
                    const payload=
                    {
                     _id:user._id,
                     userName:user.userName,
-                    email:user.email
+                    email:user.email,
+                    permission:user.permission
                    }
                var token = jwt.sign(payload,config.secret, { expiresIn: '24h' });
 
@@ -142,11 +206,99 @@ var token =req.body.token ||req.query.token||req.headers['x-access-token'];
    }
 
 });
-//this private  route use for after login 
-router.post('/profile', (req, res) => {
 
-    res.json({message:'authentication succesfull',user:req.decoded});
-});
+//this private  route use for after login 
+router.get('/profile',getProfileByID);
+router.post('/profile',upload.fields(fileData),updateProfile);
+//router.delete('/profile/:_id',deactivateProfile);
+
+
+
+function getProfileByID(req, res){
+  
+    User.findById(req.decoded._id)
+    .populate('project','_id projectTitle indexPageUrl')
+    .exec((error,user)=>{
+   
+        if(error)
+        {  res.status(500).json({success:false,
+            error:"There was a problem finding the information to the database."})
+        }else{ 
+          res.status(200).json({
+              success:true,
+              user:user
+
+          })
+        }
+
+    });
+
+}
+
+
+ function updateProfile(req, res){
+
+
+    console.log(req.body.fullName);
+    console.log(req.body.dateOfBirth);
+    console.log(req.body.mobile);
+    console.log(req.body.softSkills);
+    console.log(req.body.aboutMe);
+   
+
+
+        var user={
+            fullName:req.body.fullName,
+            dateOfBirth:req.body.dateOfBirth,
+            mobile:req.body.mobile,
+            softSkills:req.body.softSkills,
+            aboutMe:req.body.aboutMe,
+            alternateMobile:req.body.alternateMobile,
+            alternateEmail:req.body.alternateEmail,
+            workExperience:req.body.workExperience,
+            workInCompany:req.body.workInCompany,
+            isFullProfile:true,
+            picture:req.files['profilePicture'][0].location
+        };
+
+       
+        if (req.body.fullName==null||req.body.fullName==''||req.body.dateOfBirth==null
+            ||req.body.dateOfBirth==''||req.body.mobile==null||req.body.mobile=='' 
+            ||req.body.softSkills==null||req.body.softSkills==''||req.body.aboutMe==null||req.body.aboutMe==''){
+                  
+                res.json({success:false,message:"Email ,Password is not provided !!!"});
+        }
+        else{
+             User.findByIdAndUpdate(req.decoded._id,user,(error,user)=>{
+                
+                   if(error)
+                   {  res.status(500).json({
+                       success:false,
+                       error:"There was a problem updating the information to the User."})
+                       console.log(error)
+                   }else{ 
+                     res.status(200).json({
+                         success:true,
+                         user:user,
+                         message:"profile Updated Succesfully !!!"
+                     })
+                            
+                   }});
+                      
+                  
+            }
+            
+};
+
+
+
+
+
+
+
+
+
+
 
 router.post('/startNewSession', (req, res) => {
       
@@ -207,9 +359,29 @@ router.post('/startNewSession', (req, res) => {
 
 
 
+// Reuse Functions 
+function createImagePath(req) {
+    var userPath="";
+    if(fs.existsSync(profileImageUrl)){
+          userPath =profileImageUrl+req.decoded.userName;
+         if(!fs.existsSync(userPath))
+         {
+            fs.mkdirSync(userPath);
+           
+         }     
+    }
+    else{
+
+        fs.mkdirSync(profileImageUrl);
+        userPath =profileImageUrl+req.decoded.userName;
+        if(!fs.existsSync(userPath)){
+           fs.mkdirSync(userPath);
+          
+       
+        }
+    }
+    return userPath;
+}
 
 
 module.exports =router;
-
-
- 

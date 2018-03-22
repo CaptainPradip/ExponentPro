@@ -1,33 +1,47 @@
+
 (function() {
     'use strict';
 
     angular
-        .module('projectList',['rzModule'])
+        .module('projectList',['rzModule','projectService','projectSearchFilter'])
         .controller('projectListController', projectListController);
+        
 
-    projectListController.$inject = ['$rootScope','$scope'];
-    function projectListController($rootScope,$scope) {
+
+    projectListController.$inject = ['$rootScope',
+                                     '$scope',
+                                     '$routeParams',
+                                     'projectCrudService',
+                                    ];
+
+
+
+    function projectListController($rootScope,$scope,$routeParams,projectCrudService) {
         var vm = this;
+       
         $rootScope.shownav=false;
         $rootScope.mainnav=true
-
-
-        
-    console.log($scope.min)
-    console.log($scope.max)
+        console.log($routeParams._id);
+        getProjectsByCategoryId();
+        getProgrammingLanguage();
+        getDatabaseType();
+        getFrontendTechnology();
+        getPlatformType();
+    console.log(vm.min)
+    console.log(vm.max)
         $scope.slider = {
-            minValue: 2000,
+            minValue: 0,
             maxValue: 10000,
             options: {
-              floor: 2000,
+              floor: 0,
               ceil: 10000,
               translate: function(value, sliderId, label) {
                 switch (label) {
                   case 'model':
-                  $scope.min=value;
+                  vm.min=value;
                     return '<b>Min</b> ₹' + value;
                   case 'high':
-                  $scope.max=value;
+                  vm.max=value;
                     return '<b>Max:</b> ₹' + value;
                   default:
                     return '$' + value
@@ -36,108 +50,65 @@
             }
           };
 // Initialize collapse button
-$(".button-collapse").sideNav();
+$(".sidebar-collapse").sideNav();
 // Initialize collapsible (uncomment the line below if you use the dropdown variation)
 $('.collapsible').collapsible();
 
+$('.scrollspy').scrollSpy();
 
 
-$('#product-card').hover(function(){
-  $(this).addClass('animate');
-  $('div.carouselNext, div.carouselPrev').addClass('visible');			
- }, function(){
-  $(this).removeClass('animate');			
-  $('div.carouselNext, div.carouselPrev').removeClass('visible');
-});	
-
-// Flip card to the back side
-$('#view_details').click(function(){		
-$('div.carouselNext, div.carouselPrev').removeClass('visible');
-$('#product-card').addClass('flip-10');
-setTimeout(function(){
-  $('#product-card').removeClass('flip-10').addClass('flip90').find('div.shadow').show().fadeTo( 80 , 1, function(){
-    $('#product-front, #product-front div.shadow').hide();			
-  });
-}, 50);
-
-setTimeout(function(){
-  $('#product-card').removeClass('flip90').addClass('flip190');
-  $('#product-back').show().find('div.shadow').show().fadeTo( 90 , 0);
-  setTimeout(function(){				
-    $('#product-card').removeClass('flip190').addClass('flip180').find('div.shadow').hide();						
-    setTimeout(function(){
-      $('#product-card').css('transition', '100ms ease-out');			
-      $('#cx, #cy').addClass('s1');
-      setTimeout(function(){$('#cx, #cy').addClass('s2');}, 100);
-      setTimeout(function(){$('#cx, #cy').addClass('s3');}, 200);				
-      $('div.carouselNext, div.carouselPrev').addClass('visible');				
-    }, 100);
-  }, 100);			
-}, 150);			
-});			
-
-// Flip card back to the front side
-$('#flip-back').click(function(){		
-
-$('#product-card').removeClass('flip180').addClass('flip190');
-setTimeout(function(){
-  $('#product-card').removeClass('flip190').addClass('flip90');
-
-  $('#product-back div.shadow').css('opacity', 0).fadeTo( 100 , 1, function(){
-    $('#product-back, #product-back div.shadow').hide();
-    $('#product-front, #product-front div.shadow').show();
-  });
-}, 50);
-
-setTimeout(function(){
-  $('#product-card').removeClass('flip90').addClass('flip-10');
-  $('#product-front div.shadow').show().fadeTo( 100 , 0);
-  setTimeout(function(){						
-    $('#product-front div.shadow').hide();
-    $('#product-card').removeClass('flip-10').css('transition', '100ms ease-out');		
-    $('#cx, #cy').removeClass('s1 s2 s3');			
-  }, 100);			
-}, 150);			
-
-});	
 
 
-/* ----  Image Gallery Carousel   ---- */
+function getProjectsByCategoryId(){
+ 
+      projectCrudService.getProjectByCategoryId($routeParams._id).then(function(data){
+          
+                   vm.projects=data.data.projectCategory.project;
+                   $rootScope.isLoaded=true
+                      console.log(vm.projects);
+              });
+  }
 
-var carousel = $('#carousel ul');
-var carouselSlideWidth = 335;
-var carouselWidth = 0;	
-var isAnimating = false;
 
-// building the width of the casousel
-$('#carousel li').each(function(){
-carouselWidth += carouselSlideWidth;
-});
-$(carousel).css('width', carouselWidth);
+  function getProgrammingLanguage(){
+    
+        projectCrudService.getProgrammingLanguage().then(function(data){
+            
+                    vm.programmingLanguages=data.data.programmingLanguages;
+                   
+                        console.log(data.data);
+                     });
+    }
 
-// Load Next Image
-$('div.carouselNext').on('click', function(){
-var currentLeft = Math.abs(parseInt($(carousel).css("left")));
-var newLeft = currentLeft + carouselSlideWidth;
-if(newLeft == carouselWidth || isAnimating === true){return;}
-$('#carousel ul').css({'left': "-" + newLeft + "px",
-             "transition": "300ms ease-out"
-           });
-isAnimating = true;
-setTimeout(function(){isAnimating = false;}, 300);			
-});
 
-// Load Previous Image
-$('div.carouselPrev').on('click', function(){
-var currentLeft = Math.abs(parseInt($(carousel).css("left")));
-var newLeft = currentLeft - carouselSlideWidth;
-if(newLeft < 0  || isAnimating === true){return;}
-$('#carousel ul').css({'left': "-" + newLeft + "px",
-             "transition": "300ms ease-out"
-           });
-  isAnimating = true;
-setTimeout(function(){isAnimating = false;}, 300);			
-});
+function getDatabaseType(){
+  
+      projectCrudService.getDatabaseType().then(function(data){
+           vm.databaseTypes=data.data.databaseTypes
+           ;
+                   
+                 
+                  console.log(data.data);
+                   });
+  }
+
+
+function getFrontendTechnology(){
+  
+      projectCrudService.getFrontendTechnology().then(function(data){
+           vm.frontendTechnologys=data.data.frontendTechnology;
+        console.log(data.data);
+                   });
+  }
+
+
+function getPlatformType(){
+  
+      projectCrudService.getPlatformType().then(function(data){
+            vm.platformTypes=data.data.platformTypes            ;
+        console.log(data.data);
+                   });
+  }
 
         activate();
 

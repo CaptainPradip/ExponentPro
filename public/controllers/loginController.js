@@ -110,6 +110,13 @@
             
             console.log($routeParams.token);
         }
+
+        $scope.loginWithGoogle=function() {
+            
+            $window.location=$window.location.protocol+'//'+$window.location.host+'/auth/google'
+            
+            console.log($routeParams.token);
+        }
     }
   
     

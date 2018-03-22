@@ -1,481 +1,446 @@
-<div class="container">
+<div class="container" ng-controller="profileController as vm">
 
-    <div id="profile-page" class="section">
-      <!-- profile-page-header -->
-      <div id="profile-page-header" class="card">
-          <div class="card-image waves-effect waves-block waves-light">
-              <img class="activator" src="../../assets/images/user-profile-bg.jpg" alt="user background">                    
-          </div>
-          <figure class="card-profile-image">
-              <img src="../../assets/images/avatar.jpg" alt="profile image" class="circle z-depth-2 responsive-img activator">
-          </figure>
-          <div class="card-content">
-            <h3></h3>
-            <div class="row">                    
-              <div class="col s2 offset-s2">                        
-                  <h4 class="card-title grey-text text-darken-4"></h4><br>
-                  <h4 class="card-title grey-text text-darken-4">Roger Waters</h4>                        
-              </div>
-              <div class="col s1 center-align">
-                    <h4 class="card-title grey-text text-darken-4">
-                    <a href="#updateUserProfile" class="waves-effect waves-light darken-2 modal-trigger "><i class="ion-edit"></i><br></h4><br><br>
-                    <p class="medium-small black-text center-align">Update Profile</p></a>
-                    
-             </div>
-             <div class="col s2 center-align">
-                    <h4 class="card-title grey-text text-darken-4"><a href="#addProject" class="waves-effect waves-light darken-2 modal-trigger "><i class="ion-android-checkbox-outline"></i><br>6</h4>
-                    <p class="medium-small black-text">Add Project</p>     
-                    </a>                   
-                </div> 
-              <div class="col s2 center-align">
-                  <h4 class="card-title grey-text text-darken-4"><i class="ion-university"></i><br>10+</h4>
-                  <p class="medium-small grey-text">Work Experience</p>                        
-              </div>
-                                 
-              <div class="col s2 center-align">
-
-                  <h4 class="card-title grey-text text-darken-4"><i class="ion-person-stalker"></i><br>10</h4>
-                  <p class="medium-small grey-text">Followers</p>                        
-              </div>                    
-              
+  <div id="profile-page" class="section">
+    <!-- profile-page-header -->
+    <div id="profile-page-header" class="card">
+        <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator" src="../../assets/images/user-profile-bg.jpg" alt="user background">                    
+        </div>
+        <figure class="card-profile-image">
+            <img ng-src="{{vm.user.picture}}" alt="profile image" class="circle z-depth-2 responsive-img activator">
+        </figure>
+        <div class="card-content">
+          <h3></h3>
+          <div class="row">                    
+            <div class="col s2 offset-s2">                        
+                <h4 class="card-title grey-text text-darken-4"></h4><br>
+                <h4 class="card-title grey-text text-darken-4">{{vm.user.userName}}</h4>                        
             </div>
+            <div class="col s1 center-align">
+                  <h4 class="card-title grey-text text-darken-4">
+                  <a ng-click="vm.showUpdateProfileModel()" class="waves-effect waves-light darken-2 modal-trigger "><i class="ion-edit"></i><br></h4><br><br>
+                  <p class="medium-small black-text center-align">Update Profile</p></a>
+                  
+           </div>
+           <div class="col s2 center-align" ng-if="vm.user.isFullProfile">
+                 <h4 class="card-title grey-text text-darken-4"><a ng-click="vm.showAddprojectModel()" class="waves-effect waves-light darken-2 modal-trigger disabled"><i class="ion-android-checkbox-outline"></i><br>{{vm.user.project.length}}</h4>
+                  <p class="medium-small black-text">Add Project</p>     
+                  </a>                   
+            </div> 
+            <div class="col s2 center-align" ng-if="!vm.user.isFullProfile">
+                <h4 class="card-title grey-text text-darken-4"><a class="waves-effect waves-light darken-2 modal-trigger disabled"><i class="ion-android-lock"></i><br>0</h4>
+                 <p class="medium-small black-text">Add Project</p>     
+                 </a>                   
+           </div> 
+
+            <div class="col s2 center-align">
+                <h4 class="card-title grey-text text-darken-4"><i class="ion-university"></i><br>{{vm.user.workExperience}}</h4>
+                <p class="medium-small grey-text">Work Experience</p>                        
+            </div>
+                               
+            <div class="col s2 center-align">
+
+                <h4 class="card-title grey-text text-darken-4"><i class="ion-person-stalker"></i><br>{{vm.user.followers}}</h4>
+                <p class="medium-small grey-text">Followers</p>                        
+            </div>                    
+            
           </div>
-          
+        </div>
+        
+    </div>
+
+    <!-- Update User Profile    -->
+
+    <div id="updateUserProfile" class="modal white modal-fixed-footer" >
+       <form  name="vm.userFormData" ng-submit="vm.UpdateUserProfile(vm.userData)">
+          <div class="modal-content">
+                  <div class="row">
+                          <div class="input-field col s12 m6 l6">
+                            <i class="ion-android-contact prefix"></i>
+                            <input id="fullName" type="text" value="vm.user.fullName" ng-model="vm.userData.fullName" ng-required="true">
+                            <label for="fullName">Full  Name</label>
+                          </div>
+                          <div class="input-field col s6 m6 l6">
+                                  
+                                  <i class="ion-ios-calendar-outline prefix"></i>
+                                  <input type="date" class="datepicker" id="dateOfBirth" ng-model="vm.userData.dateOfBirth">
+                                  <label for="dob">DOB</label>
+                          </div>
+                        </div>
+                        <div class="row">
+                            
+                              <div class="input-field col s12 m6 l6">
+                                      <i class="ion-email prefix"></i>
+                                  <input id="alternateEmail" type="text"  value="vm.user.alternateEmail" ng-model="vm.userData.alternateEmail">
+                                  <label for="alternateEmail">Alternate Email</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                  <div class="input-field col s12 m6 l6">
+                                          <i class="ion-ios-telephone prefix"></i>
+                                    <input id="mobile" type="text" value="vm.user.mobile" ng-model="vm.userData.mobile" ng-required="true">
+                                    <label for="mobile">Mobile*</label>
+                                  </div>
+      
+                                  <div class="input-field col s12 m6 l6">
+                                      <i class="ion-ios-telephone prefix"></i>
+                                      <input id="alternateMobile" type="text" value="vm.user.alternateMobile" ng-model="vm.userData.alternateMobile">
+                                      <label for="alternateMobile">Alternate Mobile</label>
+                                    </div>
+                             </div> 
+                        <div class="row">
+                          <div class="input-field col s12 m6 l6">
+                            <i class="ion-university prefix"></i>
+                            <input id="workExperience" type="number" min="0" value="vm.user.workExperience" ng-model="vm.userData.workExperience">
+                            <label for="workExperience">Work Experiance</label>
+                          </div>
+
+                          <div class="input-field col s12 m6 l6">
+                              <i class="ion-android-home prefix"></i>
+                              <input id="workInCompany" type="text" value="vm.user.workInCompany" ng-model="vm.userData.workInCompany">
+                              <label for="workInCompany">Worked In Company</label>
+                          </div>
+                        </div>
+                        
+                        <div class="row">
+                              <div class="input-field col s6">
+                                  
+                                  <i class="ion-android-home prefix"></i>
+                                  <input id="SoftSkill" type="text" placeholder="write SoftSkill Comma(,) Separeated !!" value="vm.user.softSkills" ng-model="vm.userData.softSkills" ng-required="true">
+                                  <label for="SoftSkill">Soft Skills</label>
+                                      
+                              </div>
+                              <div class="input-field col s6">
+                                  <i class="ion-edit prefix"></i>
+                                  <textarea id="aboutMe" class="materialize-textarea" length="120" value="vm.user.aboutMe" ng-model="vm.userData.aboutMe" ng-required="true"></textarea>
+                                  <label for="aboutMe">About Me</label>
+                                  </div>
+                        </div>
+                        <div class="row">
+                              
+                              <div class="col s6 m6 l6">
+                                      <p>Maximum file upload size 4MB.</p>
+                                      <input  type="file" name="profilePicture" id="input-file-max-fs" class="dropify"  file-model="profilePicture" ng-model="profilePicture" />
+                                      <label>Profile Image</label>
+                              </div>
+                             
+                        </div>
+                        
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="modal-action  waves-effect waves-green green btn-flat" ng-disabled="vm.userFormData.$invalid">Save</button>
+            <a href="#!" class="modal-action modal-close waves-effect waves-green  orange btn-flat">Cancel</a>
+          </div>
+        </form>
       </div>
 
-      <!-- Update User Profile    -->
-
-      <div id="updateUserProfile" class="modal white modal-fixed-footer">
-            <div class="modal-content">
-                    <div class="row">
-                            <div class="input-field col s12 m6 l6">
-                              <i class="ion-android-contact prefix"></i>
-                              <input id="first_name" type="text">
-                              <label for="first_name">Full  Name</label>
-                            </div>
-                            <div class="input-field col s6 m6 l6">
-                                    
-                                    <i class="ion-ios-calendar-outline prefix"></i>
-                                    <input type="date" class="datepicker">
-                                    <label for="dob">DOB</label>
-                            </div>
-                          </div>
-                          <div class="row">
-                                <div class="input-field col s12 m6 l6">
-                                  <i class="ion-email prefix"></i>
-                                  <input id="email5" type="email">
-                                  <label for="email">Email</label>
-                                </div>
-                                
-                                <div class="input-field col s12 m6 l6">
-                                        <i class="ion-email prefix"></i>
-                                    <input id="email5" type="text">
-                                    <label for="email">Alternate Email</label>
-                                  </div>
-                              </div>
-                              <div class="row">
-                                    <div class="input-field col s12 m6 l6">
-                                            <i class="ion-ios-telephone prefix"></i>
-                                      <input id="email5" type="text">
-                                      <label for="email">Mobile</label>
-                                    </div>
         
-                                    <div class="input-field col s12 m6 l6">
-                                        <i class="ion-ios-telephone prefix"></i>
-                                        <input id="email5" type="text">
-                                        <label for="email">Alternate Mobile</label>
-                                      </div>
-                               </div> 
-                          <div class="row">
-                            <div class="input-field col s12 m6 l6">
-                              <i class="ion-university prefix"></i>
-                              <input id="email5" type="number" min="0">
-                              <label for="email">Work Experiance</label>
-                            </div>
-
-                            <div class="input-field col s12 m6 l6">
-                                <i class="ion-android-home prefix"></i>
-                                <input id="email5" type="text">
-                                <label for="email">Worked In Company</label>
-                            </div>
-                          </div>
-                          
-                          <div class="row">
-                                <div class="input-field col s6">
-                                    
-                                        <select multiple>
-                                          <option value="" disabled selected>Choose Soft Skills</option>
-                                          <option value="1">Java</option>
-                                          <option value="2">PHP</option>
-                                          <option value="3">C#</option>
-                                          <option value="3">C++</option>
-                                        </select>
-                                        <label>Soft Skills</label>
-                                </div>
-                                <div class="input-field col s6">
-                                    <i class="ion-edit prefix"></i>
-                                    <textarea id="message5" class="materialize-textarea" length="120"></textarea>
-                                    <label for="message">About Me</label>
-                                    </div>
-                          </div>
-                          <div class="row">
-                                
-                                <div class="col s6 m6 l6">
-                                        <p>Maximum file upload size 2MB.</p>
-                                        <input type="file" id="input-file-max-fs" class="dropify" data-max-file-size="2M" multiple/>
-                                        <label>Profile Image</label>
-                                    </div>
-                                
-                          </div>
-                          
-            </div>
-            <div class="modal-footer">
-              <a href="#!" class="modal-action modal-close waves-effect waves-green green btn-flat">Save</a>
-              <a href="#!" class="modal-action modal-close waves-effect waves-green  orange btn-flat">Cancel</a>
-            </div>
-        </div>
-
-          
-      <div id="addProject" class="modal white modal-fixed-footer">
-            <div class="modal-content">
-                    <h4 class="header2">Add Project</h4>
-                          
-                    <div class="row">
-                      <div class="input-field col s12">
-                        <input id="password6" type="text">
-                        <label for="password">Project Title</label>
-                      </div>
+    <div id="addProject" class="modal white modal-fixed-footer">
+      <form name="vm.userProjectData" ng-submit="vm.addNewProject(vm.newProject)" novalidate>
+          <div class="modal-content">
+                  <h4 class="header2">Add New Project</h4>
+                 
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <input id="ProjectTitle" type="text" ng-model="vm.newProject.projectTitle" ng-required="true">
+                      <label for="ProjectTitle">Project Title</label>
                     </div>
-                    <div class="row">
-                      <div class="input-field col s12 m6 l6">
-                        <select>
-                          <option value="" disabled selected>Choose Project Category</option>
-                          <option value="1">Web Application</option>
-                          <option value="2">Mobile Appication</option>
-                          <option value="3">Desktop Application</option>
-                        </select>
-                        <label>Project Category</label>
-                      </div>                        
-                      <div class="input-field col s12 m6 l6">
-                          <select multiple>
-                            <option value="" disabled selected>Choose Project Programing Language</option>
-                            <option value="1">Java</option>
-                            <option value="2">PHP</option>
-                            <option value="3">C#</option>
-                            <option value="3">C++</option>
-                          </select>
-                          <label>Programing Language</label>
-                        </div>
-                      
-                    </div>
-                    <div class="row">
-                                           
-                      <div class="input-field col s12 m6 l6">
-                          <select multiple>
-                            <option value="" disabled selected>Choose Project Frontend Technology</option>
-                            <option value="1">HTML</option>
-                            <option value="2">CSS</option>
-                            <option value="3">Bootstrap</option>
-                            <option value="3">Angularjs</option>
-                            <option value="3">Angular</option>
-                           
-                          </select>
-                          <label>Programing Language</label>
-                        </div>
-                        <div class="input-field col s12 m6 l6">
-                            <select >
-                              <option value="" disabled selected>Choose Project IDE</option>
-                              <option value="1">Eclipse</option>
-                              <option value="2">Visual Studio code</option>
-                              <option value="3">Notepad++</option>
-                              <option value="3">Visual Studio</option>
-                             
-                             
-                            </select>
-                            <label>Project IDE</label>
-                          </div>
-                      
-                    </div>
-                    <div class="row">
-                      <div class="input-field col s12 m6 l6">
-                          
-                              <select>
-                                <option value="" disabled selected>Choose Project Platform</option>
-                                <option value="1">JAVA</option>
-                                <option value="2">.NET</option>
-                                
-                              </select>
-                              <label>Platform</label>
-                            
-                      </div>
-                      <div class="input-field col s12 m6 l6">                          
+                  </div>
+                  <div class="row">
+                    <div class="input-field col s12 m6 l6">
+                      <select ng-model="vm.newProject.projectCategory" material-select watch ng-required="true">
+                        <option value="" disabled selected>Choose Project Category</option>
+                        <option value="{{category._id}}" ng-repeat="category in vm.projectCategorys">{{category.name}}</option>
                         
-                              <select>
-                                <option value="" disabled selected>Choose Project Database</option>
-                                <option value="1">MySql</option>
-                                <option value="2">MongoDB</option>
-                                <option value="3">SQL Server</option>
-                              </select>
-                              <label>Database</label>
+                      </select>
+                      <label>Project Category</label>
+                    </div>                        
+                    <div class="input-field col s12 m6 l6">
+                        <select ng-model="vm.newProject.programmingLanguage"  id="programmingLanguage" multiple material-select watch ng-required="true">
+                          <option value="" disabled selected>Choose Project Programing Language</option>
+                          <option value="{{programmingLanguage._id}}" ng-repeat="programmingLanguage in vm.programmingLanguages">{{programmingLanguage.name}}</option>
+                          
+                        </select>
+                        <label>Programing Language</label>
+                      </div>
+                    
+                  </div>
+                  <div class="row">
+                                         
+                    <div class="input-field col s12 m6 l6">
+                        <select ng-model="vm.newProject.frontendTechnology" multiple material-select watch ng-required="true">
+                          <option value="" disabled selected>Choose Project Frontend Technology</option>
+                          <option value="{{frontendTechnology._id}}" ng-repeat="frontendTechnology in vm.frontendTechnologys">{{frontendTechnology.name}}</option>
+            
+                        </select>
+                        <label>Programing Language</label>
+                      </div>
+                      <div class="input-field col s12 m6 l6">
+                          <select ng-model="vm.newProject.projectIDE" material-select watch ng-required="true">
+                            <option value="" disabled selected>Choose Project IDE</option>
+                            <option value="{{projectIDE._id}}" ng-repeat="projectIDE in vm.projectIDEs">{{projectIDE.name}}</option>
+                        
+                          </select>
+                          <label>Project IDE</label>
+                        </div>
+                    
+                  </div>
+                  <div class="row">
+                    <div class="input-field col s12 m6 l6">
+                        
+                            <select ng-model="vm.newProject.platformType" material-select watch ng-required="true">
+                              <option value="" disabled selected>Choose Project Platform</option>
+                              <option value="{{platformType._id}}" ng-repeat="platformType in vm.platformTypes">{{platformType.name}}</option>
                             
-                      </div>
-                      <div class="row">
-                      <div class="input-field col s12 m12 l12">
-                          <i class="ion-edit prefix"></i>
-                        <textarea id="message5" class="materialize-textarea" length="120"></textarea>
-                        <label for="message">Description</label>
-                      </div>
-                      </div>
-                      <div class="row">
-                          <div class="input-field col s12 m12 l12">
-                              
-                              <div class="row section">
-                                  <div class="col s6 m4 l3">
-                                    <p>Project Report / Documentation</p><br>
-                                    <p>Accepted format doc, docx, pdf, odt and file size should be less than 5MB.</p>
-                                  </div>
-                                  <div class="col s6 m8 l9">
-                                      <p>Maximum file upload size 2MB.</p>
-                                      <input type="file" id="input-file-max-fs" class="dropify" data-max-file-size="2M" multiple/>
-                                  </div>
-                                </div>
-                                
-                          </div>
-                      </div>
-                      <div class="row">
+                            </select>
+                            <label>Platform</label>
+                          
+                    </div>
+                    <div class="input-field col s12 m6 l6">                          
+                      
+                            <select ng-model="vm.newProject.databaseType" material-select watch ng-required="true" >
+                              <option value="" disabled selected>Choose Project Database</option>
+                              <option value="{{databaseType._id}}" ng-repeat="databaseType in vm.databaseTypes">{{databaseType.name}}</option>
+                            </select>
+                            <label>Database</label>
+                          
+                    </div>
+                    <div class="row">
+                    <div class="input-field col s12 m12 l12">
+                        <i class="ion-edit prefix"></i>
+                      <textarea id="message5" class="materialize-textarea" length="120" ng-model="vm.newProject.description" ng-required="true"></textarea>
+                      <label for="message">Description</label>
+                    </div>
+                    </div>
+                    <!-- <div class="row">
                         <div class="input-field col s12 m12 l12">
                             
                             <div class="row section">
                                 <div class="col s6 m4 l3">
-                                  <p>Project Code (.ZIP)</p>
+                                  <p>Project Report / Documentation</p><br>
+                                  <p>Accepted format doc, docx, pdf, odt and file size should be less than 5MB.</p>
                                 </div>
                                 <div class="col s6 m8 l9">
-                                    <p>Maximum file upload size 50MB file</p>
-                                    <input type="file" id="input-file-max-fs" class="dropify" data-max-file-size="2M" />
+                                    <p>Maximum file upload size 2MB.</p>
+                                    <input type="file" id="projectReport" class="dropify" data-max-file-size="2M" ng-required="true"/>
                                 </div>
                               </div>
                               
                         </div>
                     </div>
-                      <div class="row">
-                          <div class="input-field col s12 m12 l12">
-                              
-                              <div class="row section">
-                                  <div class="col s6 m4 l3">
-                                    <p>Project Index Page Screenshot</p>
-                                  </div>
-                                  <div class="col s6 m8 l9">
-                                      <p>Maximum file upload size 2MB.</p>
-                                      <input type="file" id="input-file-max-fs" class="dropify" data-max-file-size="2M" />
-                                  </div>
-                                </div>
-                                
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="input-field col s12 m12 l12">
-                              
-                              <div class="row section">
-                                  <div class="col s6 m4 l3">
-                                    <p>Project Screenshots</p>
-                                  </div>
-                                  <div class="col s6 m8 l9">
-                                      <p>Maximum file upload size 2MB.</p>
-                                      <input type="file" id="input-file-max-fs" class="dropify" data-max-file-size="2M" multiple/>
-                                  </div>
-                                </div>
-                                
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="input-field col s12 m12 l12">
-                              
-                              <div class="row section">
-                                  <div class="col s6 m4 l3">
-                                    <p>Take video with your phone and attach</p>
-                                  </div>
-                                  <div class="col s6 m8 l9">
-                                      <p>Maximum file upload size 2MB.</p>
-                                      <input type="file" id="input-file-max-fs" class="dropify" data-max-file-size="2M" multiple/>
-                                  </div>
-                                </div>
-                                
-                          </div>
-                      </div>
-                      <div class="row">
-                            <div class="input-field col s12 m12 l12">
-                                
-                                <div class="input-field col s12 ">
-                                
-                                  <input id="Price" type="number" min="0" required>
-                                  <label for="Price">Expected Price</label>
-                                </div>
-                                  
+                    <div class="row">
+                      <div class="input-field col s12 m12 l12">
+                          
+                          <div class="row section">
+                              <div class="col s6 m4 l3">
+                                <p>Project Code (.ZIP)</p>
+                              </div>
+                              <div class="col s6 m8 l9">
+                                  <p>Maximum file upload size 50MB file</p>
+                                  <input type="file" id="projectCode" class="dropify" data-max-file-size="2M" ng-required="true"/>
+                              </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="input-field col s12 m12 l12">
-                                
-                                <div class="input-field col s12 ">
-                                
-                                  <input id="Price" type="number" required>
-                                  <label for="Price">Please answer and help us prevent spam
-                                      30+6=? </label>
+                            
+                      </div>
+                  </div> -->
+                    <div class="row">
+                        <div class="input-field col s12 m12 l12">
+                            
+                            <div class="row section">
+                                <div class="col s6 m4 l3">
+                                  <p>Project Index Page Screenshot</p>
                                 </div>
-                                  
-                            </div>
+                                <div class="col s6 m8 l9">
+                                    <p>Maximum file upload size 2MB.</p>
+                                    <input type="file" id="indexPage" class="dropify" data-max-file-size="2M" ng-required="true"/>
+                                </div>
+                              </div>
+                              
                         </div>
-                
-                </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12 m12 l12">
+                            
+                            <div class="row section">
+                                <div class="col s6 m4 l3">
+                                  <p>Project Screenshots</p>
+                                </div>
+                                <div class="col s6 m8 l9">
+                                    <p>Maximum file upload size 2MB.</p>
+                                    <input type="file" id="screenShots" class="dropify" data-max-file-size="2M" multiple ng-required="true"/>
+                                </div>
+                              </div>
+                              
+                        </div>
+                    </div>
+                    <!-- <div class="row">
+                        <div class="input-field col s12 m12 l12">
+                            
+                            <div class="row section">
+                                <div class="col s6 m4 l3">
+                                  <p>Take video with your phone and attach</p>
+                                </div>
+                                <div class="col s6 m8 l9">
+                                    <p>Maximum file upload size 2MB.</p>
+                                    <input type="file" id="video" class="dropify" data-max-file-size="2M" multiple ng-required="true"/>
+                                </div>
+                              </div>
+                              
+                        </div>
+                      </div> -->
+                    <div class="row">
+                          <div class="input-field col s12 m12 l12">
+                              
+                              <div class="input-field col s12 ">
+                              
+                                <input id="Price" type="number" min="0" ng-model="vm.newProject.expectedPrice" ng-required="true">
+                                <label for="Price">Expected Price</label>
+                              </div>
+                                
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="input-field col s12 m12 l12">
+                              
+                              <div class="input-field col s12 ">
+                              
+                                <input id="Price" type="number" ng-model="vm.userCheck" ng-required="true">
+                                <label for="Price">Please answer and help us prevent spam
+                                    {{vm.v1}} + {{vm.v2}}=? </label>
+                              </div>
+                                
+                          </div>
+                      </div>
+              
               </div>
-           
-            
-            <div class="modal-footer">
-              <a href="#!" class="modal-action modal-close waves-effect waves-green green btn-flat">Save</a>
-              <a href="#!" class="modal-action modal-close waves-effect waves-orange  orange btn-flat">Cancel</a>
             </div>
-    </div>
-
-      <!--/ profile-page-header -->
-
-      <!-- profile-page-content -->
-      <div id="profile-page-content" class="row">
-        <!-- profile-page-sidebar-->
-        <div id="profile-page-sidebar" class="col s12 m4">
-          <!-- Profile About  -->
-          <div class="card light-blue">
-            <div class="card-content white-text">
-              <span class="card-title">About Me!</span>
-              <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
-            </div>                  
-          </div>
-          <!-- Profile About  -->
-
-          <!-- Profile About Details  -->
-          <ul id="profile-page-about-details" class="collection z-depth-1">
-            <li class="collection-item">
-              <div class="row">
-                <div class="col s5 grey-text darken-1"><i class="mdi-action-wallet-travel"></i> Work In </div>
-                <div class="col s7 grey-text text-darken-4 right-align">ABC Name</div>
-              </div>
-            </li>
-            <li class="collection-item">
-              <div class="row">
-                <div class="col s5 grey-text darken-1"><i class="mdi-social-poll"></i> Skills</div>
-                <div class="col s7 grey-text text-darken-4 right-align">HTML, CSS</div>
-              </div>
-            </li>
-            <li class="collection-item">
-              <div class="row">
-                <div class="col s5 grey-text darken-1"><i class="mdi-social-domain"></i> Lives in</div>
-                <div class="col s7 grey-text text-darken-4 right-align">NY, USA</div>
-              </div>
-            </li>
-            <li class="collection-item">
-              <div class="row">
-                <div class="col s5 grey-text darken-1"><i class="mdi-social-cake"></i> Birth date</div>
-                <div class="col s7 grey-text text-darken-4 right-align">18th June, 1991</div>
-              </div>
-            </li>
-          </ul>
-          <!--/ Profile About Details  -->
          
-          <!-- Profile feed  -->
-
           
-          <!-- task-card -->
-
-          <!-- Profile Total sell -->
-          <div class="card center-align">
-            <div class="card-content purple white-text">
-                <p class="card-stats-title"><i class="mdi-editor-attach-money"></i>Your Profit</p>
-                <h4 class="card-stats-number">$8990.63</h4>
-                <p class="card-stats-compare"><i class="mdi-hardware-keyboard-arrow-up"></i> 70% <span class="purple-text text-lighten-5">last month</span>
-                </p>
-            </div>
-            <div class="card-action purple darken-2">
-                <div id="sales-compositebar"></div>
-            </div>
+          <div class="modal-footer">
+            <button type="submit" class="modal-action  waves-effect waves-green green btn-flat" ng-disabled="vm.userProjectData.$invalid && (vm.userCheck!=vm.v1+vm.v2)">Save</button>
+            <a ng-click="vm.closeAddprojectModel" class="modal-action modal-close waves-effect waves-orange  orange btn-flat">Cancel</a>
           </div>
+        </form>
+  </div>
 
-          
+    <!--/ profile-page-header -->
+
+    <!-- profile-page-content -->
+    <div id="profile-page-content" class="row">
+      <!-- profile-page-sidebar-->
+      <div id="profile-page-sidebar" class="col s12 m4">
+        <!-- Profile About  -->
+        <div class="card light-blue">
+          <div class="card-content white-text">
+            <span class="card-title">About Me!</span>
+            <p>{{vm.user.aboutMe}}</p>
+          </div>                  
         </div>
-        <!-- profile-page-sidebar-->
+        <!-- Profile About  -->
 
-        <!-- profile-page-wall -->
-        <div id="profile-page-wall" class="col s12 m8">
-          <!-- profile-page-wall-share -->
-          <div id="profile-page-wall-share" class="row">
-            <div class="col s12">
-              <ul class="tabs tab-profile z-depth-1 light-blue">
-                <li class="tab col s3"><a class="white-text waves-effect waves-light active" href="#UpdateStatus"><i class="mdi-editor-border-color"></i>Project Information</a>
-                </li>
-                                  
-              </ul>
-              <!-- UpdateStatus-->
-              <div id="UpdateStatus" class="tab-content col s12  grey lighten-4">
-                <div class="row">
-                    <div class="col s12 m12">
-                        <ul id="profile-page-about-feed" class="collection z-depth-1">
-                                <li class="collection-item avatar">
-                                        <div class="col s6 m6" >  
-                                        <img src="../../assets/images/Captain/Tours and travel management System/construct.jpeg" alt="" class="circle">
-                                        <span class="title">Project Title</span>
-                                        <p>Task assigned to new changes.
-                                        <span class="ultra-small">Second Line</span>
-                                        </p>
-                                        </div>
-                                        <div class="col s6 m6" >
-                                        <div class="secondary-content">
-                                            <div class="col s6 m6" >
-                                            <a href="#!" ><i class="ion-edit small"></i></a>
-                                            </div>
-                                            <div class="col s6 m6" >
-                                                <a href="#!" ><i class="ion-trash-b small"></i></a>
-                                            </div>
-                                               
-                                               
-                                        </div>
-                                        </div>
-                                      </li>
-                                      <li class="collection-item avatar">
-                                            <div class="col s6 m6" >  
-                                            <img src="../../assets/images/avatar.jpg" alt="" class="circle">
-                                            <span class="title">Project Title</span>
-                                            <p>Task assigned to new changes.
-                                            <span class="ultra-small">Second Line</span>
-                                            </p>
-                                            </div>
-                                            <div class="col s6 m6" >
-                                            <div class="secondary-content">
-                                                <div class="col s6 m6" >
-                                                <a href="#!" ><i class="ion-edit small"></i></a>
-                                                </div>
-                                                <div class="col s6 m6" >
-                                                    <a href="#!" ><i class="ion-trash-b small"></i></a>
-                                                </div>
-                                                   
-                                                   
-                                            </div>
-                                            </div>
-                                          </li>
-                              
-                        </ul>
-                        </div>
-                        </div>
-              </div>
-             
-            </div>                  
+        <!-- Profile About Details  -->
+        <ul id="profile-page-about-details" class="collection z-depth-1">
+          <li class="collection-item">
+            <div class="row">
+              <div class="col s5 grey-text darken-1"><i class="mdi-action-wallet-travel"></i> Work In </div>
+              <div class="col s7 grey-text text-darken-4 right-align">{{vm.user.workInCompany}}</div>
+            </div>
+          </li>
+          <li class="collection-item">
+            <div class="row">
+              <div class="col s5 grey-text darken-1"><i class="mdi-social-poll"></i> Skills</div>
+              <div class="col s7 grey-text text-darken-4 right-align">{{vm.user.softSkills}}</div>
+            </div>
+          </li>
+          <li class="collection-item">
+            <div class="row">
+              <div class="col s5 grey-text darken-1"><i class="mdi-social-domain"></i> Lives in</div>
+              <div class="col s7 grey-text text-darken-4 right-align">NY, USA</div>
+            </div>
+          </li>
+          <li class="collection-item">
+            <div class="row">
+              <div class="col s5 grey-text darken-1"><i class="mdi-social-cake"></i> Birth date</div>
+              <div class="col s7 grey-text text-darken-4 right-align">{{vm.user.dateOfBirth | date :  "dd MMMM yyyy"}}</div>
+            </div>
+          </li>
+        </ul>
+        <!--/ Profile About Details  -->
+       
+        <!-- Profile feed  -->
+
+        
+        <!-- task-card -->
+
+        <!-- Profile Total sell -->
+        <div class="card center-align">
+          <div class="card-content purple white-text">
+              <p class="card-stats-title"><i class="mdi-editor-attach-money"></i>Your Profit</p>
+              <h4 class="card-stats-number">$8990.63</h4>
+              <p class="card-stats-compare"><i class="mdi-hardware-keyboard-arrow-up"></i> 70% <span class="purple-text text-lighten-5">last month</span>
+              </p>
           </div>
-          <!--/ profile-page-wall-posts -->
-
+          <div class="card-action purple darken-2">
+              <div id="sales-compositebar"></div>
+          </div>
         </div>
-        <!--/ profile-page-wall -->
+
+        
+      </div>
+      <!-- profile-page-sidebar-->
+
+      <!-- profile-page-wall -->
+      <div id="profile-page-wall" class="col s12 m8">
+        <!-- profile-page-wall-share -->
+        <div id="profile-page-wall-share" class="row">
+          <div class="col s12">
+            <ul class="tabs tab-profile z-depth-1 light-blue">
+              <li class="tab col s3"><a class="white-text waves-effect waves-light active" href="#UpdateStatus"><i class="mdi-editor-border-color"></i>Project Information</a>
+              </li>
+                                
+            </ul>
+            <!-- UpdateStatus-->
+            <div id="UpdateStatus" class="tab-content col s12  grey lighten-4">
+              <div class="row">
+                  <div class="col s12 m12">
+                      <ul id="profile-page-about-feed" class="collection z-depth-1">
+                              <li class="collection-item avatar" ng-repeat="project in vm.user.project">
+                                      <div class="col s6 m6" >  
+                                      <img ng-src="{{project.indexPageUrl}}" alt="indexPage" class="circle">
+                                      <span class="title">{{project.projectTitle}}</span>
+                                      
+                                      </div>
+                                      <div class="col s6 m6" >
+                                      <div class="secondary-content">
+                                          <div class="col s6 m6" >
+                                          <a href="#!" ><i class="ion-edit small"></i></a>
+                                          </div>
+                                          <div class="col s6 m6" >
+                                              <a href="#!" ><i class="ion-trash-b small"></i></a>
+                                          </div>
+                                             
+                                             
+                                      </div>
+                                      </div>
+                                    </li>
+
+                            
+                      </ul>
+                      </div>
+                      </div>
+            </div>
+           
+          </div>                  
+        </div>
+        <!--/ profile-page-wall-posts -->
 
       </div>
+      <!--/ profile-page-wall -->
+
     </div>
   </div>
-  </div>
-  <!--end container-->
+</div>
+</div>
+<!--end container-->
 </section>
 <!-- END CONTENT -->
