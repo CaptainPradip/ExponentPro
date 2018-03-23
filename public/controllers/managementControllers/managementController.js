@@ -32,6 +32,10 @@
        
 
               switch ($location.path()) {
+                   case '/admin':
+                          getProjectIDE();
+                  
+                      break;
                   case '/admin/project-category':
                           getcategory();
                       break;

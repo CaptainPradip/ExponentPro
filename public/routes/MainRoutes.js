@@ -59,7 +59,7 @@
         })
 
         .when('/admin', {
-            templateUrl: '../views/pages/Administrator.html',
+            templateUrl: '../views/pages/management/Administrator.html',
             controller: 'managementController',
             authenticated:true,
             permission:['admin']
