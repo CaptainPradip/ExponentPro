@@ -14,8 +14,8 @@ var s3 = new aws.S3({accessKeyId:config.accessKeyId,
                      secretAccessKey:config.secretAccessKey,
                      region:config.region});
 //Data Models 
-var User=require('../../models/user')
-var Project=require('../../models/project')
+var User=require('../../models/user');
+var Project=require('../../models/project');
 var ProjectCategory=require('../../models/projectCategory');
 var ProgrammingLanguage=require('../../models/programmingLanguage');
 var FrontendTechnology=require('../../models/frontendTechnology');
@@ -71,16 +71,16 @@ const projectScreenShotUrl="public/assets/images/";
 // })
 var upload = multer({
     storage: multerS3({
-      s3: s3,
-      bucket: 'exponentpro.com',
-      acl: 'public-read',
-      metadata: function (req, file, cb) {
-        cb(null, {fieldName:req.decoded.userName+file.originalname});
-      },
-      key: function (req, file, cb) {
-        cb(null, req.decoded.userName+file.originalname)
-      }
-    })
+        s3: s3,
+        bucket: 'exponentpro.com',
+        acl: 'public-read',
+        metadata: function (req, file, cb) {
+          cb(null, {fieldName:req.decoded.userName+file.originalname});
+        },
+        key: function (req, file, cb) {
+          cb(null, req.decoded.userName+file.originalname)
+        }
+      })
   })
 
 
@@ -138,7 +138,7 @@ var token =req.body.token ||req.query.token||req.headers['x-access-token'];
            else{
                  // if everything is good, save to request for use in other routes
                req.decoded=decoded;
-               if(req.decoded.permission=="admin"&&req.decoded.permission=="user")
+               if(req.decoded.permission=="admin" || req.decoded.permission=="user")
                {
                next();
                }

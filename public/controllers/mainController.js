@@ -10,8 +10,10 @@ angular.module('Main',[
    'management',
    'projectList',
    'projectInfo',
-   'profile'
+   'profile',
+   
   ])
+  
 .config(["$locationProvider", function($locationProvider) {
     $locationProvider.html5Mode(true);
   }])
@@ -33,6 +35,7 @@ angular.module('Main',[
     $rootScope.$on('$viewContentLoaded', function(event) {
       
       $rootScope.isLoaded=true;
+      $('.collapsible').collapsible();
       $('.translation-button, .notification-button, .profile-dropdown').dropdown({
           inDuration: 300,
           outDuration: 225,

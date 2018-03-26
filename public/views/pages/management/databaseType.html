@@ -1,9 +1,6 @@
 <admin-nav user="user"></admin-nav>
 <div class="row">
-<div class=" col offset-m2 offset-s2 offset-l2 s8 m8 l8" ng-controller="managementController as vm">
-
- 
-       
+<div class=" col offset-m2 offset-s2 offset-l2 s8 m8 l8" >
         <!--Static Data-->
         <div class="row">
           
@@ -11,22 +8,20 @@
               <h4 class="header">Project Database Types </h4>
             </div>
             <div class="col s12 m4 l4">
-            
-             
-
+          
             <div class="input-field ">
              <form name="Form">
                   <input type="text" class="validate " required ng-model="vm.name" ng-required="true">
                   <label for="first_name">Project Database Name </label>
               
                
-                <button type ="submit" ng-click="vm.addCategory()" class="btn waves-effect waves-light col s12"  ng-disabled="Form.$invalid">Add Database</button>
+                <button type ="submit" ng-click="vm.addDatabaseType()" class="btn waves-effect waves-light col s12"  ng-disabled="Form.$invalid">Add Database</button>
               </form>
             </div>
         </div>
         <div class="row">
                
-                <div class="col s12 m12 l12">
+          <div class="col col offset-m1 offset-s3 offset-l1 s12 m11 l11">
                   <table class="hoverable centered" >
                     <thead>
                       <tr> 
@@ -37,10 +32,22 @@
                     </thead>
                     <tbody>
                       <tr ng-repeat="database in vm.databaseTypes">
-                        <td>{{database.name}}</td>
-                        <td><a href="#!" ><i class="ion-edit small"></i></a></td>
-                        <td><a href="#!" ><i class="ion-trash-b small"></i></a></td>
+                        <td ng-if="!vm.edit || vm._id!=database._id">{{database.name}}</td>
+                        <td ng-if="vm.edit && vm._id==database._id">
+                          <div class="col s12 m5 l5 centered">
+                          <form name="Database">
+                            <input type="text" class="validate "  ng-model="vm.Name" ng-required="true">
+                            <label for="first_name">Project Database Name </label>
+                        
+                            <button type ="submit" ng-click="vm.updateDatabaseType()" class="btn waves-effect waves-light col s12"  ng-disabled="Database.$invalid">Update Category</button>
+                         </form>
+                    </div>
+                    </td>
+                        <td><a href="#!" ng-click="vm.showEditBox(database._id,database.name)" ><i class="ion-edit small"></i></a></td>
+                        <td><a href="#!" ng-click="vm.deleteDatabaseType(database._id)"><i class="ion-trash-b small"></i></a></td>
                       </tr>
+                      
+ 
                       
                     </tbody>
                   </table>

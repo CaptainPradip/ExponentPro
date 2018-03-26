@@ -105,7 +105,7 @@
             if(authTokenService.getToken())
             {
                 return $http.get('api/user/profile').then(function (data) {
-                    console.log(data.data.message)
+                  
                     return data;
                 });
             }else{

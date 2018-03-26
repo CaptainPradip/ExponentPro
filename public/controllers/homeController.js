@@ -2,16 +2,19 @@
     'use strict';
 
     angular
-        .module('home',['projectService'])
+        .module('home',['projectService','authService'])
         .controller('homeController', homeController);
         console.log('homeController')
         homeController.$inject = ['$http',
                                   '$scope',
                                   '$timeout',
                                   '$rootScope',
-                                  'projectCrudService'
+                                  'projectCrudService',
+                                  'authUserService',
+                                  '$location',
+                                  '$route'
                                  ];
-    function homeController($http,$timeout, $scope,$rootScope,projectCrudService) {
+    function homeController($http,$timeout, $scope,$rootScope,projectCrudService,authUserService,$location,$route) {
        
         $('.button-collapse').sideNav();
         $('.parallax').parallax();
@@ -27,9 +30,16 @@
         var vm = this;
         vm.projectcategorys={};
         vm.projects={};
-
+       
+        if($location.path()=="/logout")
+        {
+            authUserService.logOut();
+            $route.reload();
+            $location.path('/home')
+        }
 
         getcategory();
+        
         
 
         ////////////////

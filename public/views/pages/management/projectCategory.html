@@ -1,7 +1,7 @@
 <admin-nav user="user"></admin-nav>
 
 <div class="row">
-<div class=" col offset-m2 offset-s2 offset-l2 s10 m10 l10" ng-controller="managementController as vm">
+<div class=" col offset-m2 offset-s2 offset-l2 s8 m8 l8" >
 
  
        
@@ -13,8 +13,6 @@
             </div>
             <div class="col s12 m4 l4">
             
-             
-
             <div class="input-field ">
              <form name="Form">
                   <input type="text" class="validate " required ng-model="vm.name" ng-required="true">
@@ -27,7 +25,7 @@
         </div>
         <div class="row">
                
-                <div class="col s12 m12 l12">
+          <div class="col col offset-m1 offset-s3 offset-l1 s12 m11 l11">
                   <table class="hoverable centered" >
                     <thead>
                       <tr> 
@@ -37,10 +35,21 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr ng-repeat="category in vm.projectcategorys">
-                        <td>{{category.name}}</td>
-                        <td><a href="#!" ><i class="ion-edit small"></i></a></td>
-                        <td><a href="#!" ><i class="ion-trash-b small"></i></a></td>
+                      <tr ng-repeat="category in vm.projectCategorys">
+                        <td ng-if="!vm.edit || vm._id!=category._id">{{category.name}}</td>
+                        <td ng-if="vm.edit && vm._id==category._id">
+                          <div class="col s12 m5 l5 centered">
+                          <form name="Category">
+                            <input type="text" class="validate "  ng-model="vm.Name" ng-required="true">
+                            <label for="first_name">Project Category Name </label>
+                        
+                        
+                            <button type ="submit" ng-click="vm.updateCategory()" class="btn waves-effect waves-light col s12"  ng-disabled="Category.$invalid">Update Category</button>
+                         </form>
+                    </div>
+                    </td>
+                        <td><a href="#!" ng-click="vm.showEditBox(category._id,category.name)" ><i class="ion-edit small"></i></a></td>
+                        <td><a href="#!" ng-click="vm.deleteCategory(category._id)"><i class="ion-trash-b small"></i></a></td>
                       </tr>
                       
                     </tbody>

@@ -30,6 +30,7 @@
         .when('/signup', {
             templateUrl: '../views/pages/signUp.html',
             controller: 'signUpController',
+            
             authenticated:false
         })
         .when('/profile', {
@@ -62,47 +63,69 @@
             templateUrl: '../views/pages/management/Administrator.html',
             controller: 'managementController',
             authenticated:true,
+            controllerAs:'vm',
+            permission:['admin']
+        })
+        .when('/admin/project-requests', {
+            templateUrl: '../views/pages/management/projectRequestsList.html',
+            controller: 'projectRequestController',
+            authenticated:true,
+            controllerAs:'vm',
+            permission:['admin']
+        })
+        .when('/admin/project-request',{
+            templateUrl: '../views/pages/management/projectRequest.html',
+            controller: 'projectRequestController',
+            authenticated:true,
+            controllerAs:'vm',
             permission:['admin']
         })
         .when('/admin/projects', {
             templateUrl: '../views/pages/management/projectList.html',
             controller: 'projectsController',
+            controllerAs:'vm',
             authenticated:true,
             permission:['admin']
         })
         .when('/admin/project-category', {
             templateUrl: '../views/pages/management/projectCategory.html',
             controller: 'managementController',
+            controllerAs:'vm',
             authenticated:true,
             permission:['admin']
         })
         .when('/admin/project-frontend-technology', {
             templateUrl: '../views/pages/management/frontendTechnology.html',
             controller: 'managementController',
+            controllerAs:'vm',
             authenticated:true,
             permission:['admin']
         })
         .when('/admin/project-programming-language', {
             templateUrl: '../views/pages/management/programmingLanguage.html',
             controller: 'managementController',
+            controllerAs:'vm',
             authenticated:true,
             permission:['admin']
         })
         .when('/admin/project-platform-type', {
             templateUrl: '../views/pages/management/platformType.html',
             controller: 'managementController',
+            controllerAs:'vm',
             authenticated:true,
             permission:['admin']
         })
         .when('/admin/project-database-type', {
             templateUrl: '../views/pages/management/databaseType.html',
             controller: 'managementController',
+            controllerAs:'vm',
             authenticated:true,
             permission:['admin']
         })
         .when('/admin/project-ide-type', {
             templateUrl: '../views/pages/management/projectIDE.html',
             controller: 'managementController',
+            controllerAs:'vm',
             authenticated:true,
             permission:['admin']
         })
@@ -121,12 +144,12 @@
         $rootScope.checkSession=true;
         $rootScope.isAdmin=false;
         $rootScope.isUserLogin=authUserService.isLoggedIn();
-    $rootScope.$on('checkSession', function(e){  
-        authUserService.checkSession();        
-    });
+        $rootScope.$on('checkSession', function(e){  
+            authUserService.checkSession();        
+        });
 
     $rootScope.$on('$routeChangeStart',function (event,next,current) {
-            
+        $rootScope.isUserLogin=authUserService.isLoggedIn();
         $rootScope.isLoaded=false;
         if(!$rootScope.checkSession)
         authUserService.checkSession();
@@ -143,7 +166,7 @@
                     $rootScope.isUserLogin=authUserService.isLoggedIn();
                     $rootScope.user=data.data.user;
                     var isAdmin=next.$$route.permission[0]==data.data.user.permission;
-                    $rootScope.isAdmin=isAdmin;
+                    $rootScope.permission=data.data.user.permission;
                     var isUser=next.$$route.permission[1]==data.data.user.permission;
                     if (!isAdmin){
                         event.preventDefault();
@@ -161,6 +184,7 @@
                 authUserService.getUser().then(function(data){
                 $rootScope.isUserLogin=authUserService.isLoggedIn();
                 $rootScope.user=data.data.user;
+                $rootScope.permission=data.data.user.permission;
                 
                 })
                 

@@ -4,7 +4,7 @@
     <!-- //////////////////////////////////////////////////////////////////////////// -->
 
     <!-- START MAIN -->
-    <div id="main" ng-controller="managementController as vm">
+    <div id="main" ng-controller="directiveController as vm">
         <!-- START WRAPPER -->
         <div class="wrapper">
 
@@ -26,7 +26,7 @@
                     <li class="bold active"><a href="index.html" class="waves-effect waves-cyan"><i class="mdi-action-dashboard"></i> Dashboard</a>
                     </li>
                     
-                    <li class="bold"><a href="app-email.html" class="waves-effect waves-cyan"><i class="mdi-communication-email"></i>Project Request <span class="new badge">4</span></a>
+                    <li class="bold"><a href="/admin/project-requests" class="waves-effect waves-cyan"><i class="mdi-communication-email"></i>Project Request <span ng-if="vm.projectRequest.length!=0" class="new badge">{{vm.projectRequest.length}}</span></a>
                     </li>
                    
                     <li class="no-padding">

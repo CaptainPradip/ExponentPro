@@ -1,0 +1,52 @@
+<admin-nav user="user" ></admin-nav>
+<div class="row">
+<div class=" col offset-m2 offset-s3 offset-l2 s8 m8 l8">
+
+        <div class="row">
+          <div class="col s12 m6 l4 ">
+            <h4 class="header">Project Request</h4>
+          </div>
+          <div class="col s12 m6 l5">
+         
+              <div class="input-field col s12 l12 m12">
+                <input type="text"class="validate" id="grid">
+                <label for="first_name">Search Project</label>
+              </div>
+             
+            </div>
+        
+        
+        <!--Static Data-->
+        <div class="row">
+         
+          
+          <div class="col offset-m1 offset-s3 offset-l1 s12 m11 l11 ">
+              <p></p>
+              <table class="hoverable centered" >
+                <thead>
+                  <tr> 
+                    <th >Project Name</th>
+                    <th >Category</th>
+                    <th >Developer Name</th>
+                    <th >Date</th>
+                    <th >View</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="project in vm.projectRequests | orderBy : 'uploadedDate'"">
+                    <td >{{project.projectTitle}}</td>
+                    <td >{{project.projectCategory.name}}</td>
+                    <td >{{project.developer.fullName}}</td>
+                    <td >{{project.uploadedDate | date : "MMM d, y h:mm:ss a"}}</td>
+                    <td><a href="#!" ng-click="vm.viewProjectRequest(project._id)" ><i class="ion-eye small"></i></a></td>
+                </tr>
+                  
+                </tbody>
+              </table>
+          </div>
+        </div>
+        </div>
+        
+</div>
+</div>
+

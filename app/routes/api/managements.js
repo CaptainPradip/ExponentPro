@@ -58,13 +58,13 @@ router.use((req,res,next) => {
 router.get("/projectrequests",getAllProjectRequests);
 router.get("/projectrequests/:_id",getProjectRequest);
 router.put("/projectrequests/:_id",updateProjectRequest);
-router.delete("/projectrequest",deleteProjectRequest);
+router.delete("/projectrequests/:_id",deleteProjectRequest);
 
 router.get("/users",getAllUsers);
 router.post("/users",addUser);
 router.get("/users/:_id",getUser);
 router.put("/users/:_id",updateUser);
-router.delete("/projectrequest",deleteUser);
+router.delete("/users/:_id",deleteUser);
 
 //Programming Language Routes
 router.post('/programminglanguages',addProgrammingLanguage);
@@ -112,7 +112,15 @@ module.exports =router;
 
 function getAllProjectRequests(req,res){
 
-            Project.find({isVerified:false}).exec((error,projects)=>{
+            Project.find({isVerified:false}).select(' _id projectTitle uploadedDate')
+            .populate({
+                path: 'developer',
+                select:'fullName'
+               })
+            .populate({
+                path:'projectCategory',
+                select:'name'})
+            .exec((error,projects)=>{
                     if(error)
                     {  res.status(500).json({success:false,
                         error:"There was a problem finding the Projects information to the database."})

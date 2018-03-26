@@ -67,7 +67,7 @@
   <div class="loader-section section-right"></div>
 </div>
 
-<header id="header" class="page-topbar" >
+<header id="header" class="page-topbar" ng-if="shownav" >
   <!-- start header nav-->
   <div class="navbar-fixed">
       <nav class="navbar-color">
@@ -117,14 +117,14 @@
               <ul id="profile-dropdown" class="dropdown-content">
                   <li><a href="/profile"  class="cyan-text"><i class="mdi-action-face-unlock"></i> Profile</a>
                   </li>
-                  <li ng-if="isAdmin"a href="#" class="cyan-text" ><i class="mdi-action-settings"></i> Admin</a>
+                  <li ng-if="permission=='admin'"><a href="/admin" class="cyan-text" ><i class="mdi-action-settings"></i> Admin</a>
                   </li>
                   <li><a href="#"  class="cyan-text"><i class="mdi-communication-live-help"></i> Help</a>
                   </li>
                   <li class="divider"></li>
-                  <li><a href="#"  class="cyan-text"><i class="mdi-action-lock-outline"></i> Lock</a>
+                  <li><a href="#"  class="cyan-text"><i class="mdi-action-lock-outline"></i>Lock</a>
                   </li>
-                  <li><a href="#"  class="cyan-text"><i class="mdi-hardware-keyboard-tab"></i> Logout</a>
+                  <li><a href="/logout"  class="cyan-text"><i class="mdi-hardware-keyboard-tab"></i>Logout</a>
                   </li>
               </ul>
           </div>
@@ -173,7 +173,9 @@
     <script src="../controllers/loginController.js"></script>
     <script src="../controllers/homeController.js"></script>
     <script src="../controllers/managementControllers/managementController.js"></script>
+    <script src="../controllers/managementControllers/directiveController.js"></script>
     <script src="../controllers/managementControllers/projectListController.js"></script>
+    <script src="../controllers/managementControllers/projectRequestController.js"></script>
    
     <script src="../controllers/projectListController.js"></script>
     <script src="../controllers/projectInfoController.js"></script>
@@ -184,6 +186,7 @@
     <script src="../services/userService.js"></script>
     <script src="../services/authService.js"></script>
     <script src="../services/projectService.js"></script>
+    <script src="../services/managementService.js"></script>
     <!--Filters-->
     <script src="../filters/projectFilter.js"></script>
     

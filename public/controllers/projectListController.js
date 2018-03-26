@@ -19,7 +19,7 @@
     function projectListController($rootScope,$scope,$routeParams,projectCrudService) {
         var vm = this;
        
-        $rootScope.shownav=false;
+     
         $rootScope.mainnav=true
         console.log($routeParams._id);
         getProjectsByCategoryId();

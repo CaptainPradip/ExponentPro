@@ -30,30 +30,30 @@
          
         projectCrudService.getProjectCategory().then(function(data){
                 vm.projectCategorys=data.data.projectCategorys;
-                    console.log(data.data);
+                    
                  });
         projectCrudService.getProgrammingLanguage().then(function(data){
                     vm.programmingLanguages=data.data.programmingLanguages;
-                        console.log(data.data);
+                        
                      });
         projectCrudService.getFrontendTechnology().then(function(data){
                     vm.frontendTechnologys=data.data.frontendTechnology;
-                    console.log(data.data);
+                    
                    });
         projectCrudService.getDatabaseType().then(function(data){
                     vm.databaseTypes=data.data.databaseTypes;
-                    console.log(data.data);
+                    
                    });
      
 
         projectCrudService.getPlatformType().then(function(data){
                     vm.platformTypes=data.data.platformTypes            ;
-                    console.log(data.data);
+                    
                    });
 
-        projectCrudService.getProjectides().then(function(data){
+        projectCrudService.getProjectIDE().then(function(data){
                     vm.projectIDEs=data.data.projectIDEs            ;
-                    console.log(data.data);
+                    
                    });
   
       
@@ -76,7 +76,7 @@
             authUserService.getUser().then(function(data){
                 vm.user=data.data.user;
                 $rootScope.isLoaded=true
-                console.log(data.data);
+                
             })
 
          }

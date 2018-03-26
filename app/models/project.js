@@ -31,7 +31,8 @@ var projectSchema =new Schema({
     databaseType :{ type: Schema.Types.ObjectId, ref: 'DatabaseType'},
     noOfDownload:{type:Number ,required:true,default:0},
     noOfView:{type:Number ,required:true,default:0},
-    isVerified:{type:Boolean,required:true,default:false}
+    isVerified:{type:Boolean,required:true,default:false},
+    uploadedDate: {type: Date,default: Date.now},
 
 });
 

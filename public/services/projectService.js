@@ -30,7 +30,7 @@
 
             return $http.get('/api/project/projectcategorys').then(function (data) {
                 var status=data.data.success
-                console.log(data.data)
+                
                 if(status)
                 {
                    
@@ -46,7 +46,7 @@
             
                     return $http.get('/api/project/projectsbycategory/'+id).then(function (data) {
                             var status=data.data.success
-                            console.log(data.data)
+                            
                             if(status)
                             {
                                
@@ -59,7 +59,7 @@
             
             return $http.get('/api/project/projects/').then(function (data) {
                     var status=data.data.success
-                    console.log(data.data)
+                    
                     if(status)
                     {
                        
@@ -73,7 +73,7 @@
 
             return $http.get('/api/project/projects/'+id).then(function (data) {
                 var status=data.data.success
-                console.log(data.data)
+                
                 if(status)
                 {
                    
@@ -86,7 +86,7 @@
             
                     return $http.get('/api/project/programminglanguages/').then(function (data) {
                             var status=data.data.success
-                            console.log(data.data)
+                            
                             if(status)
                             {
                                
@@ -100,7 +100,7 @@
             
                     return $http.get('/api/project/databasetypes').then(function (data) {
                             var status=data.data.success
-                            console.log(data.data)
+                            
                             if(status)
                             {
                                
@@ -114,7 +114,7 @@
             
                     return $http.get('/api/project/frontendtechnologys').then(function (data) {
                             var status=data.data.success
-                            console.log(data.data)
+                            
                             if(status)
                             {
                                
@@ -127,7 +127,7 @@
             
                     return $http.get('/api/project/platformtypes').then(function (data) {
                             var status=data.data.success
-                            console.log(data.data)
+                            
                             if(status)
                             {
                                
@@ -140,7 +140,7 @@
             
             return $http.get('/api/project/projectides').then(function (data) {
                     var status=data.data.success
-                    console.log(data.data)
+                    
                     if(status)
                     {
                        
@@ -167,6 +167,7 @@
             return $http.post('/api/project/projects',fd,config).then(function (data) {
                     var status=data.data.success
                     console.log(data.data)
+                   
                     if(status)
                     {
                        
