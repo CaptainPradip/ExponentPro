@@ -10,11 +10,12 @@
     function managementCrud($http) {
         console.log('*************************  Managemanet Service *****************************')
         var service = {
+            getProjectAllProject:getProjectAllProjectHttp,
             
             getAllProjectRequest: getAllProjectRequestHttp,
             getProjectRequest:getProjectRequestHttp,
             updateProjectRequest:updateProjectRequestHttp,
-            deleteProjectRequest:deleteProjectRequestHttp,
+            deleteProjectRequest:deleteProjectRequestHttp,  
 
             getAllUser:getAllUserHttp,
             getUser:getUserHttp,
@@ -61,9 +62,22 @@
         // router.put("/projectrequests/:_id",updateProjectRequest);
         // router.delete("/projectrequest",deleteProjectRequest);
         
-        function getAllProjectRequestHttp() { 
+        function getProjectAllProjectHttp() { 
             
-                        return $http.get('/api/management/projectrequests').then(function (data) {
+            return $http.get('/api/management/projects/').then(function (data) {
+                    var status=data.data.success
+                    
+                    if(status)
+                    {
+                       
+                    }
+                    return data;
+                });
+    
+}
+        function getAllProjectRequestHttp(){ 
+            
+                        return $http.get('/api/management/projectrequests/').then(function (data) {
                             var status=data.data.success
                             
                             if(status)
@@ -92,7 +106,7 @@
             
                         return $http.put('/api/management/projectrequests/'+_id,project).then(function (data) {
                             var status=data.data.success
-                            
+                            console.log(data);
                             if(status)
                             {
                                

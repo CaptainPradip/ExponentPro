@@ -8,11 +8,11 @@ var aws = require('aws-sdk');
 var multerS3 = require('multer-s3')
 const router = express.Router();
 
-var config=require('../../../config/config');
+//var config=require('../../../config/config');
 var userService=require('../../service/userService');
-var s3 = new aws.S3({accessKeyId:config.accessKeyId,
-                     secretAccessKey:config.secretAccessKey,
-                     region:config.region});
+var s3 = new aws.S3({accessKeyId:process.env.ACCESSKEYID,
+                     secretAccessKey:process.env.SECRETACCESSKEY,
+                     region:process.env.REGION});
 //Data Models 
 var User=require('../../models/user');
 var Project=require('../../models/project');
@@ -187,6 +187,10 @@ function addProject(req, res){
     project.developer=req.decoded._id
     project.projectCategory=req.body.projectCategory
     project.description=req.body.description
+    project.noOfDatabaseTables=req.body.noOfDatabaseTables
+    project.noOfReportPages=req.body.noOfReportPages
+    project.noOfProjectModules=req.body.noOfProjectModules
+    project.moduleNames=req.body.moduleNames
     
    // project.projectReport =req.decoded.userName+"/"+req.body.projectTitle+"/"+req.files['projectReport'][0].originalname;
            
@@ -431,16 +435,16 @@ module.exports =router;
 
 function getAllProject(req,res) {
 
-    Project.find()
+    Project.find().where({isVerified:true})
     .populate('programmingLanguage')
     .populate('frontendTechnology')
     .populate({
-        path: 'developer',select:'fullName picture workExperience followers aboutMe softSkills workInCompany',
-        populate: { path: 'project',select:'_id projectTitle indexPageUrl',
-                    model:'Project' }})  
+        path: 'developer',select:'fullName',
+        })  
     .populate('projectIDE')
     .populate('projectCategory')
     .populate('databaseType')
+    .populate('platformType')
     .exec((error,projects)=>{
      
         if(error)
@@ -471,6 +475,7 @@ function getProject(req,res){
     .populate('projectIDE')
     .populate('projectCategory')
     .populate('databaseType')
+    .populate('platformType')
     .where({isVerified:true})
     .exec((error,project)=>{
      
@@ -568,26 +573,33 @@ function getProject(req,res){
  function getAllProjectByCategory(req,res){
      console.log("Get All Project by Caterory")
     ProjectCategory.findById(req.params._id)
-    
+    .populate({
+        path :'project',
+        match:{
+            isVerified:true}})
     .populate({
         path: 'project',
-       
+        populate: { path: 'databaseType',
+                    model:'DatabaseType'}})
+    .populate({
+        path: 'project',
+        populate: { path: 'platformType',
+                    model:'PlatformType'}})
+    .populate({
+        path: 'project',
         populate: { path: 'frontendTechnology',
-                    model:'FrontendTechnology' }})
+                    model:'FrontendTechnology'}})
     .populate({
         path: 'project',
-       
         populate: { path: 'programmingLanguage',
-                    model:'ProgrammingLanguage' }})
+                    model:'ProgrammingLanguage'}})
     .populate({
         path: 'project',
-       
         populate: { path: 'developer',
-                    model:'User' }})
-    .populate({
-                 path :'project',
-                 match:{
-                     isVerified:true}})
+                    model:'User',
+                    select:'fullName'
+                 }})
+    
     .exec((error,projectCategory)=>{
          
         if(error)

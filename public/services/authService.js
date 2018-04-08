@@ -18,6 +18,7 @@
 
         var service = {
            loginUser:loginUserHttp,
+           verifyManualUser:verifyManualUserHttp,
            getUser:getUserHttp,
            updateUserProfile:updateUserProfileHttp,
            isLoggedIn:isLoggedInToken,
@@ -44,7 +45,19 @@
                 return data;
             });
         }
-
+        function verifyManualUserHttp(_token) { 
+           
+            return $http.get('api/user/verifyuser/'+_token).then(function (data) {
+                var status=data.data.success
+                console.log(data.data.token)
+                if(status)
+                {
+                authTokenService.setToken(data.data.token);
+                authTokenService.setUserEmail(data.data.user.email);
+                }
+                return data;
+            });
+        }
       
         function startNewSessionHttp() {
            
@@ -65,9 +78,6 @@
         }
 
         function checkUserSession() {
-
-
-            
             var interval =$interval(function () {
                 $rootScope.checkSession=true;
                 var token=$window.localStorage.getItem('token');

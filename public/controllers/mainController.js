@@ -11,7 +11,6 @@ angular.module('Main',[
    'projectList',
    'projectInfo',
    'profile',
-   
   ])
   
 .config(["$locationProvider", function($locationProvider) {
@@ -24,7 +23,7 @@ angular.module('Main',[
   })
   .controller('mainController', mainController);
 
-  function mainController($scope,$rootScope,$http,$location,$timeout,authUserService,$window,$routeParams,) {
+  function mainController($scope,$rootScope,$http,$location,$timeout,authUserService,$window,$routeParams,projectCrudService) {
     //Veriable Declare 
 
     $rootScope.isUserLogin=authUserService.isLoggedIn();
@@ -81,6 +80,13 @@ angular.module('Main',[
               authUserService.logOut();
             }
             });
+        }
+
+        main.searchProject=function()
+        {
+          $location.path('/projects/search/'+main.search);
+         
+          console.log(main.search);
         }
   }
     

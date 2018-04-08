@@ -14,7 +14,7 @@
                                   '$location',
                                   '$route'
                                  ];
-    function homeController($http,$timeout, $scope,$rootScope,projectCrudService,authUserService,$location,$route) {
+    function homeController($http,$timeout,$scope,$rootScope,projectCrudService,authUserService,$location,$route) {
        
         $('.button-collapse').sideNav();
         $('.parallax').parallax();
@@ -25,7 +25,7 @@
         $('.materialboxed').materialbox();
         $('.slider').height(500)
 
-        console.log("Inside HomeCtrl....");
+        
         
         var vm = this;
         vm.projectcategorys={};
@@ -40,7 +40,18 @@
 
         getcategory();
         
-        
+        vm.sellProject=function(){
+
+            if($rootScope.isUserLogin)
+            {
+                $location.path('/sellproject')   
+            }
+            else{
+                $location.path('/login')
+            }
+
+
+        }
 
         ////////////////
 
@@ -50,12 +61,10 @@
          projectCrudService.getProjectCategory().then(function(data){
 
             vm.projectcategorys=data.data.projectCategorys;
-
             console.log(vm.projectcategorys);
          });
 
          }
-
-
+         
     }
 })();

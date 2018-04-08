@@ -1,6 +1,6 @@
 <admin-nav user="user" ></admin-nav>
 <div class="row">
-<div class=" col offset-m2 offset-s3 offset-l2 s8 m8 l8">
+<div class=" col offset-m2 offset-s2 offset-l2 s8 m9 l9">
 
         <div class="row">
           <div class="col s12 m6 l4 ">
@@ -13,7 +13,7 @@
                 <label for="first_name">Search Project</label>
               </div>
              
-            </div>
+          </div>
         
         
         <!--Static Data-->
@@ -33,12 +33,12 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr ng-repeat="project in vm.projectRequests | orderBy : 'uploadedDate'"">
+                  <tr ng-repeat="project in vm.projectRequests | orderBy : 'uploadedDate'">
                     <td >{{project.projectTitle}}</td>
                     <td >{{project.projectCategory.name}}</td>
                     <td >{{project.developer.fullName}}</td>
                     <td >{{project.uploadedDate | date : "MMM d, y h:mm:ss a"}}</td>
-                    <td><a href="#!" ng-click="vm.viewProjectRequest(project._id)" ><i class="ion-eye small"></i></a></td>
+                    <td><a ng-href="/admin/project-request/{{project._id}}"><i class="ion-eye small"></i></a></td>
                 </tr>
                   
                 </tbody>

@@ -1,13 +1,13 @@
-<div class="container" ng-controller="profileController as vm">
+<div class="container" >
 
   <div id="profile-page" class="section">
     <!-- profile-page-header -->
     <div id="profile-page-header" class="card">
         <div class="card-image waves-effect waves-block waves-light">
-            <img class="activator" src="../../assets/images/user-profile-bg.jpg" alt="user background">                    
+            <img class="activator" src="../assets/images/Logo.png" alt="user background">                    
         </div>
-        <figure class="card-profile-image">
-            <img ng-src="{{vm.user.picture}}" alt="profile image" class="circle z-depth-2 responsive-img activator">
+        <figure class="card-profile-image team-image">
+            <img ng-src="{{vm.user.picture}}" alt="profile image" class="circle team-image z-depth-2 responsive-img activator">
         </figure>
         <div class="card-content">
           <h3></h3>
@@ -204,6 +204,50 @@
                             </select>
                             <label>Database</label>
                           
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12 m6 l6">
+                            
+                            <div class="input-field col s12 ">
+                            
+                              <input id="noOfDatabaseTables" type="number" min="0" ng-model="vm.newProject.noOfDatabaseTables" ng-required="true">
+                              <label for="noOfDatabaseTables">No.Of Database Tables</label>
+                            </div>
+                              
+                        </div>
+                        <div class="input-field col s12 m6 l6">
+                            
+                            <div class="input-field col s12 ">
+                            
+                              <input id="noOfReportPages" type="number" min="0" ng-model="vm.newProject.noOfReportPages" ng-required="true">
+                              <label for="noOfReportPages">No.Of Report Pages</label>
+                            </div>
+                              
+                        </div> 
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12 m6 l6">
+                            
+                            <div class="input-field col s12 ">
+                            
+                              <input id="noOfProjectModules" type="number" min="0" ng-model="vm.newProject.noOfProjectModules" ng-required="true">
+                              <label for="noOfProjectModules">No.Of Project Modules</label>
+                            </div>
+                              
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12 m12 l12">
+                            
+                            <div class="input-field col s12 ">
+                            
+                              <input id="moduleNames" type="text"  ng-model="vm.newProject.moduleNames" ng-required="true">
+                              <label for="moduleNames">Module Names comma(,)separated</label>
+                            </div>
+                              
+                        </div>
+
                     </div>
                     <div class="row">
                     <div class="input-field col s12 m12 l12">

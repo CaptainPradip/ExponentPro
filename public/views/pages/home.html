@@ -1,5 +1,5 @@
 
- <div ng-show="shownav" ng-controller="homeController as vm">
+ <div ng-show="shownav" >
 
   <div class="slider">
     <ul class="slides">
@@ -33,10 +33,10 @@
     </ul>
     <div class="buttons-wrapper">
         <div class="col s6 center">
-          <a class="waves-effect waves-light btn-large hoverable mg-rg">I Want to Buy Project </a>
+          <a class="waves-effect waves-light btn-large hoverable mg-rg" ng-href="/projects">I Want to Buy Project </a>
         </div>
         <div class="col s6 center">
-            <a class="waves-effect waves-light btn-large hoverable mg-rg">I want to Sell Project</a>
+            <a class="waves-effect waves-light btn-large hoverable mg-rg" ng-click="vm.sellProject()">I want to Sell Project</a>
           </div>
     </div>
   </div>
@@ -82,7 +82,7 @@
                       <p>I am a project card. Check back soon to see my work.</p>
                     </div>
                     <div class="card-action">
-                      <a ng-href="/viewprojects/{{vm.projectcategorys[$index]._id}}" class="waves-effect waves-light">View Projects</a>
+                      <a ng-href="/viewprojects/{{vm.projectcategorys[$index+1]._id}}" class="waves-effect waves-light">View Projects</a>
                     </div>
                   </div>
                 </div>
@@ -97,7 +97,7 @@
                       <p>I am a project card. Check back soon to see my work.</p>
                     </div>
                     <div class="card-action">
-                      <a ng-href="/viewprojects/vm.projectcategorys[$index]._id}}" class="waves-effect waves-light">View Projects</a>
+                      <a ng-href="/viewprojects/vm.projectcategorys[$index+2]._id}}" class="waves-effect waves-light">View Projects</a>
                     </div>
                   </div>
                 </div>
@@ -191,74 +191,7 @@
                   <i class="fa fa-"></i>
               </div>
           
-              <div class="row">
-                <div class="col m4 s12 center">
-                  <div class="team">
-                    <div class="team-image">
-                      <a href="#">
-                        <img src="../assets/images/avatar.jpg" class="team-image circle img-responsive">
-                      </a>
-                      <div class="team-links">
-                        <div class="team-links-list">
-                         
-                          <a href="#" target="_blank"><i class="ion-social-facebook small"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-                          <a href="#" target="_blank"><i class="ion-social-linkedin small"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-                          <a href="#" target="_blank"><i class="ion-social-twitter small"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-                        </div><!-- /.team-links-list -->
-                      </div><!-- /.team-links -->
-                    </div><!-- /.team-image -->
-                    <div class="team-content">
-                      <div class="team-name"><a href="#"><h5>Jose Knutson</h5></a></div>
-                      <div class="team-role">Co-founder</div>
-                      <div class="team-description"></div>
-                    </div><!-- /.team-content -->
-                  </div><!-- /.team -->
-                </div>
-                <div class="col m4 s12 center">
-                  <div class="team">
-                    <div >
-                      <a href="#" >
-                        <img  src="../assets/images/avatar.jpg" class="team-image circle img-responsive">
-                      </a>
-                      <div class="team-links">
-                        <div class="team-links-list">
-                            <a href="#" target="_blank"><i class="ion-social-facebook small"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-                            <a href="#" target="_blank"><i class="ion-social-linkedin small"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-                            <a href="#" target="_blank"><i class="ion-social-twitter small"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-                        </div><!-- /.team-links-list -->
-                      </div><!-- /.team-links -->
-                    </div><!-- /.team-image -->
-                    <div class="team-content">
-                      <div class="team-name"><a href="#"><h5>Mary Ramos</h5></a></div>
-                      <div class="team-role">Co-founder</div>
-                      <div class="team-description"></div>
-                    </div><!-- /.team-content -->
-                  </div><!-- /.team -->
-                </div>
-                <div class="col m4 s12 center">
-                  <div class="team">
-                    <div class="team-image">
-                      <a href="#">
-                        <img  src="../assets/images/avatar.jpg" class="team-image circle img-responsive">
-                      </a>
-                      <div class="team-links">
-                        <div class="team-links-list">
-                            <a href="#" target="_blank"><i class="ion-social-facebook small"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-                          <a href="#" target="_blank"><i class="ion-social-linkedin small"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-                          <a href="#" target="_blank"><i class="ion-social-twitter small"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-                   
-                        </div><!-- /.team-links-list -->
-                      </div><!-- /.team-links -->
-                    </div><!-- /.team-image -->
-                    <div class="team-content">
-                      <div class="team-name"><a href="#"><h5>Michael Alexander</h5></a></div>
-                      <div class="team-role">Co-founder</div>
-                      <div class="team-description"></div>
-                    </div><!-- /.team-content -->
-                  </div><!-- /.team -->
-                </div>
-              </div>
-          
+             
               <div class="hr invisible_hr">
                   <i class="fa fa-"></i>
               </div>
@@ -280,7 +213,7 @@
                       </div><!-- /.team-links -->
                     </div><!-- /.team-image -->
                     <div class="team-content">
-                      <div class="team-name"><h5>Herman Mach</h5></div>
+                      <div class="team-name"><h5>Pradip Nemane</h5></div>
                       <div class="team-role">Software Developer</div>
                       <div class="team-description"></div>
                     </div><!-- /.team-content -->
@@ -302,7 +235,7 @@
                       </div><!-- /.team-links -->
                     </div><!-- /.team-image -->
                     <div class="team-content">
-                      <div class="team-name"><h5>Joyce Wagner</h5></div>
+                      <div class="team-name"><h5>Swapnil Unde</h5></div>
                       <div class="team-role">Designer</div>
                       <div class="team-description"></div>
                     </div><!-- /.team-content -->
@@ -424,7 +357,7 @@
                 <div class="col l6 s12">
                   <h5 class="cyan-text text-lighten-3">Contact info</h5>
                   <div class="divider light-green accent-2"></div>
-                  <p class="teal-text text-lighten-5">Sean Blattenberger<br>PGH, PENNA., 15201<br>G-Hangouts: sean.blattenberger<br>Skype: sean.blattenberger</p>
+                  <p class="teal-text text-lighten-5"><br>No. 99LH , Lanco Hills Technology Park ,<br>Manikonda, Hyderabad, Telangana 500089<br>Skype: pradip.nemane</p>
           
           
                 </div>
@@ -435,22 +368,21 @@
                   <br><br><br>
                   <div class="row">
                     <div class="col l3">
-                      <a class="blue lighten-2 btn-floating" href="twitter.com"><i class="ion-social-twitter"></i></a>
+                      <a class="blue lighten-2 btn-floating" href="https://twitter.com/CAPTAIN_PRADIP"><i class="ion-social-twitter"></i></a>
                     </div>
                     <div class="col l3">
-                      <a class="white btn-floating" href="github.com"><i class="ion-social-github black-text"></i></a>
+                      <a class="white btn-floating" href="https://github.com/CaptainPradip/"><i class="ion-social-github black-text"></i></a>
                     </div>
                     <div class="col l3">
-                      <a class="blue btn-floating" href="linkedin.com"><i class="ion-social-linkedin"></i></a>
+                      <a class="blue btn-floating" href="https://www.linkedin.com/in/pradip-nemane-827844136/"><i class="ion-social-linkedin"></i></a>
                     </div>
-                    <div class="col l3">
-                      <a class="grey darken-3 btn-floating" href="codepen.com"><i class="ion-social-codepen-outline"></i></a>
-                    </div>
+                   
           
                    </div>
                 </div>
               </div>
             </div>
+            </footer>
 
 
 </div>

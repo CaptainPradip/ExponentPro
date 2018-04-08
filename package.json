@@ -33,6 +33,7 @@
     "multer": "^1.3.0",
     "multer-s3": "^2.7.0",
     "ng-file-upload": "^12.2.13",
+    "nodemailer": "^4.6.3",
     "nodemon": "^1.14.8",
     "passport": "^0.4.0",
     "passport-facebook": "^2.1.1",

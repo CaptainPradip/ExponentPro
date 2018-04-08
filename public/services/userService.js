@@ -17,7 +17,7 @@
 
         ////////////////
         function registerUserHttp(registerUser) { 
-            return $http.post('api/signUp',registerUser);
+            return $http.post('api/user/signUp',registerUser);
         }
     }
 })();

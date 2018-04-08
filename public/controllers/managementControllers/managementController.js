@@ -29,7 +29,7 @@
 
               switch ($location.path()) {
                 case '/admin':
-                          getProjectIDE();
+                          //Decalre function for advance updates
                       break;
                   case '/admin/project-category':
                           getcategory();
@@ -65,15 +65,15 @@
 
 //Category Crud 
         vm.addCategory= function(){
-
+                        $rootScope.isLoaded=false
                         console.log(vm.name);
                         var projectCategory={}
                         projectCategory.name=vm.name;
                         managementCrudService.addProjectCategory(projectCategory).then(function(data){
-        
+                        $rootScope.isLoaded=true;
                         swal({title: data.data.message,   
-                        text: "I will close in 2 seconds.",   
-                        timer: 2000,   
+                        text: "I will close in 1 seconds.",   
+                        timer: 1000,   
                         showConfirmButton: false 
             });
                    

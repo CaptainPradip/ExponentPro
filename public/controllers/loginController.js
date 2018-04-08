@@ -35,7 +35,38 @@
    
        
        
+        if($routeParams._token){
+            authUserService.verifyManualUser($routeParams._token).then(function(data){
+                var status=data.data.success
+                if(status)
+                {
+                  $scope.successMessage=false;
+                  loginController.successMessage=data.data.message
+                  console.log('Response '+data.data.user.userName)
+                  $location.path('/home')
+                  $timeout(function () {
+                    console.log('ggg')
+                    $rootScope.user=data.data.user;
+                    $route.reload();
+                    authUserService.checkSession();
+                  },2000)
 
+                  
+                }
+               else{
+                loginController.errorMessage=data.data.message
+               
+                console.log('Response '+data.data.message)
+
+                $timeout(function () {
+                    $location.path('/login')
+                  },1000)
+               }
+              
+              });
+               
+                
+        }
         if($routeParams.token){
             authUserService.facebookuser($routeParams.token)
                
@@ -64,11 +95,7 @@
         else{
             console.log('User is Not LogIn  please Login !!!!')
         }
-
-    
-   
-        console.log('User is Not LogIn  please Login !!!!'+$scope.user)
-        
+  
 //
         $scope.loginUser=function(){ 
            var user =$scope.user
@@ -107,14 +134,14 @@
         $scope.loginWithFacebook=function() {
 
             $window.location=$window.location.protocol+'//'+$window.location.host+'/auth/facebook'
-            
+            $route.reload();
             console.log($routeParams.token);
         }
 
         $scope.loginWithGoogle=function() {
             
             $window.location=$window.location.protocol+'//'+$window.location.host+'/auth/google'
-            
+            $route.reload();
             console.log($routeParams.token);
         }
     }

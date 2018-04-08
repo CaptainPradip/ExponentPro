@@ -1,4 +1,173 @@
-<section id="content" ng-controller="projectInfoController as vm">
+<section id="content" >
+
+    <div class="container">
+      
+      <div class="row">
+      <div class=" col offset-m1 offset-l1 s8 m9 l9">
+      
+              <div class="row">
+                <div class="col s12 m12 l12 ">
+                   <h4 class="header"><span class="blue-text text-darken-2">Project Title : </span>{{vm.project.projectTitle}}</h4>
+                </div>
+                
+              
+              <!--Static Data-->
+              <div class="row">
+                <div class="col offset-m1 offset-s3 offset-l1 s12 m112 l12 ">
+                  
+                    <table class="hoverable centered highlight " >
+                      <thead>
+                        <tr> 
+                          <th >Project Field</th>
+                          <th >Project Info</th>
+                        
+                          
+                        </tr>
+                      </thead>
+                      <tbody> 
+                      
+                      <tr>
+                          <td class="blue-text text-darken-2">Screenshots</td>
+                          <td >
+                                  <div class="col offset-m3 offset-s3 offset-l3 s12 l6 m6 ">
+                                         
+                                            <img ng-src="{{vm.project.screenShotUrl}}" style="height:300px;width:300px;">
+                                        
+                                      
+                                  </div>
+                              </td>
+                         
+                          
+                      </tr>
+                      <tr>
+                          <td class="blue-text text-darken-2" >Project Category</td>
+                          <td >{{vm.project.projectCategory}}</td>
+                         
+                          
+                      </tr>
+                      <tr>
+                          <td class="blue-text text-darken-2">Developer Name</td>
+                          <td >{{vm.project.developer}}</td>
+                         
+                          
+                      </tr>
+                      <tr>
+                          <td class="blue-text text-darken-2">Programming Languages</td>
+                          <td >{{vm.project.programmingLanguage}}</td>
+                         
+                          
+                      </tr>
+                      <tr>
+                          <td class="blue-text text-darken-2">Frontend Technologys</td>
+                          <td >{{vm.project.frontendTechnology}}</td>
+                         
+                          
+                      </tr>
+                      <tr>
+                          <td class="blue-text text-darken-2">IDE Types</td>
+                          <td >{{vm.project.projectIDE}}</td>
+                         
+                          
+                      </tr>
+      
+                      <tr>
+                          <td class="blue-text text-darken-2">Platform Types</td>
+                          <td >{{vm.project.platformType}}</td>
+                         
+                          
+                      </tr>
+      
+                      <tr>
+                          <td class="blue-text text-darken-2"> Database Types</td>
+                          <td >{{vm.project.databaseType}}</td>
+                         
+                          
+                      </tr>
+      
+                      <tr>
+                          <td class="blue-text text-darken-2">No.Of Database Tables</td>
+                          <td >{{vm.project.noOfDatabaseTables}}</td>
+                         
+                          
+                      </tr>
+      
+                      <tr>
+                          <td class="blue-text text-darken-2">No.Of Report Pages</td>
+                          <td >{{vm.project.noOfReportPages}}</td>
+                         
+                          
+                      </tr>
+                      <tr>
+                          <td class="blue-text text-darken-2">No.Of  Modules</td>
+                          <td >{{vm.project.noOfProjectModules}}</td>
+                         
+                          
+                      </tr>
+                      <tr>
+                          <td class="blue-text text-darken-2"> Module Names</td>
+                          <td >{{vm.project.moduleNames}}</td>
+                         
+                          
+                      </tr>
+                      <tr>
+                          <td class="blue-text text-darken-2"> Description</td>
+                          <td >{{vm.project.description}}</td>
+                         
+                          
+                      </tr>
+                      <tr>
+                          <td class="blue-text text-darken-2"> Price</td>
+                          <td >Rs. {{vm.project.finalPrice}}</td>
+                         
+                         
+                      </tr>
+                      <tr>
+                          <td> <a class="waves-effect waves-light btn modal-trigger" ng-click="vm.showProjectRequestModel()">View Demo</a>
+                              <form name="updateProjectRequest" ng-submit="vm.updateProjectRequest(vm.project.comment,vm.project._id)">
+                              <div id="updateProjectRequest" class="modal">
+                              
+                                  <div class="modal-content">
+                                    <h4>Project Request </h4>
+                                    <p></p>
+                                   
+                                    <div class="row">
+                                      <div class="input-field col s12 m12 l12">
+                                        <i class="ion-quote prefix"></i>
+                                        <input id="fullName" type="text" value="vm.project.comment" ng-model="vm.project.comment" ng-required="true">
+                                        <label for="fullName">Comment for Rejection </label>
+                                      </div>
+                                      
+                                    </div>
+                                  </div>
+                                  <div class="modal-footer">
+                                      <button type="submit" class="modal-action  waves-effect waves-green green btn-flat" ng-disabled="updateProjectRequest.$invalid">Save</button>
+                                      <a href="#!" class="modal-action modal-close waves-effect waves-green  orange btn-flat">Cancel</a>
+                                  </div>
+                                
+                                </div>
+                              </form>
+                          </td>
+                          <td><a ng-click="vm.verifyProjectRequest(vm.project._id)" class="waves-effect waves-light btn">Buy</a></td>
+                      </tr>
+                      </tbody>
+                    </table>
+                </div>
+              </div>
+              </div>
+              
+              
+      </div>
+      </div>
+      
+      
+    </div>
+                   
+</section>
+
+
+
+
+<!-- <section id="content" >
 
         <div class="container">
             <div class="section">
@@ -13,14 +182,14 @@
                                                 <div class="slider s12 m4 l4"  slider>
                                                     <ul class="slides" >
                                                         <li >
-                                                            <img ng-src="../../assets/images/{{vm.project.indexPageUrl}}"> <!-- random image -->
+                                                            <img ng-src="../../assets/images/{{vm.project.indexPageUrl}}"> 
                                                             <div class="caption center-align">
                                                               <h3></h3>
                                                               <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
                                                             </div>
                                                           </li>
                                                       <li>
-                                                        <img ng-src="../../assets/images/{{vm.project.screenShotUrl[0]}}"> <!-- random image -->
+                                                        <img ng-src="../../assets/images/{{vm.project.screenShotUrl[0]}}"> 
                                                         <div class="caption center-align">
                                                           <h3></h3>
                                                           <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
@@ -62,7 +231,7 @@
                                               <div id="HowItWorks">How It Works ? </div>
                                               <div id="Devloper">
                                                   <div id="profile-page" class="section">
-                                                      <!-- profile-page-header -->
+                                                     
                                                       <div id="profile-page-header" class="card">
                                                           <div class="card-image waves-effect waves-block waves-light">
                                                               <img class="activator" src="../../assets/images/user-profile-bg.jpg" alt="user background">                    
@@ -102,9 +271,9 @@
                                               </div>
 
                                               <div id="profile-page-content" class="row">
-                                                  <!-- profile-page-sidebar-->
+                                            
                                                   <div id="profile-page-sidebar" class="col s12 m12">
-                                                    <!-- Profile About  -->
+                                                  
                                                     <div class="col s12 m4">
                                                         <div class="card light-blue">
                                                             <div class="card-content white-text">
@@ -134,13 +303,11 @@
                                                              
                                                             </ul>
                                                      </div>
-                                                    <!-- Profile About  -->
-                                                
-                                                    <!--/ Profile About Details  -->
+                                                   
                                                     
-                                                    <!-- Profile About  -->
+                                                  
                                     
-                                                    <!-- Profile feed  -->
+                                                   
                                                     <div class="col s12 m8">
                                                         <ul id="profile-page-about-feed" class="collection z-depth-1">
                                                             <li class="collection-item avatar" ng-repeat="project in vm.project.developer.project">
@@ -162,4 +329,4 @@
             </div>
         </div>
                        
-</section>
+</section> -->

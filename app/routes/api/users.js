@@ -4,14 +4,23 @@ const express = require('express');
 var jwt=require('jsonwebtoken');
 var aws = require('aws-sdk');
 var multerS3 = require('multer-s3')
-var config=require('../../../config/config');
+//var config=require('../../../config/config');
+var nodemailer= require('nodemailer');
 var userService=require('../../service/userService')
 const multer=require('multer');
 const fs =require('fs');
 
-var s3 = new aws.S3({accessKeyId:config.accessKeyId,
-    secretAccessKey:config.secretAccessKey,
-    region:config.region});
+var s3 = new aws.S3({accessKeyId:process.env.ACCESSKEYID,
+    secretAccessKey:process.env.SECRETACCESSKEY,
+    region:process.env.REGION});
+
+var transporter = nodemailer.createTransport({
+                    service: 'Gmail',
+                    auth: {
+                        user: 'newton2faraday@gmail.com', // Your email id
+                        pass: 'Captain007***' // Your password
+                    }
+                });
 const profileImageUrl="public/assets/images/";
 const router = express.Router();
 
@@ -71,9 +80,17 @@ var upload = multer({
 router.post('/signUp', (req, res) => {
     console.log(req.body.userName)
     var user=new User();
+    
     user.userName=req.body.userName;
     user.password=req.body.password;
     user.email=req.body.email;
+    user.createBy=user._id
+    const payload=
+    {
+    userName:user.userName,
+    email:user.email,
+    }
+    user.temporaryToken=jwt.sign(payload,config.secret, { expiresIn: '24h'});
      if (req.body.userName==null||req.body.userName==''||req.body.password==null||req.body.password==''||req.body.email==null||req.body.email==''){
 
          res.json({success:false,message:"Ensure User Name ,Password ,Email is provided !!!"});
@@ -88,6 +105,26 @@ router.post('/signUp', (req, res) => {
     
             else{
                 
+                var mailOptions = {
+                    from: 'newton2faraday@gmail.com',
+                    to: user.email,
+                    subject: 'Verify your Source Code Account ID.',
+                    html: 'Dear  ,'+user.userName +'<br><br><p>You have selected'+user.email+'as your new Source Code Pointer ID. To verify that this email address belongs to you, please click on the link below and then sign in using your Source Code ID and password.</p> <a href="http://localhost:3000/userverification/'+user.temporaryToken+'">Verify now</a><br><br>' +
+                        '<b>Best Regards,</b><br><b>Team - Source Code Pointer</b>'
+                };
+                transporter.sendMail(mailOptions, function (error, info) {
+                    if (error) {
+                        console.log(error);
+                      
+                    } else {
+                        console.log('Message sent: ' );
+                       
+                    };
+                });
+
+
+
+
                 res.json({
                     success:true,
                     message:"User is Created !!!"
@@ -104,6 +141,108 @@ router.post('/signUp', (req, res) => {
 });
 
 
+router.get('/verifyuser/:_token', (req, res) => {
+    
+    var user=new User();
+   
+    
+
+   // user.email=req.body.email;
+   // user.password=req.body.password;
+   // console.log(req.body.password +"================="+req.body.email)
+     if (req.params._token==null||req.params._token==''){
+
+         res.json({success:false,message:"Token is not provided !!!"});
+     }
+     else{
+
+        var token =req.params._token;
+        // decode token
+           if(token){
+               // verifies secret and checks exp
+               jwt.verify(token,config.secret,(error,decoded) =>{
+                   if(error){
+                   return  res.json({success:false,message:'failed to authenticate token'});
+                   }
+                   else{
+                         // if everything is good, save to request for use in other routes
+                       decoded;
+
+                       User.findOne({email:decoded.email}).select('_id email userName password permission active').exec(function (error,user) {
+
+                        if(error){
+                           throw error
+                        }
+                        if (!user){ 
+                            res.json({
+                                success:false,
+                                message:"Could not authenticate User !!"
+                            });
+                        }
+                        else if(user){
+                            console.log(user)
+                        //console.log(user.userName)
+                    
+                            if(user){
+                                console.log("Aunthenticate user"+user.permission)
+                                console.log(user);
+                              
+                               User.findByIdAndUpdate(user._id,{active:true},function(err,user){
+                                const payload=
+                                {
+                                 _id:user._id,
+                                 userName:user.userName,
+                                 email:user.email,
+                                 permission:user.permission
+                                }
+                                var token = jwt.sign(payload,config.secret, { expiresIn: '24h' });
+            
+                                res.json({
+                                    success:true,
+                                    message:"authenticate User !!",
+                                    user:user,
+                                    token:token
+                                });
+                               
+                               })
+                          
+                            }
+                            else{
+                             res.json({
+                                 success:false,
+                                 message:"Could not authenticate Password !!"
+                             });
+                            }
+                           
+                            
+            
+                        }
+                      
+                    })
+            
+                       
+                    }
+               })
+           }
+           else{
+               
+           // if there is no token
+           // return an error
+           return res.status(403).send({ 
+            success: false, 
+            message: 'No token provided.' 
+        });
+        
+           }
+
+       
+
+     }
+    
+
+
+});
+
 router.post('/authenticate', (req, res) => {
     
     var user=new User();
@@ -115,7 +254,7 @@ router.post('/authenticate', (req, res) => {
          res.json({success:false,message:"Email ,Password is not provided !!!"});
      }
      else{
-        User.findOne({email:req.body.email}).select('_id email userName password permission').exec(function (error,user) {
+        User.findOne({email:req.body.email}).select('_id email userName password permission active').exec(function (error,user) {
 
             if(error){
                throw error
@@ -126,7 +265,7 @@ router.post('/authenticate', (req, res) => {
                     message:"Could not authenticate User !!"
                 });
             }
-            else if(user){
+            else if(user &&user.active){
                 console.log(user.userName)
             user.comparePassword(req.body.password,function(error,isMatch) {
                 console.log(isMatch+"++++++++++++++++++++++++++++")
@@ -162,6 +301,12 @@ router.post('/authenticate', (req, res) => {
                 }
                 })
                 
+
+            }else{
+                res.json({
+                    success:false,
+                    message:"Please Verify Your Source Code Pointer ID!"
+                });
 
             }
           

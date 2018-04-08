@@ -9,9 +9,9 @@
                                         '$rootScope',
                                         '$scope',
                                         '$routeParams',
-                                        'projectCrudService'];
+                                        'managementCrudService'];
 
-    function projectsController($rootScope,$scope,$routeParams,projectCrudService) {
+    function projectsController($rootScope,$scope,$routeParams,managementCrudService) {
      
         var vm = this;
        
@@ -21,10 +21,11 @@
 
 function getProjectAllProjects(){
 
-    projectCrudService.getProjectAllProject().then(function(data){
+    managementCrudService.getProjectAllProject().then(function(data){
         var clients=[]
        
                  vm.projects=data.data.projects;
+                 console.log(data.data.projects);
                 for (let index = 0; index < vm.projects.length; index++) {
                     var project={}
                     let element = vm.projects[index];
@@ -32,9 +33,11 @@ function getProjectAllProjects(){
                     project.projectCategory=element.projectCategory.name;
                     project.projectIDE=element.projectIDE.name;
                     console.log(element.projectIDE.name);
-                    //project.platformType=element.platformType.name;
-                   // project.databaseType=element.databaseType.name;
+                    project.platformType=element.platformType.name;
+                    project.databaseType=element.databaseType.name;
                     project.developer=element.developer.fullName;
+                   
+                    project.verifiedBy=element.verifiedBy.userName
                     project.noOfDownload=element.noOfDownload;
                     project.finalPrice=element.finalPrice;
                     project.isVerified=element.isVerified;
@@ -93,6 +96,7 @@ function getProjectAllProjects(){
                     { name: "noOfDownload", title: "Downloads",type: "number", width: 100 ,filtering: true},
                     { name: "finalPrice", title: "Final Price",type: "number", width: 55 ,filtering: true},
                     { name: "isVerified", title: "isVerified",type: "checkbox",width: 80,filtering: true },
+                    { name: "verifiedBy", title: "Verified By",type: "text",width: 80,filtering: true },
                     { type: "control",editButton: false,deleteButton:false }
                 ]
             });

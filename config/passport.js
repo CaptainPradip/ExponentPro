@@ -1,5 +1,5 @@
 
-var config=require('./config')
+//var config=require('./config')
 var jwt=require('jsonwebtoken');
 var session = require('express-session')
 var User =require('../app/models/user')
@@ -10,7 +10,7 @@ module.exports=function (app,passport) {
   
   app.use(passport.initialize());
   app.use(passport.session());
-  app.use(session({secret:config.secret,resave: false,saveUninitialized: true,cookie: { secure: false }
+  app.use(session({secret:process.env.SECRET,resave: false,saveUninitialized: true,cookie: { secure: false }
   }))
 
 
@@ -23,7 +23,7 @@ module.exports=function (app,passport) {
      permission:user.permission
     }
     
-      token = jwt.sign(payload,config.secret, { expiresIn: '24h' });
+      token = jwt.sign(payload,process.env.SECRET, { expiresIn: '24h' });
       done(null,user.id);
   });
   
@@ -37,8 +37,8 @@ module.exports=function (app,passport) {
 
   
 passport.use(new FacebookStrategy({
-    clientID: config.facebookId,//FACEBOOK_APP_ID,
-    clientSecret: config.facebookAPIKey,//FACEBOOK_APP_SECRET,
+    clientID: process.env.FACEBOOKID,//FACEBOOK_APP_ID,
+    clientSecret: process.env.FACEBOOKAPIKEY,//FACEBOOK_APP_SECRET,
     callbackURL: "https://young-basin-92217.herokuapp.com/auth/facebook/callback",
     profileFields:['id', 'displayName', 'link','photos', 'email']
   },
@@ -59,6 +59,13 @@ passport.use(new FacebookStrategy({
           facebookUser.email=profile._json.email;
           facebookUser.password=profile._json.name;
           facebookUser.picture=profile._json.picture.data.url;
+          const payload=
+                    { 
+                    userName:profile._json.name,
+                    email:profile._json.email,
+                    
+                    }
+          facebookUser.temporaryToken=jwt.sign(payload,process.env.SECRET, { expiresIn: '24h' });
           facebookUser.save(function(err){
                         if (err)
                             throw err;
@@ -78,10 +85,9 @@ passport.use(new FacebookStrategy({
 
 
 passport.use(new GoogleStrategy({
-  
-  clientID        : config.googleId,
-  clientSecret    : config.googleAPIKey,
-  callbackURL     : "http://localhost:3000/auth/google/callback",
+  clientID        : process.env.GOOGLEID,
+  clientSecret    : process.env.GOOGLEAPIKEY,
+  callbackURL     : "https://young-basin-92217.herokuapp.com/auth/google/callback",
 
 },function(token, refreshToken, profile, done) {
 
@@ -107,6 +113,13 @@ passport.use(new GoogleStrategy({
                     GoogleUser.email=profile.emails[0].value;
                     GoogleUser.password=profile.emails[0].value;
                     GoogleUser.picture=profile._json.image.url;
+                    const payload=
+                    { 
+                    userName:profile.displayName,
+                    email:profile.emails[0].value,
+                    
+                    }
+                    GoogleUser.temporaryToken=jwt.sign(payload,process.env.SECRET, { expiresIn: '24h' });
                     // set all of the relevant information
                     // newUser.google.id    = profile.id;
                     // newUser.google.token = token;
@@ -116,6 +129,7 @@ passport.use(new GoogleStrategy({
                     // save the user
                     GoogleUser.save(function(err) {
                         if (err)
+                        console.log("Error In Google Login ")
                             throw err;
                         return done(null, GoogleUser);
                     });

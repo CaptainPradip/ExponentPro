@@ -8,54 +8,83 @@
         .when('/', {
             templateUrl: '../views/pages/home.html',
             controller: 'homeController',
+            controllerAs:'vm',
             authenticated:false
         })
     
       .when('/login', {
             templateUrl: '../views/pages/login.html',
             controller: 'loginController',
+            controllerAs:'vm',
             authenticated:false
         })
         .when('/login/:token', {
             templateUrl: '../views/pages/login.html',
             controller: 'loginController',
+            controllerAs:'vm',
+            authenticated:false
+
+        })
+        .when('/userverification/:_token', {
+            templateUrl: '../views/pages/login.html',
+            controller: 'loginController',
+            controllerAs:'vm',
             authenticated:false
 
         })
         .when('/logout', {
             templateUrl: '../views/pages/home.html',
             controller: 'homeController',
+            controllerAs:'vm',
             authenticated:true
         })
         .when('/signup', {
             templateUrl: '../views/pages/signUp.html',
             controller: 'signUpController',
-            
+            controllerAs:'vm',
             authenticated:false
         })
         .when('/profile', {
             templateUrl: '../views/pages/profile.html',
             controller: 'profileController',
-            authenticated:false,
+            controllerAs:'vm',
+            authenticated:true,
             permission:['admin','user']
         })
 
         .when('/viewprojects/:_id', {
             templateUrl: '../views/pages/projectList.html',
             controller: 'projectListController',
+            controllerAs:'vm',
+            authenticated:false,
+            permission:['admin','user']
+        })
+        .when('/projects', {
+            templateUrl: '../views/pages/projectList.html',
+            controller: 'projectListController',
+            controllerAs:'vm',
+            authenticated:false,
+            permission:['admin','user']
+        })
+        .when('/projects/search/:key', {
+            templateUrl: '../views/pages/projectList.html',
+            controller: 'projectListController',
+            controllerAs:'vm',
             authenticated:false,
             permission:['admin','user']
         })
         .when('/project/:_id', {
             templateUrl: '../views/pages/projectInfo.html',
             controller: 'projectInfoController',
+            controllerAs:'vm',
             authenticated:false,
             permission:['admin','user']
         })
         .when('/sellproject', {
             templateUrl:'../views/pages/profile.html',
             controller: 'profileController',
-            authenticated:false,
+            controllerAs:'vm',
+            authenticated:true,
             permission:['admin','user']
         })
 
@@ -73,7 +102,7 @@
             controllerAs:'vm',
             permission:['admin']
         })
-        .when('/admin/project-request',{
+        .when('/admin/project-request/:_id',{
             templateUrl: '../views/pages/management/projectRequest.html',
             controller: 'projectRequestController',
             authenticated:true,
@@ -129,6 +158,13 @@
             authenticated:true,
             permission:['admin']
         })
+        .when('/admin/user', {
+            templateUrl: '../views/pages/management/userManagement.html',
+            controller: 'userManagementController',
+            controllerAs:'vm',
+            authenticated:true,
+            permission:['admin']
+        })
         
         .otherwise({redirectTo:('/')})
        
@@ -137,9 +173,6 @@
 
     Routes.run(['$rootScope','authUserService','$location','$interval','$window','$route',function ($rootScope,authUserService,$location,$interval,$window,$route) {
        
-
-       
-        
         authUserService.checkSession();
         $rootScope.checkSession=true;
         $rootScope.isAdmin=false;

@@ -8,7 +8,7 @@
   <base href="/">
   <meta name="description" content="Materialize is a Material Design Admin Template,It's modern, responsive and based on Material Design by Google. ">
   <meta name="keywords" content="materialize, admin template, dashboard template, flat admin template, responsive admin template,">
-  <title>ProjectQuora</title>
+  <title>Source Code*</title>
 
   <!-- Favicons-->
   <link rel="icon" href="../assets/images/isome-ios-7-app-icon-template-1024x1024-screen-shot-3.png" sizes="32x32">
@@ -72,13 +72,15 @@
   <div class="navbar-fixed">
       <nav class="navbar-color">
           <div class="nav-wrapper">
-              <ul class="left">                      
-                <li><h1 class="logo-wrapper"><a href="index.html" class="brand-logo darken-1"><img src="images/materialize-logo.png" alt="ProjectQuora"></a> <span class="logo-text">ProjectQuora</span></h1></li>
-              </ul>
+                                  
+              <a href="/" class="left">Source Code*</a>
+             
               <div class="header-search-wrapper hide-on-med-and-down col s12 m6 l6">
+                <form ng-submit="main.searchProject()">
                   <i class="mdi-action-search"></i>
-                  <input type="text" name="Search" class="header-search-input z-depth-2" ng-model="main.search" placeholder="Explore Projects"/>
-              </div>
+                  <input type="text" name="Search" ng-model="main.search" class="header-search-input z-depth-2" ng-model="main.search" placeholder="Explore Projects"/>
+                </form>
+                </div>
               
               <ul class="right hide-on-med-and-down">
                   <!-- <li><a href="javascript:void(0);" class="waves-effect waves-block waves-light translation-button"  data-activates="translation-dropdown"><i class="mdi-action-shopping-basket"></i></a>
@@ -112,7 +114,7 @@
               <!-- notifications-dropdown -->
               <ul id="notifications-dropdown" class="dropdown-content">
                   <li><a href="/login"  class="cyan-text">Login</a></li>
-                  <li><a href="/signUp" class="cyan-text">Register</a></li>
+                  <li><a href="/signup" class="cyan-text">Register</a></li>
               </ul>
               <ul id="profile-dropdown" class="dropdown-content">
                   <li><a href="/profile"  class="cyan-text"><i class="mdi-action-face-unlock"></i> Profile</a>
@@ -160,8 +162,8 @@
               <footer class="page-footer">
                 <div class="footer-copyright">
                   <div class="container">
-                    <span>Copyright © 2017 <a class="grey-text text-lighten-4" href="http://themeforest.net/user/geekslabs/portfolio?ref=geekslabs" target="_blank">GeeksLabs</a> All rights reserved.</span>
-                    <span class="right"> Design and Developed by <a class="grey-text text-lighten-4" href="http://geekslabs.com/">GeeksLabs</a></span>
+                    <span>Copyright © 2017 <a class="grey-text text-lighten-4" href="#" target="_blank">Source Code*</a> All rights reserved.</span>
+                    <span class="right"> Design and Developed by <a class="grey-text text-lighten-4" href="#">Source Code*</a></span>
                     </div>
                 </div>
               </footer>
@@ -176,6 +178,7 @@
     <script src="../controllers/managementControllers/directiveController.js"></script>
     <script src="../controllers/managementControllers/projectListController.js"></script>
     <script src="../controllers/managementControllers/projectRequestController.js"></script>
+    <script src="../controllers/managementControllers/userManagementController.js"></script>
    
     <script src="../controllers/projectListController.js"></script>
     <script src="../controllers/projectInfoController.js"></script>

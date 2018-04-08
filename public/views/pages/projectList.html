@@ -1,6 +1,6 @@
 
  
-<div id="main" ng-controller="projectListController as vm">
+<div id="main">
         <!-- START WRAPPER -->
         <div class="wrapper">
  
@@ -113,7 +113,7 @@
                             <div class="col offset-m3 s12 m4" ng-if="projects[$index].projectTitle">
                                 <div class="card medium" >
                                     <div class="card-image">
-                                        <img class="activator" ng-src="../assets/images/{{projects[$index].indexPageUrl}}">
+                                        <img class="activator" ng-src="{{projects[$index].indexPageUrl}}">
                                     </div>
                                     <div class="card-content">
                                         <span class="card-title activator cyan-text text-lighten-3">{{projects[$index].projectTitle}}<i class="ion-android-more-vertical right"></i> </span>
@@ -136,13 +136,16 @@
                                             <h6 class="light-blue-text text-darken-4">Frontend Technology :</h6>
                                             
                                             <span ng-repeat="frontendTechnology in projects[$index].frontendTechnology">{{frontendTechnology.name}} ,</span>
-                                    </div>
+                                            <h6 class="light-blue-text text-darken-4">Database type:</h6>
+                                            
+                                            <span>{{projects[$index].databaseType.name}}</span>
+                                        </div>
                                 </div>
                             </div>
                             <div class="col s12 m4" ng-if="projects[$index+1].projectTitle">
                                 <div class="card medium">
                                     <div class="card-image">
-                                        <img class="activator" ng-src="../assets/images/{{projects[$index+1].indexPageUrl}}">
+                                        <img class="activator" ng-src="{{projects[$index+1].indexPageUrl}}">
                                     </div>
                                     <div class="card-content">
                                         <span class="card-title activator cyan-text text-lighten-3"> {{projects[$index+1].projectTitle}} <i class="ion-android-more-vertical right"></i></span>
@@ -165,7 +168,10 @@
                                             <h6 class="light-blue-text text-darken-4">Frontend Technology :</h6>
                                             
                                             <span ng-repeat="frontendTechnology in projects[$index+1].frontendTechnology">{{frontendTechnology.name}} ,</span>
-                                    </div>
+                                            <h6 class="light-blue-text text-darken-4">Database type:</h6>
+                                            
+                                            <span>{{projects[$index].databaseType.name}}</span>
+                                        </div>
                                 </div>
                             </div>
                             

@@ -21,9 +21,13 @@ var userSchema =new Schema({
      isFullProfile:{type:Boolean,required:true,default:false},
      followers:{type:Number,required:true,default:0},
      active:{type:Boolean,required:true,default:false},
-     temporaryToken:{type:String},
-     permission:{type:String,default:'user'}
-
+     temporaryToken:{type:String,required:true},
+     permission:{type:String,default:'user'},
+     createBy:{type: Schema.Types.ObjectId, ref: 'User'},
+     createdDate:{type:Date,formate:'dd mmmmm yyyy',default: Date.now},
+     updatedDate:{type:Date,formate:'dd mmmmm yyyy',default: Date.now},
+     updatedBy:{type: Schema.Types.ObjectId, ref: 'User'},
+     rating:{type: Number,required:true,default:0},
 });
 
 // methods ======================
@@ -37,6 +41,17 @@ userSchema.pre('save',function(next){
             return next(error)
         }
         user.password=hash;
+        next();
+    });
+});
+userSchema.pre('findByIdAndUpdate',function(next){
+    var user=this;
+    bcrypt.hash(password,null, null,function (error,hash) {
+        if(error)
+        {
+            return next(error)
+        }
+        password=hash;
         next();
     });
 });

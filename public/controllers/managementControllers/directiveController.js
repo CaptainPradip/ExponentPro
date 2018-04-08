@@ -25,9 +25,9 @@
            
             managementCrudService.getAllProjectRequest().then(function(data){
      
-                    vm.projectRequest=data.data.projects;
+                    vm.noOfProjectRequests=data.data.projects.length;
          
-                    console.log(vm.projectRequest.length);
+                   
             });
     
             

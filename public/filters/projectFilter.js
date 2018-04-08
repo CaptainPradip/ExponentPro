@@ -52,7 +52,8 @@
                    //console.log(platformTypesResult);
 
 
-                   if(!searchString&&programmingLanguageResult.length==0&&databaseTypesResult.length==0&&frontendTechnologysResult.length==0&&platformTypesResult.length==0){
+                   if(!searchString&&programmingLanguageResult.length==0&&databaseTypesResult.length==0&&frontendTechnologysResult.length==0&&platformTypesResult.length==0&&projects!=undefined){
+                    
                     return projects.filter(priceFilter);
                 }
         
@@ -92,14 +93,14 @@
                     })
 
                         
-                        if(databaseTypesResult.indexOf(project.databaseType) > -1){
+                        if(databaseTypesResult.indexOf(project.databaseType._id) > -1){
                                                     
                             result.push(project);
                         }
                  
 
                    
-                        if(platformTypesResult.indexOf(project.platformType) > -1){
+                        if(platformTypesResult.indexOf(project.platformType._id) > -1){
                                                   
                             result.push(project);
                         }
@@ -117,7 +118,7 @@
                 }
               
                
-                var unique = result.filter( onlyUnique ); 
+                var unique = result.filter(onlyUnique ); 
                 unique =unique.filter(priceFilter);
                
                 return unique;

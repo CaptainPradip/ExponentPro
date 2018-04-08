@@ -9,56 +9,97 @@
 
 
     projectListController.$inject = ['$rootScope',
-                                     '$scope',
-                                     '$routeParams',
-                                     'projectCrudService',
+                                      '$location',
+                                      '$scope',
+                                      '$routeParams',
+                                      'projectCrudService',
                                     ];
 
 
 
-    function projectListController($rootScope,$scope,$routeParams,projectCrudService) {
+    function projectListController($rootScope,$location,$scope,$routeParams,projectCrudService) {
         var vm = this;
-       
-     
         $rootScope.mainnav=true
-        console.log($routeParams._id);
-        getProjectsByCategoryId();
+               
+        // Initialize collapse button
+        $(".sidebar-collapse").sideNav();
+        // Initialize collapsible (uncomment the line below if you use the dropdown variation)
+        $('.collapsible').collapsible();
+
+        $('.scrollspy').scrollSpy();
+
         getProgrammingLanguage();
         getDatabaseType();
         getFrontendTechnology();
         getPlatformType();
-    console.log(vm.min)
-    console.log(vm.max)
+
         $scope.slider = {
-            minValue: 0,
-            maxValue: 10000,
-            options: {
-              floor: 0,
-              ceil: 10000,
-              translate: function(value, sliderId, label) {
-                switch (label) {
-                  case 'model':
-                  vm.min=value;
-                    return '<b>Min</b> ₹' + value;
-                  case 'high':
-                  vm.max=value;
-                    return '<b>Max:</b> ₹' + value;
-                  default:
-                    return '$' + value
-                }
+          minValue: 0,
+          maxValue: 10000,
+          options: {
+            floor: 0,
+            ceil: 10000,
+            translate: function(value, sliderId, label) {
+              switch (label) {
+                case 'model':
+                vm.min=value;
+                  return '<b>Min</b> ₹' + value;
+                case 'high':
+                vm.max=value;
+                  return '<b>Max:</b> ₹' + value;
+                default:
+                  return '$' + value
               }
             }
-          };
-// Initialize collapse button
-$(".sidebar-collapse").sideNav();
-// Initialize collapsible (uncomment the line below if you use the dropdown variation)
-$('.collapsible').collapsible();
+          }
+        };
+        
+        switch ($location.path()) {
+          case '/projects':
+          $rootScope.isLoaded=false;
+                getAllProject();
+                    //Decalre function for advance updates
+                break;
+          case '/projects/search/'+$routeParams.key:
+      
+                $rootScope.isLoaded=false;
+                getSearchProject();
+                    //Decalre function for advance updates
+                break;
+          default:
+          $rootScope.isLoaded=false;
+                console.log($routeParams._id);
+                getProjectsByCategoryId();
 
-$('.scrollspy').scrollSpy();
+                break;
+        }
+
+        
+function getAllProject(){
+
+          projectCrudService.getProjectAllProject().then(function(data){
+
+              vm.projects=data.data.projects;
+              $rootScope.isLoaded=true
+              console.log(vm.projects);
+           });
+  
 
 
+       }
+       
+function getSearchProject(){
+
+          projectCrudService.getProjectAllProject().then(function(data){
+
+              vm.projects=data.data.projects;
+              $rootScope.isLoaded=true
+              console.log(vm.projects);
+           });
+  
 
 
+       }
 function getProjectsByCategoryId(){
  
       projectCrudService.getProjectByCategoryId($routeParams._id).then(function(data){

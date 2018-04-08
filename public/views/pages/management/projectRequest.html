@@ -1,6 +1,6 @@
 <admin-nav user="user" ></admin-nav>
 <div class="row">
-<div class=" col offset-m2 offset-s3 offset-l2 s8 m8 l8">
+<div class=" col offset-m2 offset-s2 offset-l2 s8 m9 l9">
 
         <div class="row">
           <div class="col s12 m6 l4 ">
@@ -10,92 +10,186 @@
         
         <!--Static Data-->
         <div class="row">
-         
-          
-          <div class="col offset-m1 offset-s3 offset-l1 s12 m11 l11 ">
-              <p></p>
-              <table class="hoverable centered" >
+          <div class="col offset-m1 offset-s3 offset-l1 s12 m112 l12 ">
+            
+              <table class="hoverable centered highlight " >
                 <thead>
                   <tr> 
                     <th >Project Field</th>
                     <th >Project Info</th>
-                    <th >Edit</th>
+                  
                     
                   </tr>
                 </thead>
-                <tbody> <td ></td>
-                    <td >{{project.developer.fullName}}</td>
-                    <td >{{project.uploadedDate | date : "MMM d, y h:mm:ss a"}}</td>
-                <tr >
-                    <td >Project Title</td>projectTitle
-                    <td >{{project.projectTitle}}</td>
+                <tbody> 
+                <tr>
+                    <td class="blue-text text-darken-2">Project Title</td>
+                    <td >{{vm.projectRequest.projectTitle}}</td>
                    
-                    <td><a href="#!" ng-click="vm.viewProjectRequest(project._id)" ><i class="ion-eye small"></i></a></td>
+                    
                 </tr>
-                <tr >
-                    <td >Project Category</td>
-                    <td >{{project.projectCategory.name}}</td>
+                <tr>
+                    <td class="blue-text text-darken-2">Project Screenshots</td>
+                    <td >
+                            <div class="col offset-m3 offset-s3 offset-l3 s12 l6 m6 ">
+                                   
+                                      <img ng-src="{{vm.projectRequest.screenShotUrl}}" style="height:300px;width:300px;">
+                                  
+                                
+                            </div>
+                        </td>
                    
-                    <td><a href="#!" ng-click="vm.viewProjectRequest(project._id)" ><i class="ion-eye small"></i></a></td>
+                    
                 </tr>
-                <tr >
-                    <td >Project Title</td>projectTitle
-                    <td >{{project.projectTitle}}</td>
+                <tr>
+                    <td class="blue-text text-darken-2" >Project Category</td>
+                    <td >{{vm.projectRequest.projectCategory}}</td>
                    
-                    <td><a href="#!" ng-click="vm.viewProjectRequest(project._id)" ><i class="ion-eye small"></i></a></td>
+                    
+                </tr>
+                <tr>
+                    <td class="blue-text text-darken-2">Developer Name</td>
+                    <td >{{vm.projectRequest.developer}}</td>
+                   
+                    
+                </tr>
+                <tr>
+                    <td class="blue-text text-darken-2">Project Programming Language</td>
+                    <td >{{vm.projectRequest.programmingLanguage}}</td>
+                   
+                    
+                </tr>
+                <tr>
+                    <td class="blue-text text-darken-2">Project Frontend Technology</td>
+                    <td >{{vm.projectRequest.frontendTechnology}}</td>
+                   
+                    
+                </tr>
+                <tr>
+                    <td class="blue-text text-darken-2">Project IDE Type</td>
+                    <td >{{vm.projectRequest.projectIDE}}</td>
+                   
+                    
                 </tr>
 
-                <tr >
-                    <td >Project Title</td>projectTitle
-                    <td >{{project.projectTitle}}</td>
+                <tr>
+                    <td class="blue-text text-darken-2">Project Platform Type</td>
+                    <td >{{vm.projectRequest.platformType}}</td>
                    
-                    <td><a href="#!" ng-click="vm.viewProjectRequest(project._id)" ><i class="ion-eye small"></i></a></td>
+                    
                 </tr>
 
-                <tr >
-                    <td >Project Title</td>projectTitle
-                    <td >{{project.projectTitle}}</td>
+                <tr>
+                    <td class="blue-text text-darken-2">Project Database Type</td>
+                    <td >{{vm.projectRequest.databaseType}}</td>
                    
-                    <td><a href="#!" ng-click="vm.viewProjectRequest(project._id)" ><i class="ion-eye small"></i></a></td>
+                    
                 </tr>
 
-                <tr >
-                    <td >Project Title</td>projectTitle
-                    <td >{{project.projectTitle}}</td>
+                <tr>
+                    <td class="blue-text text-darken-2">No.Of Database Tables</td>
+                    <td >{{vm.projectRequest.noOfDatabaseTables}}</td>
                    
-                    <td><a href="#!" ng-click="vm.viewProjectRequest(project._id)" ><i class="ion-eye small"></i></a></td>
+                    
                 </tr>
 
-                <tr >
-                    <td >Project Title</td>projectTitle
-                    <td >{{project.projectTitle}}</td>
+                <tr>
+                    <td class="blue-text text-darken-2">No.Of Report Pages</td>
+                    <td >{{vm.projectRequest.noOfReportPages}}</td>
                    
-                    <td><a href="#!" ng-click="vm.viewProjectRequest(project._id)" ><i class="ion-eye small"></i></a></td>
+                    
                 </tr>
-
-                <tr >
-                    <td >Project Title</td>projectTitle
-                    <td >{{project.projectTitle}}</td>
+                <tr>
+                    <td class="blue-text text-darken-2">No.Of Project Modules</td>
+                    <td >{{vm.projectRequest.noOfProjectModules}}</td>
                    
-                    <td><a href="#!" ng-click="vm.viewProjectRequest(project._id)" ><i class="ion-eye small"></i></a></td>
+                    
                 </tr>
-                <tr >
-                    <td >Project Title</td>projectTitle
-                    <td >{{project.projectTitle}}</td>
+                <tr>
+                    <td class="blue-text text-darken-2">Project Module Names</td>
+                    <td >{{vm.projectRequest.moduleNames}}</td>
                    
-                    <td><a href="#!" ng-click="vm.viewProjectRequest(project._id)" ><i class="ion-eye small"></i></a></td>
+                    
                 </tr>
-                <tr >
-                    <td >Project Title</td>projectTitle
-                    <td >{{project.projectTitle}}</td>
+                <tr>
+                    <td class="blue-text text-darken-2">Project Description</td>
+                    <td >{{vm.projectRequest.description}}</td>
                    
-                    <td><a href="#!" ng-click="vm.viewProjectRequest(project._id)" ><i class="ion-eye small"></i></a></td>
+                    
+                </tr>
+                <tr>
+                    <td class="blue-text text-darken-2">Project Expected Price</td>
+                    <td >{{vm.projectRequest.expectedPrice}}</td>
+                   
+                   
+                </tr>
+                <tr>
+                    <td> <a class="waves-effect waves-light btn modal-trigger" ng-click="vm.showProjectRequestModel()">Update Project Request</a>
+                        <form name="updateProjectRequest" ng-submit="vm.updateProjectRequest(vm.projectRequest.comment,vm.projectRequest._id)">
+                        <div id="updateProjectRequest" class="modal">
+                        
+                            <div class="modal-content">
+                              <h4>Project Request </h4>
+                              <p></p>
+                             
+                              <div class="row">
+                                <div class="input-field col s12 m12 l12">
+                                  <i class="ion-quote prefix"></i>
+                                  <input id="fullName" type="text" value="vm.projectRequest.comment" ng-model="vm.projectRequest.comment" ng-required="true">
+                                  <label for="fullName">Comment for Rejection </label>
+                                </div>
+                                <div class="input-field col s12 m3 l3">
+                                        <i class="ion-quote prefix"></i>
+                                        <input id="comment" type="text" value="vm.finalPrice" ng-model="vm.finalPrice" ng-required="true">
+                                        <label for="comment">finalPrice </label>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="modal-action  waves-effect waves-green green btn-flat" ng-disabled="updateProjectRequest.$invalid">Save</button>
+                                <a href="#!" class="modal-action modal-close waves-effect waves-green  orange btn-flat">Cancel</a>
+                            </div>
+                          
+                          </div>
+                        </form>
+                    </td>
+                    <td><a ng-click="vm.showVerifyProjectRequestModel()" class="waves-effect waves-light btn">Verify</a>
+                        
+                        <form name="verifyProjectRequest" ng-submit="vm.verifyProjectRequest(vm.projectRequest._id)">
+                                <div id="verifyProjectRequest" class="modal">
+                                
+                                    <div class="modal-content">
+                                      <h4>Verify Project Request </h4>
+                                      <p></p>
+                                     
+                                      <div class="row">
+                                        <div class="input-field col s12 m9 l9">
+                                          <i class="ion-quote prefix"></i>
+                                          <input id="comment" type="text" value="vm.finalcomment" ng-model="vm.finalcomment" ng-required="true">
+                                          <label for="comment">Comment for Verify </label>
+                                        </div>
+                                        <div class="input-field col s12 m3 l3">
+                                                <i class="ion-quote prefix"></i>
+                                                <input id="comment" type="text" value="vm.finalPrice" ng-model="vm.finalPrice" ng-required="true">
+                                                <label for="comment">finalPrice </label>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="modal-action  waves-effect waves-green green btn-flat" ng-disabled="verifyProjectRequest.$invalid">Save</button>
+                                        <a href="#!" class="modal-action modal-close waves-effect waves-green  orange btn-flat">Cancel</a>
+                                    </div>
+                                  
+                                  </div>
+                                </form>
+                    </td>
                 </tr>
                 </tbody>
               </table>
           </div>
         </div>
         </div>
+        
         
 </div>
 </div>

@@ -33,7 +33,8 @@ var projectSchema =new Schema({
     noOfView:{type:Number ,required:true,default:0},
     isVerified:{type:Boolean,required:true,default:false},
     uploadedDate: {type: Date,default: Date.now},
-
+    verifiedBy:{ type: Schema.Types.ObjectId, ref: 'User'},
+    comment:{type:String,required:true,default:"Not Yet Verified !!!"},
 });
 
 

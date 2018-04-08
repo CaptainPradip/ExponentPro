@@ -1,8 +1,9 @@
 var express=require('express');
 var jwt=require('jsonwebtoken');
 var config=require('../../../config/config');
+var nodemailer= require('nodemailer');
+var bcrypt =require('bcrypt-nodejs')
 var router= express.Router();
-
 
 //Data Models 
 var User=require('../../models/user')
@@ -54,7 +55,7 @@ router.use((req,res,next) => {
        }
     
     });
-
+router.get('/projects',getAllProject);
 router.get("/projectrequests",getAllProjectRequests);
 router.get("/projectrequests/:_id",getProjectRequest);
 router.put("/projectrequests/:_id",updateProjectRequest);
@@ -109,6 +110,38 @@ router.delete('/databasetypes/:_id',deleteDatabaseType);
 module.exports =router;
 
 
+function getAllProject(req,res) {
+
+    Project.find().where({isVerified:true})
+    .populate('programmingLanguage')
+    .populate('frontendTechnology')
+    .populate({
+        path: 'developer',select:'fullName picture workExperience followers aboutMe softSkills workInCompany',
+        populate: { path: 'project',select:'_id projectTitle indexPageUrl',
+                    model:'Project' }})  
+    .populate('projectIDE')
+    .populate('projectCategory')
+    .populate('databaseType')
+    .populate('platformType')
+    .populate('verifiedBy')
+    .exec((error,projects)=>{
+     
+        if(error)
+        {  res.status(500).json({success:false,
+            error:"There was a problem finding the Projects information ."})
+           console.log(error)
+        }else{ 
+          res.status(200).json({
+              success:true,
+              projects:projects
+
+          })
+             
+        }});
+   
+    
+}
+
 
 function getAllProjectRequests(req,res){
 
@@ -145,6 +178,8 @@ function getProjectRequest(req,res){
     .populate('projectIDE')
     .populate('projectCategory')
     .populate('databaseType')
+    .populate('platformType')
+    .populate('verifiedBy')
     .exec((error,project)=>{
      
         if(error)
@@ -163,16 +198,22 @@ function getProjectRequest(req,res){
 }
 
 function updateProjectRequest(req,res){
-
-    if(req.body.isVerified==null ||req.body.isVerified==''){
+   
+    console.log( req.decoded._id)
+    console.log(req.body.isVerified=='');
+    if(req.body.isVerified==null ||req.body.isVerified===''
+        || req.body.comment==null ||req.body.comment==''
+        ||req.body.finalPrice==null||req.body.finalPrice==''){
         res.json({message:"Given data is empty please enter correct data !!"});
       }
   else{ 
-    Project.findByIdAndUpdate(req.params._id,{isVerified:req.body.isVerified},(error,project)=>{
+    Project.findByIdAndUpdate(req.params._id,{isVerified:req.body.isVerified,
+                            comment:req.body.comment,verifiedBy:req.decoded._id,
+                            finalPrice:req.body.finalPrice},(error,project)=>{
      
         if(error)
         {  res.status(500).json({success:false,
-            error:"There was a problem updating  the information to the database."})
+            error:"There was a problem updating the information to the database."})
    
             console.log(error)
         }else{ 
@@ -217,7 +258,12 @@ function deleteProjectRequest(req,res){
 //User Fucntions 
 function getAllUsers(req,res){
 
+        
     User.find()
+    .populate({
+        path: 'createBy',select:'userName'})
+    .populate({
+        path: 'updatedBy',select:'userName'})
     .exec((error,users)=>{
 
     if(error)
@@ -236,16 +282,24 @@ function getAllUsers(req,res){
 }
   
 function addUser(req,res){
+        var user=new User();
+        const payload=
+        {
+        userName:user.userName,
+        email:user.email,
+        }
+    
+        user.userName=req.body.userName;
+        user.password=req.body.password;
+        user.email=req.body.email;
+        user.permission=req.body.permission;
+        user.temporaryToken=jwt.sign(payload,config.secret, { expiresIn: '24h' });
+        user.createBy=req.decoded._id
+       // picture:req.userName+"/"+req.files['profilePicture'][0].originalname
+    
+       
    
-    var user={
-        userName:req.body.userName,
-        password:req.body.password,
-        email:req.body.email,
-        permission:req.body.permission,
-        picture:req.userName+"/"+req.files['profilePicture'][0].originalname
-    };
-
-    console.log(req.files['profilePicture'][0].originalname)      ;
+   // console.log(req.files['profilePicture'][0].originalname);
     if (req.body.userName==null||req.body.userName==''||req.body.password==null||req.body.password==''||req.body.email==null||req.body.email==''){
               
             res.json({success:false,message:"User Name,Email,Password is not provided !!!"});
@@ -292,31 +346,42 @@ function getUser(req,res){
 }
     
 function updateUser(req,res){
-    
-      
+    console.log("+++++++User Update");
+      console.log(req.body.userName +"++"+req.body.email)
     var user={
-        fullName:req.body.fullName,
-        dateOfBirth:req.body.dateOfBirth,
-        mobile:req.body.mobile,
-        softSkills:req.body.softSkills,
-        aboutMe:req.body.aboutMe,
-        alternateMobile:req.body.alternateMobile,
-        alternateEmail:req.body.alternateEmail,
-        workExperience:req.body.workExperience,
-        workInCompany:req.body.workInCompany,
+       // fullName:req.body.fullName,
+        userName:req.body.userName,
+        password:req.body.password,
+        email:req.body.email,
         permission:req.body.permission,
-        picture:req.userName+"/"+req.files['profilePicture'][0].originalname
+       // dateOfBirth:req.body.dateOfBirth,
+       // mobile:req.body.mobile,
+       // softSkills:req.body.softSkills,
+       // aboutMe:req.body.aboutMe,
+       // alternateMobile:req.body.alternateMobile,
+       // alternateEmail:req.body.alternateEmail,
+       // workExperience:req.body.workExperience,
+       // workInCompany:req.body.workInCompany,
+       // permission:req.body.permission,
+        updatedBy:req.decoded._id
+       // picture:req.userName+"/"+req.files['profilePicture'][0].originalname
     };
 
-    console.log(req.files['profilePicture'][0].originalname)      ;
-    if (req.body.fullName==null||req.body.fullName==''||req.body.dateOfBirth==null
-        ||req.body.dateOfBirth==''||req.body.mobile==null||req.body.mobile=='' 
-        ||req.body.softSkills==null||req.body.softSkills==''||req.body.aboutMe==null||req.body.aboutMe==''){
+   // console.log(req.files['profilePicture'][0].originalname)      ;
+//    req.body.fullName==null||req.body.fullName==''||req.body.dateOfBirth==null
+//    ||req.body.dateOfBirth==''||req.body.mobile==null||req.body.mobile=='' 
+//    ||req.body.softSkills==null||req.body.softSkills==''||req.body.aboutMe==null||req.body.aboutMe==''
+    if (req.body.userName==null||req.body.userName==''||req.body.password==null||req.body.password==''||req.body.email==null||req.body.email==''){
               
             res.json({success:false,message:"Email ,Password is not provided !!!"});
     }
     else{
-         User.findByIdAndUpdate(req.params._id,user,(error,user)=>{
+         User.findByIdAndUpdate(req.params._id,
+                                    {userName:req.body.userName,
+                                    password:bcrypt.hashSync(req.body.password),
+                                    email:req.body.email,
+                                    permission:req.body.permission,
+                                    updatedBy:req.decoded._id},(error,user)=>{
             
                if(error)
                {  res.status(500).json({

@@ -1,0 +1,145 @@
+<admin-nav user="user"></admin-nav>
+<div class="row">
+<div class=" col offset-m2 offset-s2 offset-l2 s8 m9 l9" >
+
+ 
+       
+        <!--Static Data-->
+        <div class="row">
+          
+            <div class="col s12 m4 l4">
+              <h4 class="header">Manage User </h4>
+            </div>
+            <div class="col s12 m4 l4">
+        
+        </div>
+        <div class="row">
+               
+                <div class="col col offset-m1 offset-s3 offset-l1 s12 m12 l12">
+
+                        <table class="hoverable centered" >
+                                <thead>
+                                  <tr> 
+                                    <th >User Name</th>
+                                    <th >Email Id</th>
+                                    <th >Password</th>
+                                    <th >User Role</th>
+                                    <th >Add</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <form name="AddUser" ng-submit="vm.addUser()">
+                                    <td><input type="text" class="validate " ng-model="vm.userName" ng-required="true">
+                                        <label for="first_name">User Name </label>
+                                    </td>
+                                    <td><input type="email" class="validate "ng-model="vm.email" ng-required="true">
+                                        <label for="first_name">Email</label>
+                                    </td>
+                                    <td><input type="password"class="validate "ng-model="vm.password" ng-required="true">
+                                        <label for="first_name">Password</label>
+                                    </td>
+                                    <td>
+                                            <select ng-model="vm.role"  id="programmingLanguage" material-select watch ng-required="true">
+                                                    <option value="" disabled selected>Choose User Role</option>
+                                                    <option value="user" >User</option>
+                                                    <option value="admin" >Admin</option>
+                                                    
+                                            </select>
+                                    </td>
+                                    
+                                    
+                                      <td><button type ="submit" ng-click="vm.addUser()" class="btn waves-effect waves-light col s12"  ng-disabled="AddUser.$invalid">Add User</button></td>
+                                     </form>
+                            
+                                    </tr>
+                                  
+                                </tbody>
+                              </table>
+            <div class="col s12 m4 l4">
+              <h4 class="header">Users</h4>
+            </div>
+                  <table class="hoverable centered" >
+                    <thead>
+                      <tr ng-if="!vm.edit"> 
+                        <th >User Name</th>
+                        <th >Email Id</th>
+                        <th >Role</th>
+                        <th >Created</th>
+                        <th >Created Date</th>
+                        <th >Updated</th>
+                        <th >Update Date</th>
+                        <th >No.Of Project</th>
+                        <th >Rating</th>
+                        <th >Status</th>
+                        <tr ng-if="vm.edit"> 
+                                <th >User Name</th>
+                                <th >Email Id</th>
+                                <th >Password</th>
+                                <th >User Role</th>
+                                <th >Add</th>
+                        </tr>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="user in vm.users">
+                        <td ng-if="!vm.edit || vm._id!=user._id">{{user.userName}}</td>
+                        <td ng-if="!vm.edit || vm._id!=user._id">{{user.email}}</td>
+                        <td ng-if="!vm.edit || vm._id!=user._id">{{user.permission}}</td>
+                        <td ng-if="!vm.edit || vm._id!=user._id">{{user.createBy.userName}}</td>
+                        <td ng-if="!vm.edit || vm._id!=user._id">{{user.createdDate | date : "MMM d, y h:mm:ss a"}}</td>
+                        <td ng-if="!vm.edit || vm._id!=user._id">{{user.updatedBy.userName}}</td>
+                        <td ng-if="!vm.edit || vm._id!=user._id">{{user.updatedDate | date : "MMM d, y h:mm:ss a"}}</td>
+                        <td ng-if="!vm.edit || vm._id!=user._id">{{user.project.length}}</td>{{vm.rating}}
+                        <td ng-if="!vm.edit || vm._id!=user._id">
+                          <i class="ion-star " ng-repeat="rate in user.rating track by $index" ng-if="rate==1" ></i>
+                          <i class="ion-ios-star-half " ng-if="user.halfRating"></i>
+                          <i class="ion-ios-star-outline " ng-repeat="rate in user.rating track by $index" ng-if="rate==0"></i>
+                        </td>
+                        <td ng-if="!vm.edit || vm._id!=user._id">
+                            
+                          <h2 ng-if="user.active" class="center green-text text-accent-2" ><i class="ion-ios-checkmark-outline small" ></i></h2>
+                          <h2 ng-if="!user.active" class="center red-text text-accent-2"><i class="ion-ios-close-outline small "  ></i></h2>
+                        </td>
+                       
+                          <div class="col s12 m5 l5 centered">
+                                <form name="User">
+                                        <td ng-if="vm.edit && vm._id==user._id"><input type="text" class="validate "ng-model="vm.user.userName" ng-required="true" >
+                                            <label for="first_name">User Name </label>
+                                        </td>
+                                        <td ng-if="vm.edit && vm._id==user._id"><input type="email" class="validate "ng-model="vm.user.email" ng-required="true" >
+                                            <label for="first_name">Email</label>
+                                        </td>
+                                        <td ng-if="vm.edit && vm._id==user._id"><input type="password"class="validate " ng-model="vm.user.password" ng-required="true">
+                                            <label for="first_name">Password</label>
+                                        </td>
+                                        <td ng-if="vm.edit && vm._id==user._id">
+                                                <select ng-model="vm.user.role" material-select watch ng-required="true">
+                                                        <option value="" disabled selected>Role</option>
+                                                        <option value="user" >User</option>
+                                                        <option value="admin" >Admin</option>
+                                                        
+                                                </select>
+                                        </td>
+                                  
+                                        <td ng-if="vm.edit && vm._id==user._id"><button type ="submit" ng-click="vm.updateUser()" class="btn waves-effect waves-light col s12"  ng-disabled="User.$invalid">Update User</button></td>
+                                         </form>
+                                
+                       </div>
+                   
+                        <td ng-if="!vm.edit || vm._id!=user._id"><a href="#!" ng-click="vm.showEditBox(user._id,user)" ><i class="ion-edit small"></i></a></td>
+                        <td ng-if="!vm.edit || vm._id!=user._id"><a href="#!" ng-click="vm.deleteUser(user._id)"><i class="ion-trash-b small"></i></a></td>
+                      </tr>
+                      
+ 
+                      
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+         
+
+</div>
+
