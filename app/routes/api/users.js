@@ -90,7 +90,7 @@ router.post('/signUp', (req, res) => {
     userName:user.userName,
     email:user.email,
     }
-    user.temporaryToken=jwt.sign(payload,config.secret, { expiresIn: '24h'});
+    user.temporaryToken=jwt.sign(payload,process.env.SECRET, { expiresIn: '24h'});
      if (req.body.userName==null||req.body.userName==''||req.body.password==null||req.body.password==''||req.body.email==null||req.body.email==''){
 
          res.json({success:false,message:"Ensure User Name ,Password ,Email is provided !!!"});
@@ -160,7 +160,7 @@ router.get('/verifyuser/:_token', (req, res) => {
         // decode token
            if(token){
                // verifies secret and checks exp
-               jwt.verify(token,config.secret,(error,decoded) =>{
+               jwt.verify(token,process.env.SECRET,(error,decoded) =>{
                    if(error){
                    return  res.json({success:false,message:'failed to authenticate token'});
                    }
@@ -195,7 +195,7 @@ router.get('/verifyuser/:_token', (req, res) => {
                                  email:user.email,
                                  permission:user.permission
                                 }
-                                var token = jwt.sign(payload,config.secret, { expiresIn: '24h' });
+                                var token = jwt.sign(payload,process.env.SECRET, { expiresIn: '24h' });
             
                                 res.json({
                                     success:true,
@@ -283,7 +283,7 @@ router.post('/authenticate', (req, res) => {
                     email:user.email,
                     permission:user.permission
                    }
-               var token = jwt.sign(payload,config.secret, { expiresIn: '24h' });
+               var token = jwt.sign(payload,process.env.SECRET, { expiresIn: '24h' });
 
                  res.json({
                      success:true,
@@ -328,7 +328,7 @@ var token =req.body.token ||req.query.token||req.headers['x-access-token'];
 // decode token
    if(token){
        // verifies secret and checks exp
-       jwt.verify(token,config.secret,(error,decoded) =>{
+       jwt.verify(token,process.env.SECRET,(error,decoded) =>{
            if(error){
            return  res.json({success:false,message:'failed to authenticate token'});
            }
@@ -476,7 +476,7 @@ router.post('/startNewSession', (req, res) => {
                   email:user.email,
                   picture:user.picture
                  }
-               var token = jwt.sign(payload,config.secret, { expiresIn: '24h' });
+               var token = jwt.sign(payload,process.env.SECRET, { expiresIn: '24h' });
 
                  res.json({
                      success:true,

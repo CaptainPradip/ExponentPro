@@ -1,6 +1,6 @@
 var express=require('express');
 var jwt=require('jsonwebtoken');
-var config=require('../../../config/config');
+//var config=require('../../../config/config');
 var nodemailer= require('nodemailer');
 var bcrypt =require('bcrypt-nodejs')
 var router= express.Router();
@@ -23,7 +23,7 @@ router.use((req,res,next) => {
     // decode token
        if(token){
            // verifies secret and checks exp
-           jwt.verify(token,config.secret,(error,decoded) =>{
+           jwt.verify(token,process.env.SECRET,(error,decoded) =>{
                if(error){
                return  res.json({success:false,message:'failed to authenticate token'});
                }
@@ -293,7 +293,7 @@ function addUser(req,res){
         user.password=req.body.password;
         user.email=req.body.email;
         user.permission=req.body.permission;
-        user.temporaryToken=jwt.sign(payload,config.secret, { expiresIn: '24h' });
+        user.temporaryToken=jwt.sign(payload,process.env.SECRET, { expiresIn: '24h' });
         user.createBy=req.decoded._id
        // picture:req.userName+"/"+req.files['profilePicture'][0].originalname
     

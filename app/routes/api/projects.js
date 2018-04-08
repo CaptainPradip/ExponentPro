@@ -1,4 +1,4 @@
-require('dotenv').config()
+
 const express = require('express');
 const multer=require('multer');
 const fs =require('fs');
@@ -131,7 +131,7 @@ var token =req.body.token ||req.query.token||req.headers['x-access-token'];
 // decode token
    if(token){
        // verifies secret and checks exp
-       jwt.verify(token,config.secret,(error,decoded) =>{
+       jwt.verify(token,process.env.SECRET,(error,decoded) =>{
            if(error){
            return  res.json({success:false,message:'failed to authenticate token'});
            }

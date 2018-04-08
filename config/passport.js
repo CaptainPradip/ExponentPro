@@ -39,7 +39,7 @@ module.exports=function (app,passport) {
 passport.use(new FacebookStrategy({
     clientID: process.env.FACEBOOKID,//FACEBOOK_APP_ID,
     clientSecret: process.env.FACEBOOKAPIKEY,//FACEBOOK_APP_SECRET,
-    callbackURL: "https://young-basin-92217.herokuapp.com/auth/facebook/callback",
+    callbackURL: "https://mighty-river-49943.herokuapp.com/auth/facebook/callback",
     profileFields:['id', 'displayName', 'link','photos', 'email']
   },
   function(accessToken, refreshToken, profile, done) {
@@ -87,7 +87,7 @@ passport.use(new FacebookStrategy({
 passport.use(new GoogleStrategy({
   clientID        : process.env.GOOGLEID,
   clientSecret    : process.env.GOOGLEAPIKEY,
-  callbackURL     : "https://young-basin-92217.herokuapp.com/auth/google/callback",
+  callbackURL     : "https://mighty-river-49943.herokuapp.com/auth/google/callback",
 
 },function(token, refreshToken, profile, done) {
 
