@@ -109,7 +109,7 @@ router.post('/signUp', (req, res) => {
                     from: 'newton2faraday@gmail.com',
                     to: user.email,
                     subject: 'Verify your Source Code Account ID.',
-                    html: 'Dear  ,'+user.userName +'<br><br><p>You have selected'+user.email+'as your new Source Code Pointer ID. To verify that this email address belongs to you, please click on the link below and then sign in using your Source Code ID and password.</p> <a href="http://localhost:3000/userverification/'+user.temporaryToken+'">Verify now</a><br><br>' +
+                    html: 'Dear  ,'+user.userName +'<br><br><p>You have selected'+user.email+'as your new Source Code Pointer ID. To verify that this email address belongs to you, please click on the link below and then sign in using your Source Code ID and password.</p> <a href="https://sourcecodepointer.herokuapp.com/userverification/'+user.temporaryToken+'">Verify now</a><br><br>' +
                         '<b>Best Regards,</b><br><b>Team - Source Code Pointer</b>'
                 };
                 transporter.sendMail(mailOptions, function (error, info) {
