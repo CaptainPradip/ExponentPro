@@ -17,8 +17,8 @@ var s3 = new aws.S3({accessKeyId:process.env.ACCESSKEYID,
 var transporter = nodemailer.createTransport({
                     service: 'Gmail',
                     auth: {
-                        user: 'newton2faraday@gmail.com', // Your email id
-                        pass: 'Captain007***' // Your password
+                        user: '', // Your email id
+                        pass: '' // Your password
                     }
                 });
 const profileImageUrl="public/assets/images/";
